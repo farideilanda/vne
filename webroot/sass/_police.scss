@@ -1,0 +1,66 @@
+@font-face{
+	font-family: 'mg-regular';
+	src: url('/font/OpenSans-Regular.ttf');
+}
+
+@font-face{
+	font-family:'mg-semi';
+	src:url('/font/OpenSans-SemiBold.ttf');
+}
+
+
+@font-face{
+	font-family:'mg-semi-italic';
+	src:url('/font/OpenSans-SemiBoldItalic.ttf');
+}
+
+
+@font-face{
+	font-family:'mg-bold';
+	src:url('/font/OpenSans-Bold.ttf');
+}
+
+@font-face{
+	font-family:'mg-bold-italic';
+	src:url('/font/OpenSans-BoldItalic.ttf');
+}
+
+@font-face{
+	font-family:'mg-light';
+	src:url('/font/OpenSans-Light.ttf');
+}
+
+@font-face{
+	font-family:'mg-light-italic';
+	src:url('/font/OpenSans-LightItalic.ttf');
+}
+
+
+// OpenSans Polices
+.mg-regular{
+	font-family:'mg-regular';
+}
+
+.mg-semi{
+	font-family:'mg-semi';
+}
+
+.mg-semi-italic{
+	font-family:'mg-semi-italic';
+}
+
+.mg-bold{
+	font-family:'mg-bold';
+}
+
+.mg-bold-italic{
+	font-family:'mg-bold-italic';
+}
+
+.mg-light{
+	font-family:'mg-light';
+}
+
+.mg-light-italic{
+	font-family:'mg-light-italic';
+}

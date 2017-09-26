@@ -1,0 +1,3 @@
+	<div class="row center mg-margin-bottom-0" style="height::	;00px;">
+		<iframe style="width:100%;display:block;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3973.29532222892!2d-3.9988415855110366!3d5.338114596127772!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xeeadcb66610f4566!2sVirtual+Network+Entreprise!5e0!3m2!1sfr!2sci!4v1505258348710" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+	</div>

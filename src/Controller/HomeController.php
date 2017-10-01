@@ -90,4 +90,11 @@ class HomeController extends AppController
     	}
     }
 
+    public function workshop(){
+      if($this->request->is('ajax')){
+        
+      }
+    }
+
+
 }

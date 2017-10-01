@@ -54008,6 +54008,20 @@ p.redirect-top:hover {
     -o-transition: all 0.3s;
     transition: all 0.3s; }
 
+.mg-button-3 {
+  border: 2px solid #C1872A;
+  background: transparent;
+  border-radius: none;
+  color: #C1872A;
+  box-shadow: none; }
+  .mg-button-3:hover {
+    background: #C1872A;
+    color: #fff;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s; }
+
 ul#slide-out li.menu a {
   background: transparent; }
 ul#slide-out li.menu.active a {

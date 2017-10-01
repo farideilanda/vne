@@ -62,7 +62,6 @@ $cakeDescription = 'Virtual Network Entreprise';
     <base href="/">
 </head>
 <body ng-app="vne-app">
-    <!-- Navbar -->
     <div id="navbar-container">
       <nav class="white none-box-shadow">
         <div class="nav-wrapper">

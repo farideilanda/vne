@@ -55,19 +55,21 @@ TxtRotate.prototype.tick = function() {
   document.body.appendChild(css);
 
 
-    $('.workshop-slider').slick({
+
+
+    $('.slider-partners-business').slick({
               autoplay: true,
               autoplaySpeed: 2000,
               dots:false,
               arrows:true,
-              slidesToShow: 3,
+              slidesToShow: 4,
               slidesToScroll: 1,
               arrows:false,
               responsive: [
               {
                   breakpoint: 1024,
                   settings: {
-                    slidesToShow: 1,
+                    slidesToShow: 4,
                     slidesToScroll: 1,
                   }
               },
@@ -76,7 +78,7 @@ TxtRotate.prototype.tick = function() {
                   breakpoint: 768,
                   settings: {
 
-                    slidesToShow: 1,
+                    slidesToShow: 3,
 
                         slidesToScroll: 1,
                   }
@@ -84,12 +86,13 @@ TxtRotate.prototype.tick = function() {
                 {
                   breakpoint: 480,
                   settings: {
-                    slidesToShow: 1,
+                    slidesToShow: 2,
                     slidesToScroll: 1,
                   }
                 }
             ]
     });
+
 
 
     $('.partner-slider').slick({

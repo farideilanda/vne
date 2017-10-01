@@ -10,6 +10,7 @@ use Cake\ORM\Entity;
  * @property string $workshop_theme
  * @property string $workshop_short_description
  * @property string $workshop_long_description
+ * @property string $workshop_long_description_2
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
  * @property \Cake\I18n\FrozenTime $deleted

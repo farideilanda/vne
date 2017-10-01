@@ -17,9 +17,53 @@ angular.module('vne.controllers',[])
 
 		angular.element('.parallax').parallax();
 	}])
-    .controller('HomeCtrl',['$scope','$templateCache','$rootScope','AssistanceService','$location', '$anchorScroll','$stateParams','SolutionService', function($scope,$templateCache,$rootScope,AssistanceService,$location,$anchorScroll,$stateParams,SolutionService){
+    .controller('HomeCtrl',['$scope','$templateCache','$rootScope','AssistanceService','$location', '$anchorScroll','$stateParams','SolutionService','Workshop', function($scope,$templateCache,$rootScope,AssistanceService,$location,$anchorScroll,$stateParams,SolutionService,Workshop){
     	$templateCache.removeAll();
     	var self = this;
+
+        // load on_display_workshop
+        self.Workshop = Workshop;
+
+        // self.Workshop.on_display_workshop().then(function(response){
+        //     console.log(response);
+        // }, function(errResponse){
+        //     console.log(errResponse);
+        // });
+
+       angular.element('.workshop-slider').slick({
+              autoplay: true,
+              autoplaySpeed: 2000,
+              dots:false,
+              arrows:true,
+              slidesToShow: 3,
+              slidesToScroll: 1,
+              arrows:false,
+              responsive: [
+                {
+                  breakpoint: 1024,
+                  settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                  }
+                },
+                {
+                  breakpoint: 768,
+                  settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                  }
+                },
+                {
+                  breakpoint: 480,
+                  settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                  }
+                }
+            ]
+        });
+
+
 
         // Automate scrolls
         self.auto_scroll = function(hash){

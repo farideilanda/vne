@@ -64,4 +64,16 @@ angular.module('vne.services',[])
 					        });
 				}
 			}
+		}]).factory('Workshop',['$http','$q', function($http, $q){
+			return{
+				// On_diplay
+				on_display_workshop: function(){
+					return $http.get('/home/workshop',{params:{'action':'poster'}})
+					        .then(function(response){
+					        	return response;
+					        },function(errResponse){
+					        	return $q.reject(errResponse);
+					        });	
+				}
+			}
 		}])

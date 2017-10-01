@@ -30,7 +30,10 @@ class WorkshopsTableTest extends TestCase
         'app.it_solutions',
         'app.it_editor_solutions',
         'app.it_editors',
-        'app.it_editor_solution_trainings'
+        'app.it_editor_solution_trainings',
+        'app.training_subscribers',
+        'app.it_solution_types',
+        'app.cross_solution_types'
     ];
 
     /**

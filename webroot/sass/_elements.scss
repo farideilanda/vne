@@ -101,6 +101,27 @@
 	}
 }
 
+
+.mg-button-3{
+	border:2px solid $mg_color_3;
+	background:transparent;
+	border-radius:none;
+	color:$mg_color_3;
+	box-shadow:none;
+
+	&:hover{
+		background: $mg_color_3;
+		color: #fff;
+	    -webkit-transition: all 0.3s;
+	    -moz-transition: all 0.3s;
+	    -o-transition: all 0.3s;
+	    transition: all 0.3s;
+	}
+}
+
+
+
+
 ul#slide-out li.menu{
 	& a{background:transparent;}
 

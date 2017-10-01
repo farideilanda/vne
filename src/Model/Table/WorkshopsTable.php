@@ -79,6 +79,11 @@ class WorkshopsTable extends Table
             ->notEmpty('workshop_long_description');
 
         $validator
+            ->scalar('workshop_long_description_2')
+            ->requirePresence('workshop_long_description_2', 'create')
+            ->notEmpty('workshop_long_description_2');
+
+        $validator
             ->dateTime('deleted')
             ->allowEmpty('deleted');
 
@@ -106,7 +111,6 @@ class WorkshopsTable extends Table
     {
         $rules->add($rules->existsIn(['it_domain_id'], 'ItDomains'));
         $rules->add($rules->existsIn(['it_editor_solution_id'], 'ItEditorSolutions'));
-
         return $rules;
     }
 }

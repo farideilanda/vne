@@ -77,11 +77,11 @@ class NewsletterController extends AppController
                             if($this->ItNewsletters->save($newsletter))
                             {
                                //send newsleter in a pipe
-                               // $pheanstalk = new Pheanstalk('127.0.0.1');
-                               // $payload = ['newsletter'=>$newsletter];
-                               // $pheanstalk
-                               // ->useTube('NewsletterSubscribeTubeVne')
-                               // ->put(json_encode($payload));
+                               $pheanstalk = new Pheanstalk('127.0.0.1');
+                               $payload = ['newsletter'=>$newsletter];
+                               $pheanstalk
+                               ->useTube('NewsletterSubscribeTubeVne')
+                               ->put(json_encode($payload));
                                $this->RequestHandler->renderAs($this, 'json');
                                $this->set(compact('newsletter'));
                                $this->set('_serialize',['newsletter']);  

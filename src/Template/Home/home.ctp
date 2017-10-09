@@ -473,9 +473,9 @@
    <?= $this->element('maps') ?>
 </div>
 <!-- Quote -->
-<?= $this->element('Modals\quote') ?>
+<?= $this->element('Modals/quote') ?>
  <!-- Newsletter Banner -->
- <?= $this->element('Modals\newsletter') ?>
+ <?= $this->element('Modals/newsletter') ?>
 
 
 <!-- Scripts -->

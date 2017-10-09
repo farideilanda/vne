@@ -53881,10 +53881,6 @@ a.share-icon {
   vertical-align: middle;
   transition: all 0.3s; }
 
-a.share-icon:hover {
-  cursor: pointer;
-  width: 59px; }
-
 a.share-icon i.share-icons {
   position: relative;
   top: 8px; }

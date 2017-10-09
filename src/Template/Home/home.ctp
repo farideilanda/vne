@@ -2,12 +2,15 @@
 	.collapsible-header.active{
 		background: orange !important;
 	}
+	#sidenav-overlay {
+    z-index: 1 !important;
+}
 </style>
 
 <!-- Start Bienvenue -->
 <div id="bienvenue" class="scrollspy">
 	<div class="row relative-block mg_prim_background mg-margin-bottom-0">
-			<div class="row absolute-block mg-width-100-perc left-align mg-padding-left-15" style="top:0px;left:0px;z-index: 1;">
+			<div class="row absolute-block mg-width-100-perc left-align mg-padding-left-15" style="top:0px;left:0px;z-index: 100;">
 		      <div class="col s12 m6 l5">
 		          <div class="card white-text mg-margin-top-30" style="background-color:rgba(255, 255, 255, 0.8) !important;">
 		            <div class="card-content white-text">
@@ -75,24 +78,24 @@
 	</div>
 
 	<!-- Actual Workshop -->
-	<div class="row mg-padding-top-50 mg-padding-bottom-50 mg-margin-bottom-0" style="background:url('/img/assets/home/back-tech-4.png') #C1872A no-repeat;">
+	<div ng-hide="homectrl.hide_poster_workshop" id="poster-workshop" class="row mg-padding-top-50 mg-padding-bottom-50 mg-margin-bottom-0" style="background:url('/img/assets/home/back-tech-4.png') #C1872A no-repeat;">
 	   <div class="container">
 		    <div class="col s6"  data-aos="zoom-in-down">
 				<h6 class="uppercase mg-margin-left-10 white-text bold">Atelier à l'affiche</h6>
 				<div class="divider"></div>
-				<h4 class="uppercase mg-padding-top-10 bold white-text" style="clear:both;">Netwrix Auditor ou comment réaliser un audit informatique complet</h4>
-				<h5 class="mg-padding-top-10 bold white-text" style="clear:both;">26 Septembre 2017 - 08H00</h5>
+				<h4 class="uppercase mg-padding-top-10 bold white-text" style="clear:both;">{{homectrl.poster.workshop_theme}}</h4>
+
+				<h5 class="mg-padding-top-10 bold white-text" style="clear:both;">{{homectrl.poster.workshop_begin | date:'dd '}} {{homectrl.poster.ref_month_full}} {{homectrl.poster.workshop_begin | date:'yyyy - HH:mm'}}  </h5>
 				<p class="mg-regular white-text">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia unde deleniti beatae reiciendis fuga cupiditate, dignissimos ab atque quibusdam inventore in! Dignissimos, expedita nemo iste, iusto in autem minus doloremque. Lorem ipsum dolor sit amet, consectetur adipisicing elit. A quia pariatur qui, eos excepturi eveniet. Aperiam quis quasi facere, possimus libero minus rem quia recusandae perspiciatis perferendis? Ad, mollitia, a.
+					{{homectrl.poster.first_part_description}}
 				</p>
 			</div>
 			<div class="col s6" data-aos="zoom-in-down">
 				<p class="mg-regular white-text">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto dolores perferendis ducimus sed provident possimus eveniet. Natus suscipit quae expedita sunt maiores sequi aliquid praesentium, quia nihil nesciunt quos. Voluptatibus.
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde voluptas accusamus, nobis esse consectetur iste, dolores maxime eius quia. Enim nesciunt, quod sunt culpa temporibus minus non dolor quibusdam commodi! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum voluptas, molestiae dolores numquam modi similique facilis voluptates sint quasi placeat. Nihil asperiores perferendis dolorum nesciunt nam architecto ratione neque similique. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi vel aspernatur laudantium libero quasi saepe harum consectetur.
+					{{homectrl.poster.second_part_description}}
 				</p>
 			    	<div class="col s12 mg-padding-0">
-				         <a href="#!" class="btn mg_prim_background white-text bold mg-width-100-perc">Participer gratuitement</a>
+				         <a href="{{homectrl.poster.workshop_form_link}}" target="_blank" class="btn mg_prim_background white-text bold mg-width-100-perc">Participer gratuitement</a>
 			    	</div>
 			</div>
 	   </div>
@@ -117,29 +120,49 @@
 				</p>
 			</div>
 		 </div>
-         <!-- Business partner -->
-		 	<div class="col s12 center mg-padding-top-45">
+
+    <!-- Business Partner -->
+    <div class="col s12 center mg-padding-top-45">
 		 		<div class="container center slider-partners-business">
-					<div class="grey-image center">	
-						<img src="/img/assets/business-partner/partner-1.png" class="mg-width-150" alt="">
-					</div>
-					<div class="grey-image center">	
-						<img src="/img/assets/business-partner/partner-7.png" class="mg-width-130" alt="">
-					</div>
 					<div class="mg-margin-top-15 grey-image center">	
-						<img src="/img/assets/business-partner/partner-3.png" class="mg-width-170" alt="">
+						<a href="http://www.bridgebankgroup.com" target="_blank">
+						  <img src="/img/assets/business-partner/partner-3.png" class="mg-width-160" alt="">
+						</a>
 					</div>
-					<div class="mg-margin-top-15 grey-image center">	
-						<img src="/img/assets/business-partner/partner-4.png" class="mg-width-130" alt="">
+
+					<div class="grey-image center">
+						<a href="http://www.fdfp.ci" target="_blank">
+				          <img src="/img/assets/business-partner/partner-4.png" class="mg-width-150" alt="">
+						</a>
 					</div>
-					<div class="mg-margin-top-10 grey-image center">	
-						<img src="/img/assets/business-partner/partner-5.png" class="mg-width-150" alt="">
-					</div>
+
 					<div class="grey-image center">	
-						<img src="/img/assets/business-partner/partner-6.png" class="mg-width-100" alt="">
+						<a href="http://www.sahamassurance.com" target="_blank">
+				           <img src="/img/assets/business-partner/partner-5.png" class="mg-width-160" alt="">
+						</a>
 					</div>
+
+					<div class="grey-image center">	
+						<a href="http://www.sunu-group.com/" target="_blank">
+						   <img src="/img/assets/business-partner/partner-6.png" class="mg-width-100" alt="">
+						</a>
+					</div>
+
+					<div class="grey-image center">	
+						<a href="http://www.cnps.ci" target="_blank">
+						   <img src="/img/assets/business-partner/partner-1.png" class="mg-width-150" alt="">
+						</a>
+					</div>
+
+					<div class="grey-image center">	
+						<a href="http://www.unacoopec.com" target="_blank">
+						   <img src="/img/assets/business-partner/partner-7.png" class="mg-width-130" alt="">
+						</a>
+					</div>					
 		 		</div>
-		 	</div>
+      </div>
+
+
 	<!-- pictogramm description vne -->
 	<div class="col s12 mg-padding-top-70 mg-padding-bottom-70 mg-margin-bottom-0" >
 	   <div class="container">
@@ -179,10 +202,6 @@
 	</div>
 </div>
 <!-- End Bienvenue -->
-
-
-
-
 
 <!-- Start Prestations -->
 <div id="prestations" class="scrollspy">
@@ -232,7 +251,7 @@
 	      </div>
 	  </div>
 
-	  <div class="parallax-container">
+	  <div class="parallax-container pointer" data-target="quoteModal" dismissible="false" modal ng-click="homectrl.change_solution_type(3)">
 	      <div class="parallax">
 	      	<?= $this->Html->image('assets/home/main-background-7.jpg') ?>
 	        <div class="row absolute-block" style="width: 100%;top:0px;left: 15%;">
@@ -246,7 +265,7 @@
 		              </p>
 		            </div>
 		            <div class="card-action orange">
-		              <a href="#" class="white-text bold">Demandez un devis</a>
+		              <a href="#" class="white-text bold">Demandez une cotation</a>
 		            </div>
 		          </div>
 	             </div>
@@ -254,7 +273,7 @@
 	      </div>
 	  </div>
 
-	    <div class="parallax-container">
+	    <div class="parallax-container pointer" data-target="quoteModal" dismissible="false" modal ng-click="homectrl.change_solution_type(4)">
 	      <div class="parallax">
 	      	<?= $this->Html->image('assets/home/main-background-10.jpg') ?>
 	        <div class="row absolute-block" style="width: 100%;top:0px;right: -55%;">
@@ -284,7 +303,7 @@
   <div class="row center mg-padding-bottom-50 mg-padding-top-50" style="background:url('/img/assets/home/back-tech.png');">
         <div class="container">
 	  		<h4 class="bold">Solutions Informatiques</h4>
-	  		<p class="mg-regular mg-margin-bottom-40">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus vel tempora eum. Accusamus velit natus assumenda ducimus fugit laborum soluta quisquam, tempora sint fuga et explicabo minus libero, voluptatem ipsa.</p>
+	  		<p class="mg-semi mg-margin-bottom-40">L'evolution exponentielle de l'environnement des technologies de l'information et de la communication, nous permet sans cesse de vous proposer le meilleur des solutions à succès mais aussi celles qui sont entrain de monter en puissance et en performance, toujours dans un souci d'amélioration de votre productivité et de gestion de votre business, <a data-target="quoteModal" dismissible="false" modal ng-click="homectrl.change_solution_type(0)" class="pointer">demandez une cotation.</a> </p>
 
 	  		<div class="col s4">
 	  			  <ul class="collapsible" data-collapsible="accordion">
@@ -320,7 +339,7 @@
 	  <div class="row center mg-padding-bottom-50 mg-padding-top-50 mg-margin-bottom-0" style="background:url('/img/assets/home/back-tech-4.jpg');">
 	        <div class="container">
 		  		<h4 class="bold mg_sec_color_3">Formation &amp; Certifications Informatiques</h4>
-		  		<p class="mg-regular mg_sec_color_3 mg-margin-bottom-40">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus vel tempora eum. Accusamus velit natus assumenda ducimus fugit laborum soluta quisquam, tempora sint fuga et explicabo minus libero, voluptatem ipsa.</p>
+		  		<p class="mg-semi mg_sec_color_3 mg-margin-bottom-40">Besoin de donner à votre carrirère informatique une touche de renouveau ou beaucoup plus de valeur? VNE est le cadre idéal pour remplir vos ambitions de formation avec un catalogue riche, des salles spécialisées et des moniteurs expérimentés, une seule chose à faire, <a modal data-target="quoteModal" dismissible="false" class="orange-text pointer" ng-click="homectrl.change_solution_type(1)">demandez une cotation-formation</a> et nous vous recontactons au plus vite!</p>
 
 		  		<div class="col s4">
 		  			  <ul class="collapsible" data-collapsible="accordion">
@@ -355,36 +374,57 @@
 
 		<div class="col s6 static-partner-container">
 			<div class="col s4">
-				<img src="/img/assets/partner/partner-1.png" class="mg-width-160 mg-padding-top-25" alt="">		
+				<a href="https://www.kryteriononline.com/Locate-Test-Center" target="_blank">
+				   <img src="/img/assets/partner/partner-1.png" class="mg-width-160 mg-padding-top-25" alt="">
+				</a>
 			</div>
 			<div class="col s4 mg-padding-left-40">	
-				<img src="/img/assets/partner/partner-2.png" class="mg-width-180" alt="">
+				<a href="https://www.prometric.com/" target="_blank">
+				  <img src="/img/assets/partner/partner-2.png" class="mg-width-180" alt="">
+				</a>
 			</div>
 			<div class="col s4 mg-padding-left-5" style="border-right: 2px solid black;">	
-				<img src="/img/assets/partner/partner-3.png" class="mg-width-90" alt="">
+				<a href="https://home.pearsonvue.com" target="_blank">
+				   <img src="/img/assets/partner/partner-3.png" class="mg-width-90" alt="">
+				</a>
 			</div>
 		</div>
 		<div class="col s6 partner-slider mg-margin-top-15">
 				<div class="grey-image">	
-					<img src="/img/assets/partner/partner-4.png" class="mg-width-105" alt="">
+					<a href="https://www.cisco.com/c/fr_fr/index.html" target="_blank">
+					  <img src="/img/assets/partner/partner-4.png" class="mg-width-105" alt="">
+				    </a>
 				</div>
-				<div>	
-					<img src="/img/assets/partner/partner-5.png" class="mg-width-120" alt="">
-				</div class="grey-image">
-				<div>	
-					<img src="/img/assets/partner/partner-6.png" class="mg-width-130" alt="">
+				<div class="grey-image mg-margin-top-5">	
+					<a href="https://www.veritas.com/fr/fr" target="_blank">
+					  <img src="/img/assets/partner/partner-5.png" class="mg-width-120" alt="">
+					</a>
+				</div >
+				<div class="grey-image mg-margin-top-5">
+					<a href="https://www.microsoft.com/fr-fr" target="_blank">
+					  <img src="/img/assets/partner/partner-6.png" class="mg-width-130" alt="">
+					</a>
 				</div>
 				<div class="grey-image">	
-					<img src="/img/assets/partner/partner-7.gif" class="mg-width-130" alt="">
+				    <a href="https://www.fortinet.com" target="_blank">
+					   <img src="/img/assets/partner/partner-7.gif" class="mg-width-140" alt="">
+					</a>
 				</div>
-				<div class="grey-image">	
+				<div class="grey-image mg-margin-top-8">
+				  <a href="https://www.eccouncil.org" target="_blank">
 					<img src="/img/assets/partner/ec_council.png" class="mg-width-130" alt="">
+				  </a>	
 				</div>
-				<div class="grey-image">	
+				<div class="grey-image">
+				  <a href="https://www.oracle.com/fr/index.html" target="_blank">
 					<img src="/img/assets/partner/oracle.png" class="mg-width-130" alt="">
+				  </a>	
 				</div>
-				<div class="grey-image">	
+				<div class="grey-image">
+				  <a href="https://www.vmware.com/fr.html
+" target="_blank">
 					<img src="/img/assets/partner/vmware.png" class="mg-width-130" alt="">
+				  </a>	
 				</div>
 		</div>
 
@@ -398,84 +438,45 @@
 
 <div id="workshops" class="scrollspy">
 <!-- WorkShops -->
-    <div class="row center mg-padding-top-50 mg-padding-bottom-50">
+    <div class="row center mg-padding-top-50 mg-padding-bottom-50" style="background: url('/img/assets/home/back-tech-5.png') #fff no-repeat;">
 	  <div class="container">
 	    <h4 class="bold mg_prim_color">Ateliers de présentation</h4>
-	      <p class="mg-regular mg_prim_color">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus vel tempora eum. Accusamus velit natus assumenda ducimus fugit laborum soluta quisquam, tempora sint fuga et explicabo minus libero, voluptatem ipsa.</p>
-	    <div class="col s12 workshop-slider">
-	      <div class="workshop-item" style="border-right:5px solid white;">
-	          <div class="card">
-	          <div class="card-image waves-effect waves-block waves-light">
-	            <img class="activator" src="webroot/img/assets/workshop/work.png">
-	          </div>
-	          <div class="card-content" style="min-height: 174px;">
-	            <span class="card-title activator grey-text text-darken-4 mg-size-18 left-align">Netwrix Auditor ou comment réaliser un audit informatique complet<i class="ion-android-more-vertical right small"></i></span>
-	            <p><a href="#" class="bold orange-text">Participer</a></p>
-	          </div>
-	          <div class="card-reveal orange mg_sec_color_3">
-	            <span class="card-title white-text mg-size-18 left-align">Netwrix Auditor ou comment réaliser un audit informatique complet<i class="ion-minus-circled right small"></i></span>
-	            <p class="left-align mg_sec_color_3 mg-regular">Here is some more information about this product that is only revealed once clicked on.</p>
-	          </div>
-	        </div>  
-	      </div>
-
-	      <div class="workshop-item" style="border-right:5px solid white;">
-	          <div class="card">
-	          <div class="card-image waves-effect waves-block waves-light">
-	            <img class="activator" src="webroot/img/assets/workshop/work.png">
-	          </div>
-	          <div class="card-content" style="min-height: 174px;">
-	            <span class="card-title activator grey-text text-darken-4 mg-size-18 left-align">Veritas NetBackup 8.0<i class="ion-android-more-vertical right small"></i></span>
-	            <p><a href="#" class="bold orange-text">Participer</a></p>
-	          </div>
-	          <div class="card-reveal orange mg_sec_color_3">
-	            <span class="card-title white-text mg-size-18 left-align">Veritas NetBackup 8.0<i class="ion-minus-circled right small"></i></span>
-	            <p class="left-align mg_sec_color_3 mg-regular">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam, obcaecati incidunt, consequatur deleniti sapiente quo. Libero ullam porro minima deleniti autem quibusdam quisquam neque cum, impedit deserunt commodi earum tenetur!.</p>
-	          </div>
-	        </div>  
-	      </div>
-
-	      <div class="workshop-item" style="border-right:5px solid white;">
-	          <div class="card">
-	          <div class="card-image waves-effect waves-block waves-light">
-	            <img class="activator" src="webroot/img/assets/workshop/work.png">
-	          </div>
-	          <div class="card-content" style="min-height: 174px;">
-	            <span class="card-title activator grey-text text-darken-4 mg-size-18 left-align">Présentation des produits Véritas<i class="ion-android-more-vertical right small"></i></span>
-	            <p><a href="#" class="bold orange-text">Participer</a></p>
-	          </div>
-	          <div class="card-reveal orange mg_sec_color_3">
-	            <span class="card-title white-text mg-size-18 left-align">Présentation des produits Véritas<i class="ion-minus-circled right small"></i></span>
-	            <p class="left-align mg_sec_color_3 mg-regular">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam, obcaecati incidunt, consequatur deleniti sapiente quo. Libero ullam porro minima deleniti autem quibusdam quisquam neque cum, impedit deserunt commodi earum tenetur!.</p>
-	          </div>
-	        </div>  
-	      </div>
-
-	      <div class="workshop-item" style="border-right:5px solid white;">
-	          <div class="card">
-	          <div class="card-image waves-effect waves-block waves-light">
-	            <img class="activator" src="webroot/img/assets/workshop/work.png">
-	          </div>
-	          <div class="card-content" style="min-height: 174px;">
-	            <span class="card-title activator grey-text text-darken-4 mg-size-18 left-align">Comment Eviter la perte/fuite de données en entreprise<i class="ion-android-more-vertical right small"></i></span>
-	            <p><a href="#" class="bold orange-text">Participer</a></p>
-	          </div>
-	          <div class="card-reveal orange mg_sec_color_3">
-	            <span class="card-title white-text mg-size-18 left-align">Comment Eviter la perte/fuite de données en entreprise<i class="ion-minus-circled right small"></i></span>
-	            <p class="left-align mg_sec_color_3 mg-regular">Here is some more information about this product that is only revealed once clicked on.</p>
-	          </div>
-	        </div>  
-	      </div>
+	      <p class="mg-semi mg_prim_color">Les ateliers de présentation permettent de découvrir les diverses innovations technologiques que nos partenaires mettent à votre disposition afin d'améliorer la productivité et la gestion de votre business. Les ateliers sont présentés au sein de VNE, par des entités actives qui justifient d'une expertise sur ladite solution et reunissent plusieurs responsables informatiques. Veuillez vous référer à la section  atelier à l'affiche pour <a ng-click="homectrl.auto_scroll('poster-workshop')" class="orange-text pointer">vous inscrire gratuitement au prochain atelier</a>.</p>
+	    <div class="col s12 workshop-slider mg-margin-top-20">
+                <div on-finish-render="ngRepeatFinished" ng-repeat="w in homectrl.workshops" class="workshop-item" style="border-right:5px solid white;">
+                   <div class="card">
+                       <div class="card-image waves-effect waves-block waves-light">
+                         <img class="activator" src="webroot/img/assets/workshop/work.png">
+                       </div>
+                       <div class="card-content" style="min-height: 174px;">
+                         <span class="card-title activator grey-text text-darken-4 mg-size-18 left-align">{{w.workshop_theme}}<i class="ion-android-more-vertical right small"></i></span>
+                       </div>
+                       <div class="card-reveal orange mg_sec_color_3">
+                         <span class="card-title white-text mg-size-18 left-align">
+                         	{{w.workshop_theme}}
+                         	<i class="ion-minus-circled right small"></i></span>
+                         	<h6 class="white-text left-align mg-size-17">{{w.workshop_begin | date:'dd'}} {{w.ref_month_full}} {{w.workshop_begin | date:'yyyy - HH:mm'}}</h6>
+                         <p class="left-align mg_sec_color_3 mg-regular">
+                         	{{w.workshop_short_description}}
+                         </p>
+                       </div>
+                    </div>  
+               </div>
 
 	    </div>
+
 	  </div>
 	</div>
 </div>
-
 <!-- Maps -->
 <div id="contact" class="scrollspy">
    <?= $this->element('maps') ?>
 </div>
+<!-- Quote -->
+<?= $this->element('Modals\quote') ?>
+ <!-- Newsletter Banner -->
+ <?= $this->element('Modals\newsletter') ?>
+
 
 <!-- Scripts -->
 <?= $this->Html->script('typing_carrousel') ?>

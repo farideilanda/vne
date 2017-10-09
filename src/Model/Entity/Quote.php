@@ -2,18 +2,24 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
-use Cake\Utility\Text;
+
 /**
- * ItNewsletter Entity
+ * Quote Entity
  *
  * @property int $id
- * @property string $newsletter_email
+ * @property int $it_solution_type_id
+ * @property int $it_editor_solution_id
+ * @property string $quote_subscriber_fullname
+ * @property string $quote_subscriber_email
+ * @property string $quote_subscriber_tel
+ * @property bool $quote_is_enterprise
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
  * @property \Cake\I18n\FrozenTime $deleted
- * @property string $newsletter_token
+ *
+ * @property \App\Model\Entity\ItSolutionType $it_solution_type
  */
-class ItNewsletter extends Entity
+class Quote extends Entity
 {
 
     /**
@@ -29,10 +35,4 @@ class ItNewsletter extends Entity
         '*' => true,
         'id' => false
     ];
-
-
-    protected function _setNewsletterToken()
-    {
-       return Text::uuid();
-    }
 }

@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\WorkshopsTable;
+use App\Model\Table\QuotesTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\WorkshopsTable Test Case
+ * App\Model\Table\QuotesTable Test Case
  */
-class WorkshopsTableTest extends TestCase
+class QuotesTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\WorkshopsTable
+     * @var \App\Model\Table\QuotesTable
      */
-    public $Workshops;
+    public $Quotes;
 
     /**
      * Fixtures
@@ -24,17 +24,14 @@ class WorkshopsTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.workshops',
-        'app.it_domains',
-        'app.cross_domain_solutions',
+        'app.quotes',
+        'app.it_solution_types',
+        'app.cross_solution_types',
         'app.it_solutions',
         'app.it_editor_solutions',
         'app.it_editors',
         'app.it_editor_solution_trainings',
-        'app.training_subscribers',
-        'app.quotes',
-        'app.it_solution_types',
-        'app.cross_solution_types'
+        'app.training_subscribers'
     ];
 
     /**
@@ -45,8 +42,8 @@ class WorkshopsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Workshops') ? [] : ['className' => WorkshopsTable::class];
-        $this->Workshops = TableRegistry::get('Workshops', $config);
+        $config = TableRegistry::exists('Quotes') ? [] : ['className' => QuotesTable::class];
+        $this->Quotes = TableRegistry::get('Quotes', $config);
     }
 
     /**
@@ -56,7 +53,7 @@ class WorkshopsTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Workshops);
+        unset($this->Quotes);
 
         parent::tearDown();
     }

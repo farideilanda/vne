@@ -44,6 +44,10 @@ class ItSolutionTypesTable extends Table
             'foreignKey' => 'it_solution_type_id'
         ]);
 
+        $this->hasMany('Quotes', [
+            'foreignKey' => 'it_solution_type_id'
+        ]);
+
         $this->belongsToMany('ItEditorSolutions', [
             'foreignKey' => 'it_solution_type_id',
             'targetForeignKey'=>'it_editor_solution_id',

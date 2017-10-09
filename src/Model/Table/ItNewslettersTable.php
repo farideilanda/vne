@@ -54,7 +54,13 @@ class ItNewslettersTable extends Table
         $validator
             ->scalar('newsletter_email')
             ->requirePresence('newsletter_email', 'create')
-            ->notEmpty('newsletter_email');
+            ->notEmpty('newsletter_email')
+            ->add('newsletter_email',[
+                'email' => [
+                    'rule' => ['email',true,'/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-z]{2,8}$/'],
+                    'message' => 'email is invalid'
+                ]
+            ]);
 
         $validator
             ->dateTime('deleted')
@@ -67,4 +73,13 @@ class ItNewslettersTable extends Table
 
         return $validator;
     }
+
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->isUnique(['newsletter_email']));
+        $rules->add($rules->isUnique(['newsletter_token']));
+        return $rules;
+    }
+
+    
 }

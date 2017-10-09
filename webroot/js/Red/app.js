@@ -43,10 +43,20 @@ angular.module('vne-app',['ui.router','vne.services','vne.controllers','ui.mater
 			    	}
 			    })
 			    .state('app.home',{
-			    	url:'home',
+			    	url:'home?anchor',
 			    	cache:false,
 			    	templateUrl:'/home/home',
-			    	controller:'HomeCtrl as homectrl'
+			    	controller:'HomeCtrl as homectrl',
+					resolve:{
+			    		checkCookie: ['BannerService','$state', function(BannerService,$state){
+			    			return BannerService.check().then(function(response){
+			    				return response;
+			    			}, function(errResponse){
+			    				Materialize.toast('Une erreur est survenue', 4000,'red mg-bold white-text')
+			    				$state.go('app.home');
+			    			});
+			    		}]
+			    	}
 			    });
 
 			    $urlRouterProvider.otherwise('home');

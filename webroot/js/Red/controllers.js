@@ -12,32 +12,166 @@ angular.module('vne.controllers',[])
 		          cssEase: 'linear',
 		          pauseOnHover:false,
 		          pauseOnFocus:false   
-		});            
+		});
 
+        // if(checkCookie.data.banner_state === "undone")
+        //         $scope.openNewsletterModal = true;
 
 		angular.element('.parallax').parallax();
+
+        // Newsletter        
+        self.newsletter = function(newsletter){
+            self.is_newsletter_subscribing = true;
+            newsletter.newsletter_token = 'default';
+            NewsletterService.subscribe(newsletter).then(function(response){
+                Materialize.toast('Félicitations, votre demande a été enregistrée',4000,'mg_prim_background white-text bold');
+                newsletter.newsletter_email = '';
+                $rootScope.openNewsletterModal = false;
+            }, function(errResponse){
+               switch(errResponse.status){
+                case 401:
+                    Materialize.toast('Cette adresse existe déjà',4000,'orange white-text bold');
+                break;
+
+                default:
+                   Materialize.toast('Une erreur est survenue, veuillez réessayer',4000,'orange white-text bold');
+                break;
+               }
+            }).finally(function(){
+                self.is_newsletter_subscribing = false;
+            });     
+        };
 	}])
-    .controller('HomeCtrl',['$scope','$templateCache','$rootScope','AssistanceService','$location', '$anchorScroll','$stateParams','SolutionService','Workshop', function($scope,$templateCache,$rootScope,AssistanceService,$location,$anchorScroll,$stateParams,SolutionService,Workshop){
+    .controller('HomeCtrl',['$scope','$templateCache','$rootScope','AssistanceService','$location', '$anchorScroll','$stateParams','SolutionService','Workshop','QuoteService','checkCookie','NewsletterService', function($scope,$templateCache,$rootScope,AssistanceService,$location,$anchorScroll,$stateParams,SolutionService,Workshop,QuoteService,checkCookie,NewsletterService){
     	$templateCache.removeAll();
-    	var self = this;
+    	var self = this;   
+        // Quote
+        self.QuoteService = QuoteService;
+        self.QuoteService.get_quote_assets().then(function(response){
+            self.types_quote = response.data.solution_types;
+            self.solutions_quote = response.data.cross_solution_types;
+
+            self.quote = {
+                type: self.types_quote[0],
+                solution: '',
+                quote_subscriber_fullname: '',
+                quote_subscriber_tel: '',
+                quote_is_enterprise:false
+            };
+        }, function(errResponse){
+            console.log(errResponse);
+        });
+
+        self.reset_quote = function(){
+            self.quote = {
+                type: self.types_quote[0],
+                solution: '',
+                quote_subscriber_fullname: '',
+                quote_subscriber_tel: '',
+                quote_is_enterprise:false
+            };
+        };
+
+        self.closeModalQuote = function(){
+            angular.element('.modal-overlay').triggerHandler('click');
+            self.reset_quote();
+        };
+
+        self.change_solution_type = function(index){
+            self.quote.type = self.types_quote[index];
+        };
+
+
+        self.submit_quote = function(quote){
+            self.sending_quote = true;
+            self.QuoteService.send_quote(quote).then(function(response){
+                Materialize.toast('Felicitation votre demande a été prise en compte',4000,'mg_prim_background bold white-text');
+                self.closeModalQuote();
+            }, function(errResponse){
+                switch(errResponse.status)
+                {
+                    case 400:
+                        Materialize.toast('Un problème est survenue lors de l\'opération',4000,'orange bold white-text');
+                    break;
+
+                    case 401:
+                        Materialize.toast('Erreurs formulaire',4000,'orange bold white-text');
+                    break;
+                }
+            }).finally(function(){
+                self.sending_quote = false;
+            });
+        };
+
+        self.evalute_solution_item ={
+            'function': function(t){
+                let temp_solution_types = t.it_solution_types;
+
+                for(let key in temp_solution_types){
+                    if(temp_solution_types[key].id==self.quote.type.id)
+                        return t;
+                }
+            }
+        };
+
+
 
         // load on_display_workshop
         self.Workshop = Workshop;
+        self.Workshop.on_display_workshop().then(function(response){
+            self.poster = response.data.poster;
+            if(response)
+            {
+                var months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+                for(let i in months)
+                {
+                    if (i == parseInt(self.poster.ref_month))
+                        self.poster.ref_month_full = months[i-1];
+                }
 
-        // self.Workshop.on_display_workshop().then(function(response){
-        //     console.log(response);
-        // }, function(errResponse){
-        //     console.log(errResponse);
-        // });
+                //treatment on full description
+                let poster_full_description = self.poster.workshop_long_description.split(' ');
+                let first_part_description = poster_full_description.slice(0,66);
+                let second_part_description = poster_full_description.slice(66, poster_full_description.length);
+                self.poster.first_part_description = first_part_description.join(' ');
+                self.poster.second_part_description = second_part_description.join(' ');
+                //workshop form
+                angular.element('#workshop-form').append(self.poster.workshop_embeded_path);
+                self.hide_poster_workshop = false;
+            }
+            else
+            {
+                self.hide_poster_workshop = true;
+            }
+        }, function(errResponse){
+                self.hide_poster_workshop = true;
+                Materialize.toast('Une erreur est survenue lors de la récupération-affiche',4000,'orange white-text bold');
+        });
 
-       angular.element('.workshop-slider').slick({
+        self.Workshop.slider_wokshop().then(function(response){
+            self.workshops = response.data.workshops;
+            self.workshops.forEach(function(element,index){
+                var months = ['Jan','Fev','Mar','Avr','Mai','Jui','Juil','Août','Sept','Oct','Nov','Dec'];
+                for(let i in months)
+                {
+                    if (i == parseInt(element.ref_month))
+                        element.ref_month_full = months[i-1];
+                }
+            });
+        }, function(errResponse){  
+            console.log(errResponse);
+        }).finally(function(){
+
+        });
+
+        $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
+              $('.workshop-slider').slick({
               autoplay: true,
               autoplaySpeed: 2000,
-              dots:false,
+              dots:true,
               arrows:true,
               slidesToShow: 3,
               slidesToScroll: 1,
-              arrows:false,
               responsive: [
                 {
                   breakpoint: 1024,
@@ -58,11 +192,11 @@ angular.module('vne.controllers',[])
                   settings: {
                     slidesToShow: 1,
                     slidesToScroll: 1,
-                  }
-                }
-            ]
+                      }
+                    }
+                ]
+            });
         });
-
 
 
         // Automate scrolls
@@ -71,6 +205,10 @@ angular.module('vne.controllers',[])
             $location.hash(hash);
             $anchorScroll();
         };
+
+        if($stateParams.anchor)
+            self.auto_scroll($stateParams.anchor)
+
 
         self.SolutionService = SolutionService;
 
@@ -91,7 +229,6 @@ angular.module('vne.controllers',[])
     	});
 
         self.set_active_class = function(is_active){
-            console.log(is_active);
             if(is_active==true)
                 return 'active';
             else
@@ -147,4 +284,20 @@ angular.module('vne.controllers',[])
                 self.is_loading_training = false;
             });
         };
-	}])
+
+        // banner newsletter
+        if(checkCookie.data.banner_state === "undone")
+                $rootScope.openNewsletterModal = true;
+
+	}]).directive('onFinishRender',['$timeout', function($timeout){
+        return{
+            restrict:'A',
+            link: function(scope, element, attr){
+                if(scope.$last === true){
+                    $timeout(function(){
+                        scope.$emit(attr.onFinishRender)
+                    });
+                }
+            }
+        }
+    }])

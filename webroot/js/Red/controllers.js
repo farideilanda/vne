@@ -13,10 +13,6 @@ angular.module('vne.controllers',[])
 		          pauseOnHover:false,
 		          pauseOnFocus:false   
 		});
-
-        // if(checkCookie.data.banner_state === "undone")
-        //         $scope.openNewsletterModal = true;
-
 		angular.element('.parallax').parallax();
 
         // Newsletter        
@@ -343,7 +339,7 @@ angular.module('vne.controllers',[])
 
 
         // banner newsletter
-        if(checkCookie.data.banner_state === "undone")
+        // if(checkCookie.data.banner_state === "undone")
                 $rootScope.openNewsletterModal = true;
 
 	}]).directive('onFinishRender',['$timeout', function($timeout){

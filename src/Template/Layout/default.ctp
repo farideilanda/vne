@@ -46,6 +46,11 @@ $cakeDescription = 'Virtual Network Entreprise';
     <base href="/">
 </head>
 <body ng-app="vne-app" ng-controller="MainCtrl as mainctrl">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5TDHJSR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+  
    <?= $this->Flash->render() ?>
 
    <!-- Navbar -->

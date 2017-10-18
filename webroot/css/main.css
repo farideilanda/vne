@@ -54106,7 +54106,13 @@ ul#slide-out li.menu:hover:not(.social_area) {
   .scale-up-on-small-only {
     margin-top: 13%;
     -webkit-transform: scale(1.4);
-    transform: scale(1.4); } }
+    transform: scale(1.4); }
+
+  .med-prestation-orange-banner {
+    display: none !important; }
+
+  .med-prestation-side-button {
+    display: block !important; } }
 @media only screen and (max-width: 600px) {
   .cancel-side-padding {
     padding-right: 28px !important;

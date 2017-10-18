@@ -1,10 +1,26 @@
-<div class="row left-align mg-padding-left-50" style="max-height: 590px;">
+<div class="row left-align mg-padding-left-50 mg-padding-right-50" style="max-height: 590px;">
 	<?= $this->Html->image('assets/logo_solutions/oracle.jpg',['class'=>'mg-width-190']) ?> <br>
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam voluptates eaque voluptate dolores ducimus esse harum, in eveniet quidem, amet! Aperiam est repellat eum harum consequuntur in eveniet quas ipsum.
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus eius sapiente expedita, est quia fugiat soluta reprehenderit quidem similique esse nemo autem adipisci cumque maxime consectetur neque iste laudantium deserunt.
-    <br>
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius autem saepe inventore fuga quae ab. Beatae quod eligendi dolor odit at voluptatibus quibusdam reiciendis voluptatem, tempore quam. Debitis, voluptatibus quae.
-	<br> <br>
-	
-	<a href="#!" class="btn mg_sec_background_2 bold white-text mg-margin-top-20">Demander un devis</a>
+	<p>
+		Oracle Database Appliance vous permet d’économiser du temps
+		et de l’argent en simplifiant le déploiement, la maintenance et
+		le support de vos solutions de base de données à haute disponibilité.
+		Basé sur Oracle Database 11g, la toute dernière génération
+		de la base de données la plus répandue dans le monde, ce système
+		totalement intégré rassemble dans un même boîtier les logiciels,
+		les serveurs, le stockage et la connectivité réseau permettant d’offrir
+		aux entreprises des services de base de données à haute disponibilité
+		pour une large gamme d’applications, qu’il s’agisse de progiciels
+		ou d’applications spécifiques, de transactionnel (OLTP) ou de
+		datawarehouse. Tous les composants matériels et logiciels sont
+		supportés par un seul fournisseur : Oracle. Les clients bénéficient
+		par ailleurs d’une facturation progressive des licences logicielles :
+		démarrer avec un minima de deux coeurs de processeur, pour monter
+		rapidement en puissance en activant jusqu’à 24 coeurs de processeur
+		sans avoir à subir les coûts et les arrêts qu’entraîne habituellement
+		la mise à niveau du matériel.
+	</p>.
+	<div class="col s12 left-align mg-padding-0">
+			<a data-target="quoteModal" dismissible="false" modal ng-click="homectrl.change_solution_type(0)" class="btn mg_sec_background_2 bold white-text mg-margin-top-20">Demander un devis</a>
+	<a href="/zine/read/booklet_solutions/oracle" target="_blank" class="btn mg_prim_background bold white-text mg-margin-top-20">Voir la brochure</a>
+	</div>
 </div>

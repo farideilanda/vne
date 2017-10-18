@@ -45,7 +45,7 @@ angular.module('vne.controllers',[])
     .controller('HomeCtrl',['$scope','$templateCache','$rootScope','AssistanceService','$location', '$anchorScroll','$stateParams','SolutionService','Workshop','QuoteService','checkCookie','NewsletterService', function($scope,$templateCache,$rootScope,AssistanceService,$location,$anchorScroll,$stateParams,SolutionService,Workshop,QuoteService,checkCookie,NewsletterService){
     	$templateCache.removeAll();
     	var self = this;   
-        // Quote
+        // Quote Logic
         self.QuoteService = QuoteService;
         self.QuoteService.get_quote_assets().then(function(response){
             self.types_quote = response.data.solution_types;
@@ -114,20 +114,22 @@ angular.module('vne.controllers',[])
             }
         };
 
-
-
+        //Workshops Logic
         // load on_display_workshop
         self.Workshop = Workshop;
+            self.is_poster_loading = true;
         self.Workshop.on_display_workshop().then(function(response){
             self.poster = response.data.poster;
-            if(response)
+            if(self.poster!=null)
             {
                 var months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
                 for(let i in months)
                 {
+                     i++;
                     if (i == parseInt(self.poster.ref_month))
                         self.poster.ref_month_full = months[i-1];
                 }
+
 
                 //treatment on full description
                 let poster_full_description = self.poster.workshop_long_description.split(' ');
@@ -146,6 +148,8 @@ angular.module('vne.controllers',[])
         }, function(errResponse){
                 self.hide_poster_workshop = true;
                 Materialize.toast('Une erreur est survenue lors de la récupération-affiche',4000,'orange white-text bold');
+        }).finally(function(){
+            self.is_poster_loading = false;
         });
 
         self.Workshop.slider_wokshop().then(function(response){
@@ -154,6 +158,7 @@ angular.module('vne.controllers',[])
                 var months = ['Jan','Fev','Mar','Avr','Mai','Jui','Juil','Août','Sept','Oct','Nov','Dec'];
                 for(let i in months)
                 {
+                     i++;
                     if (i == parseInt(element.ref_month))
                         element.ref_month_full = months[i-1];
                 }
@@ -176,7 +181,7 @@ angular.module('vne.controllers',[])
                 {
                   breakpoint: 1024,
                   settings: {
-                    slidesToShow: 1,
+                    slidesToShow: 2,
                     slidesToScroll: 1,
                   }
                 },
@@ -207,11 +212,11 @@ angular.module('vne.controllers',[])
         };
 
         if($stateParams.anchor)
-            self.auto_scroll($stateParams.anchor)
+            self.auto_scroll($stateParams.anchor);
 
 
+        //Solutions logic
         self.SolutionService = SolutionService;
-
         // Get Crop Solutions
     	self.SolutionService.crop_solution().then(function(response){
     			self.solutions = response.data.solutions[0].it_editor_solutions;
@@ -230,12 +235,54 @@ angular.module('vne.controllers',[])
 
         self.set_active_class = function(is_active){
             if(is_active==true)
-                return 'active';
+                return 'active-item-collapsible';
             else
                 return '';
         };
 
-        // Get Crop Trainings
+    	self.load_solution_description = function(elm){
+
+            if(typeof(elm)==='string')
+            {
+                var index_url = elm;
+                self.load_solution_description_service(index_url);
+            }
+            else
+            {
+                if(elm.is_active)
+                {
+                    elm.is_active = true;
+                    return false;
+                }
+                else
+                {
+                   elm.is_active = true;
+                   self.renew_selection_cycle_solutions(elm);
+                   var index_url = elm.solution_alias;
+                   self.load_solution_description_service(index_url);
+                }
+            }
+    	};
+
+        self.renew_selection_cycle_solutions = function(element){
+            self.solutions.forEach(function(item){
+                if(item.id != element.id)
+                    item.is_active = false;
+            });
+        };
+
+        self.load_solution_description_service = function(index){
+            self.is_loading_solution = true;
+            self.SolutionService.solution_info(index).then(function(response){
+                angular.element('#super').empty().append(response.data);
+            }, function(errResponse){
+                Materialize.toast('Une erreur est survenue',4000,'orange white-text bold');
+            }).finally(function(){
+                self.is_loading_solution = false;
+            });
+        };
+
+        // Training Logic
         self.SolutionService.crop_training().then(function(response){
                 self.trainings = response.data.trainings[0].it_editor_solutions;
                 self.trainings.forEach(function(elm){
@@ -249,41 +296,51 @@ angular.module('vne.controllers',[])
                 Materialize.toast('Une erreur est survenue lors de la récupération des informations',4000,'orange bold white-text');
         });
 
-
-    	self.load_solution_description = function(elm){
-            if(typeof(elm)==='string')
-                var index_url = elm
-            else
-                var index_url = elm.solution_alias;
-
-    		self.is_loading_solution = true;
-    		self.SolutionService.solution_info(index_url).then(function(response){
-    			angular.element('#super').empty().append(response.data);
-    		}, function(errResponse){
-    			console.log(errResponse);
-    		}).finally(function(){
-    		    self.is_loading_solution = false;
-    		});
-    	};
-
-
-
         self.load_training_description = function(elm){
 
             if(typeof(elm)==='string')
-                var index_url = elm
-            else
-                var index_url = elm.solution_alias;
+            {
+                var index_url = elm;
+                 self.load_training_description_service(index_url);
+            }
+            else{
+                if(elm.is_active)
+                {
+                    elm.is_active = true;
+                    return false;
+                }
+                else
+                {
+                   elm.is_active = true;
+                   self.renew_selection_cycle_trainings(elm);
+                   var index_url = elm.solution_alias;
+                   self.load_training_description_service(index_url);
+                }
+            }
+        };
 
+
+        self.load_training_description_service = function(index){
             self.is_loading_training = true;
-            self.SolutionService.training_info(index_url).then(function(response){
+            self.SolutionService.training_info(index).then(function(response){
                 angular.element('#super-2').empty().append(response.data);
             }, function(errResponse){
-                console.log(errResponse);
+                Materialize.toast('Une erreur est survenue lors de la récupération des données',4000,'orange white-text bold');
             }).finally(function(){
                 self.is_loading_training = false;
             });
         };
+
+        self.renew_selection_cycle_trainings = function(element){
+
+                self.trainings.forEach(function(item){
+                    if(item.id != element.id)
+                        item.is_active = false;
+                });
+
+        };
+
+
 
         // banner newsletter
         if(checkCookie.data.banner_state === "undone")

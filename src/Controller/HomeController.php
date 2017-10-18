@@ -105,8 +105,7 @@ class HomeController extends AppController
 
                 case 'get-trainings-crop':
                   $trainings = $this->ItSolutionTypes->find()->contain(['ItEditorSolutions'=>function($q){
-                    return $q->limit(10);
-                             // ->Where(['ItEditorSolutions.']);
+                    return $q->limit(8);
                   }])
                   ->where(['ItSolutionTypes.id'=>2]);
                   

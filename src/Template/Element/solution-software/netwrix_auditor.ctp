@@ -1,28 +1,32 @@
-<div class="row left-align mg-padding-left-50" >
-	<?= $this->Html->image('assets/logo_solutions/netwrix_auditor.png',['class'=>'mg-width-100']) ?> <br>
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam voluptates eaque voluptate dolores ducimus esse harum, in eveniet quidem, amet! Aperiam est repellat eum harum consequuntur in eveniet quas ipsum.
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus eius sapiente expedita, est quia fugiat soluta reprehenderit quidem similique esse nemo autem adipisci cumque maxime consectetur neque iste laudantium deserunt.
-    <br>
+<div class="row left-align mg-padding-left-50 mg-padding-right-50">
+	<?= $this->Html->image('assets/logo_solutions/netwrix_auditor.png',['class'=>'mg-width-100']) ?>
+		<p class="solution-description-text">
+			Netwrix Auditor est une plateforme de visibilité et de gouvernance qui permet de contrôler les modifications de conﬁguration et d’accès aux environnements informatiques dans le cloud hybride. La plateforme fournit des analyses de sécurité pour détecter les anomalies dans le comportement des utilisateurs et explore les modèles de menaces avant que ne se produise une fuite de données.
+		</p>	
 
-	<div class="col s12 mg-margin-top-30">
-		<div class="col s4 center-align"><?= $this->Html->image('assets/logo_solutions/netwrix_assets/asset_1.png') ?>
+	<div class="col s12 mg-margin-top-30 mg-padding-0">
+		<div class="col s4 center-align mg-padding-left-0">
+			<?= $this->Html->image('assets/logo_solutions/netwrix_assets/asset_1.png') ?>
 			<p class="description-text">
-                <strong>Décelez et analysez</strong> les comportements anormaux d’utilisateurs avant qu’une fuite de données se produise. 
+                <strong>Décelez et analysez</strong> les comportements anormaux d’utilisateurs.
 			</p>
 		</div>
-		<div class="col s4 center-align"><?= $this->Html->image('assets/logo_solutions/netwrix_assets/asset_2.png') ?>
+		<div class="col s4 center-align">
+			<?= $this->Html->image('assets/logo_solutions/netwrix_assets/asset_2.png') ?>
 			<p class="description-text mg-margin-top-9">
-                Passez les vérifications de conformité: <strong>PCI DSS, HIPAA, SOX, FISMA, ISO 27001, GLBA, FERPA, etc.</strong>
+                <strong>Passez les vérifications</strong> de conformité en toute simplicité.
 			</p>
 		</div>
-		<div class="col s4 center-align"><?= $this->Html->image('assets/logo_solutions/netwrix_assets/asset_3.png') ?>
+		<div class="col s4 center-align">
+			<?= $this->Html->image('assets/logo_solutions/netwrix_assets/asset_3.png') ?>
 			<p class="description-text mg-margin-top-25">
-                       <strong>Gérez</strong> l’efficacité informatique en automatisant les modifications, les configurations et les
-                        accès aux flux de tâche de l'audit.
+               <strong>Augmentez</strong> la productivité de vos équipes IT.
 			</p>
 		</div>
 	</div>
-	<div class="col s12 center">
-			<a href="#!" class="btn mg_sec_background_2 bold white-text mg-margin-top-20">Demander un devis</a>
+	<div class="col s12 mg-padding-0">
+			<a data-target="quoteModal" dismissible="false" modal ng-click="homectrl.change_solution_type(0)" class="btn mg_sec_background_2 bold white-text mg-margin-top-20">Demander un devis</a>
+	<a href="/zine/read/booklet_solutions/netwrix_auditor" target="_blank" class="btn mg_prim_background bold white-text mg-margin-top-20">Voir la brochure</a>
+
 	</div>
 </div>

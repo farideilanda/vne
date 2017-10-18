@@ -42,22 +42,6 @@ $cakeDescription = 'Virtual Network Entreprise';
     <?= $this->Html->css('../bower_components/aos/dist/aos') ?>
 
     <?= $this->fetch('css') ?>
-    
-    <?= $this->Html->script('jquery') ?>
-    <?= $this->Html->script('jquery-migrate') ?>
-    <?= $this->Html->script('slick-1.6.0/slick/slick.min') ?>
-    <?= $this->Html->script('../bower_components/angular/angular.min') ?>
-    <?= $this->Html->script('../bower_components/materialize/dist/js/materialize.min') ?>
-
-    <?= $this->Html->script('../bower_components/angular/angular-materialize.min') ?>
-    <?= $this->Html->script('../bower_components/angular/angular-ui-router.min') ?>
-    <?= $this->Html->script('../bower_components/aos/dist/aos') ?>
-
-    <?= $this->Html->script('prezento-master/jquery.prezento') ?>
-    <?= $this->Html->script('jquery.fittext') ?>
-    <?= $this->Html->script('../node_modules/cleave.js/dist/cleave-angular.min') ?>
-    <?= $this->Html->script('../node_modules/cleave.js/dist/addons/cleave-phone.fr') ?>
-
 
     <base href="/">
 </head>
@@ -68,8 +52,17 @@ $cakeDescription = 'Virtual Network Entreprise';
     <div id="navbar-container">
       <nav class="white none-box-shadow">
         <div class="nav-wrapper">
-          <a href="#" class="brand-logo mg-padding-left-50"> <?= $this->Html->image('assets/vne-logo.jpg',['style'=>'width:135px;']) ?></a>
-           <a href="#" data-activates="slide-out" class="button-collapse" data-sidenav="left" data-closeonclick="true"><i class="ion-android-menu small mg_prim_color mg-size-30"></i></a>
+           <a href="#" class="brand-logo mg-padding-left-50 hide-on-med-and-down"> <?= $this->Html->image('assets/vne-logo.jpg',['style'=>'width:135px;']) ?></a>
+
+            <a href="#" class="brand-logo hide-on-large-only"> <?= $this->Html->image('assets/vne-logo.jpg',['style'=>'width:115px;']) ?></a>
+
+            <div class="fixed-action-btn hide-on-med-and-up">
+              <a class="btn-floating btn-large orange">
+                <i class="ion-android-menu small white-text mg-size-35"></i>
+              </a>
+            </div>
+
+           <a href="#" id="side-nav-trigger" data-activates="slide-out" class="button-collapse hide-on-small-only" data-sidenav="left" data-closeonclick="true"><i class="ion-android-menu small mg_prim_color mg-size-32"></i></a>
 
           <!-- navbar for wider-screen -->
           <ul id="nav-mobile" class="hide-on-med-and-down right">
@@ -86,12 +79,12 @@ $cakeDescription = 'Virtual Network Entreprise';
           <!-- SideNav -->
           <ul id="slide-out" class="side-nav" style="background:url('/img/assets/home/back-tech-6.png') #fff 100% 500px no-repeat;">
             <li class="center white">
-              <a href="#"> <?= $this->Html->image('assets/vne-logo.jpg',['style'=>'width:170px;display:block;margin-left:10%;','class'=>'center white']) ?></a>
+              <a href="#" class="white"> <?= $this->Html->image('assets/vne-logo.jpg',['style'=>'width:150px;display:block;margin-left:10%;','class'=>'center white']) ?></a>
             </li>
             <li class="mg-margin-top-60 white"><a href="#bienvenue" class="mg_prim_color bold wide-navigation-menu">Bienvenue</a></li>
             <li class="white"><a href="#prestations" class="mg_prim_color bold wide-navigation-menu">Prestations</a></li>
-            <li class="white"><a href="#solutions" class="mg_prim_color bold wide-navigation-menu">Solutions</a></li>
-            <li class="white"><a href="#trainings" class="mg_prim_color bold wide-navigation-menu">Formations</a></li>
+            <li class="white hide-on-med-and-down"><a href="#solutions" class="mg_prim_color bold wide-navigation-menu">Solutions</a></li>
+            <li class="white hide-on-med-and-down"><a href="#trainings" class="mg_prim_color bold wide-navigation-menu">Formations</a></li>
             <li class="white"><a href="#workshops" class="mg_prim_color bold wide-navigation-menu">Ateliers</a></li>
             <li class="white"><a href="#contact" class="mg_prim_color bold wide-navigation-menu">Contact</a></li>
             <li class="white">
@@ -122,38 +115,28 @@ $cakeDescription = 'Virtual Network Entreprise';
       <!-- Social Media -->
       <?= $this->element('social') ?>
 
+      <!-- Scripts -->
+      <?= $this->Html->script('jquery') ?>
+      <?= $this->Html->script('jquery-migrate') ?>
+      <?= $this->Html->script('slick-1.6.0/slick/slick.min') ?>
+      <?= $this->Html->script('../bower_components/angular/angular.min') ?>
+      <?= $this->Html->script('../bower_components/materialize/dist/js/materialize.min') ?>
 
-      <!-- Preloader -->
-      <div ng-show="$root.preloader" class="row center mg-margin-0" style="background:url('/img/assets/background_loader.jpg');">
-          <div style="position: absolute; margin-top: 20%; width:100%;">
-            <div class="container">
-              <div class="container">
-                <div class="container">
-                  <div class="progress orange">
-                        <div class="indeterminate mg_prim_background"></div>
-                    </div>
-                </div>
-              </div>
-            </div>
-          </div>
-      </div>
+      <?= $this->Html->script('../bower_components/angular/angular-materialize.min') ?>
+      <?= $this->Html->script('../bower_components/angular/angular-ui-router.min') ?>
+      <?= $this->Html->script('../bower_components/aos/dist/aos') ?>
 
+      <?= $this->Html->script('prezento-master/jquery.prezento') ?>
+      <?= $this->Html->script('jquery.fittext') ?>
+      <?= $this->Html->script('../node_modules/cleave.js/dist/cleave-angular.min') ?>
+      <?= $this->Html->script('../node_modules/cleave.js/dist/addons/cleave-phone.fr') ?>
+      <?= $this->Html->script('main') ?>
+  
       <!-- Angular App -->
       <?= $this->Html->script('Red/app') ?>
       <?= $this->Html->script('Red/controllers') ?>
       <?= $this->Html->script('Red/services') ?>
-      <script>
-        AOS.init();
-        $(window).scroll(function(){
-          if($(this).scrollTop() > 720 ){
-            $('#navbar-container').addClass('navbar-fixed');
-          } 
-          else{
-            $('#navbar-container').removeClass('navbar-fixed');
-          }
-            
-        });
-      </script>
+      
       <!-- Additional Dependencies -->
       <?= $this->fetch('script') ?>
 </body>

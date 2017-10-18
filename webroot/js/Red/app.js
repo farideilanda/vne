@@ -2,10 +2,8 @@ angular.module('vne-app',['ui.router','vne.services','vne.controllers','ui.mater
 		.run(['$rootScope', function($rootScope){
 		    // Verifications Here
 		    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-                $rootScope.preloader = true;
                 if(toState.name==="app.contact")
                 {
-		            
                     $rootScope.navbar_invisible = false;
                 }
                 else
@@ -16,8 +14,6 @@ angular.module('vne-app',['ui.router','vne.services','vne.controllers','ui.mater
                 }
             });
             $rootScope.$on('$viewContentLoaded', function(event, toState, toParams, fromState, fromParams) {
-                
-                $rootScope.preloader = false;
             });
 
 		}])

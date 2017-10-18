@@ -56,6 +56,10 @@ Router::scope('/newsletter', function (RouteBuilder $routes) {
     $routes->connect('/unsubscribe/:token',['controller'=>'Newsletter', 'action'=>'unsubscribe']);
 });
 
+Router::scope('/zine', function(RouteBuilder $routes){
+	$routes->connect('/read/:type_booklet/:booklet_path',['controller'=>'Zine','action'=>'read']);
+});
+
 /**
  * Load all plugin routes. See the Plugin documentation on
  * how to customize the loading of plugin routes.

@@ -170,7 +170,7 @@ angular.module('vne.controllers',[])
               autoplay: true,
               autoplaySpeed: 2000,
               dots:true,
-              arrows:true,
+              arrows:false,
               slidesToShow: 3,
               slidesToScroll: 1,
               responsive: [

@@ -61,8 +61,6 @@
 		            </div> 	
 		    </div>
 	</div>
-
-
 	<!-- pictogramm description vne -->
 	<div class="row mg_prim_background mg-padding-bottom-50 mg-margin-bottom-0" >
 	   <div class="container">
@@ -85,7 +83,7 @@
 				   Les nombreuses problématiques posées par la multiplicité des environnements cloud, virtuels et locaux dont la surveillance des informations et les remontées d'alerte en temps réels sont au coeur de nos préoccupations et sont clairements résolus dans nos propositions.
 				</p>
 			</div>
-			<div class="col s12 center mg-margin-top-20 mg-padding-0">
+			<div class="col s12 center mg-margin-top-20 mg-padding-0 hide-on-med-and-down">
 				<a class="btn mg-button-3 white-text bold" ng-click="homectrl.auto_scroll('solutions')">Découvrir nos solutions</a>
 			</div>
 	   </div>
@@ -93,9 +91,10 @@
 
 <div id="poster-workshop">
 	<!-- Actual Workshop (When exists) -->
-	<div ng-hide="homectrl.hide_poster_workshop || homectrl.is_poster_loading" class="row mg-padding-top-50 mg-padding-bottom-50 mg-margin-bottom-0" style="background:url('/img/assets/home/back-tech-4.png') #C1872A no-repeat;">
+	<div ng-hide="homectrl.is_poster_loading" ng-if="homectrl.hide_poster_workshop==false" class="row mg-padding-top-50 mg-padding-bottom-50 mg-margin-bottom-0" style="background:url('/img/assets/home/back-tech-4.png') #C1872A no-repeat;">
 	   <div class="container">
-		    <div class="col s6"  data-aos="zoom-in-down">
+	   	     <!-- Description for med and wider screens -->
+		    <div class="col l6 m6 s12 hide-on-small-only"  data-aos="zoom-in-down">
 				<h6 class="uppercase mg-margin-left-10 white-text bold">Atelier à l'affiche</h6>
 				<div class="divider"></div>
 				<h4 class="uppercase mg-padding-top-10 bold white-text" style="clear:both;">{{homectrl.poster.workshop_theme}}</h4>
@@ -105,18 +104,32 @@
 					{{homectrl.poster.first_part_description}}
 				</p>
 			</div>
-			<div class="col s6" data-aos="zoom-in-down">
+			<div class="col l6 m6 s12 hide-on-small-only" data-aos="zoom-in-down">
 				<p class="mg-regular white-text">
 					{{homectrl.poster.second_part_description}}
 				</p>
 			    	<div class="col s12 mg-padding-0">
-				         <a href="{{homectrl.poster.workshop_form_link}}" target="_blank" class="btn mg_prim_background white-text bold mg-width-100-perc">Participer gratuitement</a>
+				         <a href="{{homectrl.poster.workshop_form_link}}" target="_blank" class="btn mg-button-1 bold mg-width-100-perc">Participer gratuitement</a>
+			    	</div>
+			</div>
+			<!-- Description for smaller screens -->
+			<div class="col s12 hide-on-med-and-up">
+				<h6 class="uppercase mg-margin-left-10 white-text bold">Atelier à l'affiche</h6>
+				<div class="divider"></div>
+				<h4 class="uppercase mg-padding-top-10 bold white-text" style="clear:both;">{{homectrl.poster.workshop_theme}}</h4>
+				<h5 class="mg-padding-top-10 bold white-text" style="clear:both;">{{homectrl.poster.workshop_begin | date:'dd '}} {{homectrl.poster.ref_month_full}} {{homectrl.poster.workshop_begin | date:'yyyy - HH:mm'}}  </h5>
+
+				<p class="mg-regular white-text">
+					{{homectrl.poster.workshop_long_description}}
+				</p>
+			    	<div class="col s12 mg-padding-0">
+				         <a href="{{homectrl.poster.workshop_form_link}}" target="_blank" class="btn mg-button-1 bold mg-width-100-perc">Participer gratuitement</a>
 			    	</div>
 			</div>
 	   </div>
 	</div>
 	<!-- When Workshop Doesn't exist -->
-	<div ng-hide="homectrl.is_poster_loading" ng-show="homectrl.hide_poster_workshop"  class="row mg-padding-top-50 mg-padding-bottom-50 mg-margin-bottom-0" style="background:url('/img/assets/home/back-tech-4.png') #C1872A no-repeat;">
+	<div ng-hide="homectrl.is_poster_loading" ng-if="homectrl.hide_poster_workshop==true" class="row mg-padding-top-50 mg-padding-bottom-50 mg-margin-bottom-0" style="background:url('/img/assets/home/back-tech-4.png') #C1872A no-repeat;">
 	   <div class="container">
 	   	    <div class="container">
 			    <div class="col l12 m12 s12 mg-padding-0"  data-aos="zoom-in-down">
@@ -146,7 +159,7 @@
 				<div class="divider"></div>
 				<h4 class="uppercase mg_prim_color mg-padding-top-10 bold" style="clear:both;">Intégrateur de solutions informatiques</h4>
 				<h5 class="uppercase mg_prim_color bold">depuis plus de 10 ans!</h5>
-				<p class="mg-regular">
+				<p class="mg-regular mg-margin-bottom-0">
 					Virtual Network Entreprise - Entreprise de services informatiques - a bâti un savoir-faire et une expérience incomparables, tournés au service du client.
 					Notre expérience est le résultat d'un travail évolutif prenant donc en charge les problématiques actuelles et futures de l'utilisation des bénéfices apportées par l'informatisation du business d'entreprise, afin de demeurer dans une force de propostion de haut standing et d'une qualité toujours avérées, puisque nous devons aussi cette envergure à une collaboration avec des géants proactifs du secteur de l'informatique.
 				</p>

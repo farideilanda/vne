@@ -116,6 +116,7 @@ angular.module('vne.controllers',[])
             self.is_poster_loading = true;
         self.Workshop.on_display_workshop().then(function(response){
             self.poster = response.data.poster;
+
             if(self.poster!=null)
             {
                 var months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
@@ -146,6 +147,8 @@ angular.module('vne.controllers',[])
                 Materialize.toast('Une erreur est survenue lors de la récupération-affiche',4000,'orange white-text bold');
         }).finally(function(){
             self.is_poster_loading = false;
+
+            console.log(self.hide_poster_workshop);
         });
 
         self.Workshop.slider_wokshop().then(function(response){

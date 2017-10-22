@@ -60,6 +60,12 @@ Router::scope('/zine', function(RouteBuilder $routes){
 	$routes->connect('/read/:type_booklet/:booklet_path',['controller'=>'Zine','action'=>'read']);
 });
 
+Router::scope('/webhooks', function(RouteBuilder $routes){
+	$routes->connect('/',['controller'=>'Webhooks','action'=>'index']);
+	$routes->connect('/bot',['controller'=>'Webhooks','action'=>'bot']);
+    $routes->fallbacks(DashedRoute::class);
+});
+
 /**
  * Load all plugin routes. See the Plugin documentation on
  * how to customize the loading of plugin routes.

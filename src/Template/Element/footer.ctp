@@ -39,8 +39,9 @@
                     <a class="hvr-shrink" href="https://twitter.com/VNEntreprise" target="_blank">
                       <i class="ion-social-twitter-outline mg-size-50 orange-text mg-margin-right-20"></i>
                     </a>
-						        
-						        <i class="ion-social-skype-outline mg-size-50 orange-text tooltipped hvr-shrink" data-tooltip="vne.business" data-position="top" data-delay="5s"></i>
+						        <a class="hvr-shrink" href="https://www.facebook.com/Virtual-Network-Entreprise-123882641648070/" target="_blank">
+                      <i class="ion-social-facebook-outline mg-size-50 orange-text mg-margin-right-20"></i>
+                    </a>
 	                </p>
 
               </div>

@@ -12,7 +12,8 @@
         "cakephp/plugin-installer": "~1.0",
         "josegonzalez/dotenv": "2.*",
         "pda/pheanstalk": "^3.1",
-        "botman/botman": "^1.5"
+        "botman/botman": "^1.5",
+        "ozee31/cakephp-cors": "^1.1"
     },
     "require-dev": {
         "psy/psysh": "@stable",

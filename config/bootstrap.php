@@ -198,15 +198,17 @@ Type::build('timestamp')
 //Inflector::rules('uninflected', ['dontinflectme']);
 //Inflector::rules('transliteration', ['/å/' => 'aa']);
 
-/*
- * Plugins need to be loaded manually, you can either load them one by one or all of them in a single call
- * Uncomment one of the lines below, as you need. make sure you read the documentation on Plugin to use more
- * advanced ways of loading plugins
- *
- * Plugin::loadAll(); // Loads all plugins at once
- * Plugin::load('Migrations'); //Loads a single plugin named Migrations
- *
- */
+//loading additional plugins
+Plugin::load('Cors', ['bootstrap' => true, 'routes' => false]);
+// Additional configurations
+Configure::write('FaceBookMessengerBot',[
+    'token' => 'EAADOZAdDdKLwBANghMZC2XPRKBC5ZCZAgyjoZAOVPZAFEOWW6b3ICoe84ZBr2NzrbWHETNAi2rrJ811QDDwJuPAn9LZBlZBlZAbXztvw08ybwWZBvybHYRjYF8JCnxHASJKYEqpGmf6MmKVlC8ZBDtGnX1N6TwZAatz0VD5Lwzy38cJz66oZAX82niIUy4',
+    'app_secret' => 'a9d57ca30249d068d48f40163bdcec28',
+    'verification'=>'tonio_bot'
+]);
+
+
+
 
 /*
  * Only try to load DebugKit in development mode

@@ -47,9 +47,10 @@
                     <a class="hvr-shrink white left mg-padding-left-5 mg-padding-right-5" style="display: inline-block;" href="https://twitter.com/VNEntreprise" target="_blank">
                       <i class="ion-social-twitter small orange-text mg-margin-right-20"></i>
                     </a>
-                      <a class="hvr-shrink white left mg-padding-left-5 mg-padding-right-5" style="display: inline-block;" href="#!" target="_blank">
-                    <i class="ion-social-skype small orange-text tooltipped hvr-shrink" data-tooltip="vne.business" data-position="top" data-delay="5s"></i>
-                  </a>
+
+                    <a class="hvr-shrink white left mg-padding-left-5 mg-padding-right-5" style="display: inline-block;" href="https://www.facebook.com/Virtual-Network-Entreprise-123882641648070/" target="_blank">
+                      <i class="ion-social-facebook small orange-text mg-margin-right-20"></i>
+                    </a>
             </li>
           </ul>
 

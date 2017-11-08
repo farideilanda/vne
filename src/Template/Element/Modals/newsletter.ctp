@@ -3,7 +3,7 @@
     <a class='btn' data-target='newsletterModal' dismissible="true" open="$root.openNewsletterModal" modal>Show Modal</a>
 </div>
 <!-- Modal Structure -->
-<div id="newsletterModal" class="modal" ng-controller="HomeCtrl as homectrl">
+<div id="newsletterModal" class="modal" >
     <div class="modal-content mg-padding-0">
 		<div class="row mg-margin-0">
 			<div class="col l6 m12 s12 hide-on-med-and-down mg-padding-0 orange">

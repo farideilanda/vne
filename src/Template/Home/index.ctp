@@ -7,8 +7,9 @@
 }
 </style>
 
+<div ng-controller="HomeCtrl as homectrl" id="index_controller">
 <!-- Start Bienvenue smaller screen -->
-<div ng-controller="HomeCtrl as homectrl" class="col m12 s12 relative-block hide-on-large-only">
+<div  class="col m12 s12 relative-block hide-on-large-only">
 				<div class="card mg-margin-top-0  mg-margin-0" style="background:url('/img/assets/home/back-tech-4.png') #ff9800 100% no-repeat;min-height:280px;">
 				  <div class="card-content white-text mg-padding-top-15 mg-margin-bottom-0">
 				  	<section>
@@ -26,7 +27,7 @@
 				</div>
 </div>
 <!-- Start Bienvenue Wide screen -->
-<div ng-controller="HomeCtrl as homectrl" id="bienvenue" class="scrollspy">
+<div  id="bienvenue" class="scrollspy">
 	<div class="row relative-block mg_prim_background mg-margin-bottom-0">
 			<div class="row absolute-block mg-width-100-perc left-align mg-padding-left-15" style="top:0px;left:0px;z-index: 100;">
 		      <div class="col s12 m6 l5 hide-on-med-and-down">
@@ -34,7 +35,7 @@
 		            <div class="card-content white-text">
 		              <span class="card-title uppercase mg-size-46 bold mg_prim_color"><strong class="mg-weight-600">Integrateurs</strong></span> <br>
 		              <span class="card-title uppercase mg-size-46 bold mg_prim_color"><strong class="mg-weight-600">de solutions</strong></span> <br>
-		              <span class="txt-rotate card-title uppercase mg-size-46 bold mg_prim_color" data-period="700" data-rotate='[ "sécurisées.","performantes.", "mobiles.", "éssentielles.","pros.","innovantes.","productives.","robustes."]'></span> <br>
+		              <span class="txt-rotate card-title uppercase mg-size-46 bold mg_prim_color" data-period="700" data-rotate='[ "sécurisées.","performantes.", "mobiles.", "éssentielles.","pros.","innovantes."]'></span> <br>
 						<section>
 							<article>
 		             			 <p class="mg-semi black-text">Accédez à un univers de possibilités au travers des solutions et ateliers proposés par <strong>Virtual Nertwork Entreprise</strong> afin de relevez les defis de <strong>l'informatique d'aujourd'hui</strong> à savoir la productivité, la sécurité et l'optimisation de la gestion de l'entièreté de votre <strong>infrastructure cloud, virtuelle et locale.</strong></p>
@@ -66,16 +67,6 @@
 		            <div class="">
 		               <?= $this->Html->image('assets/home/main-background-2.jpg',['style'=>'width:100%;display:block;']) ?>
 		            </div>
-		            <div class="">
-		               <?= $this->Html->image('assets/home/main-background-9.jpg',['style'=>'width:100%;display:block;']) ?>
-		            </div>
-
-		            <div class="">
-		               <?= $this->Html->image('assets/home/main-background-8.png',['style'=>'width:100%;display:block;']) ?>
-		            </div> 
-		            <div class="">
-		               <?= $this->Html->image('assets/home/main-background-3.jpg',['style'=>'width:100%;display:block;']) ?>
-		            </div> 	
 		    </div>
 	</div>
 	<!-- pictogramm description vne -->
@@ -306,7 +297,7 @@
 </div>
 <!-- End Bienvenue -->
 
-<div ng-controller="HomeCtrl as homectrl" id="prestations" class="scrollspy">
+<div  id="prestations" class="scrollspy">
 	<!-- Start Prestations (For large screen only)-->
 	<div class="hide-on-med-and-down">
 		<!-- Parallax img -->
@@ -594,7 +585,7 @@
 
 
 <!-- Start Solutions -->
-<div ng-controller="HomeCtrl as homectrl" id="solutions" class="scrollspy hide-on-med-and-down">
+<div  id="solutions" class="scrollspy hide-on-med-and-down">
 <!-- Solutions -->
   <div class="row center mg-padding-bottom-70 mg-margin-bottom-0 mg-padding-top-50" style="background:url('/img/assets/home/back-tech.png');">
         <div class="container">
@@ -633,7 +624,7 @@
 
 
 <!-- Start Training -->
-<div ng-controller="HomeCtrl as homectrl" id="trainings" class="scrollspy hide-on-med-and-down">
+<div  id="trainings" class="scrollspy hide-on-med-and-down">
 <!-- Trainings -->
 	  <div class="row center mg-padding-bottom-50 mg-padding-top-50 mg-margin-bottom-0" style="background:url('/img/assets/home/back-tech-4.jpg');">
 	        <div class="container">
@@ -666,7 +657,7 @@
 
 
 <!-- Partners for med and up screens -->
-<div ng-controller="HomeCtrl as homectrl" class="row center mg-margin-bottom-0 mg-padding-top-20 mg-padding-bottom-20 ng-scope hide-on-med-and-down" style="background: url('/img/assets/home/back-stripe-2.png')">
+<div  class="row center mg-margin-bottom-0 mg-padding-top-20 mg-padding-bottom-20 ng-scope hide-on-med-and-down" style="background: url('/img/assets/home/back-stripe-2.png')">
 	<h5 class="mg-size-21 mg-main-color">Notre <span class="bold">Expertise</span> en informatique est validée par de nombreux <span class="bold">partenariats</span></h5>
 
 	<div class="row center mg-padding-right-50 mg-padding-left-50 mg-margin-top-55 mg-padding-bottom-50">
@@ -729,7 +720,7 @@
 	<h6 class="mg-size-21 mg-main-color">voir tous les <span class="bold">partenaires</span></h6>
 </div>
 
-<div ng-controller="HomeCtrl as homectrl" id="workshops" class="scrollspy">
+<div  id="workshops" class="scrollspy">
 <!-- WorkShops -->
     <div class="row center mg-padding-top-50 mg-padding-bottom-50" style="background: url('/img/assets/home/back-tech-5.png') #fff no-repeat;">
 	  <div class="container">
@@ -762,7 +753,7 @@
 	</div>
 </div>
 <!-- Maps -->
-<div ng-controller="HomeCtrl as homectrl" id="contact" class="scrollspy">
+<div  id="contact" class="scrollspy">
    <?= $this->element('maps') ?>
 </div>
 <!-- Quote -->
@@ -771,6 +762,8 @@
 <?= $this->element('Modals/newsletter') ?>
 <!-- Robot Message -->
 <?= $this->element('Modals/message_robot') ?>
-<!-- Scripts -->
-<?= $this->Html->script('typing_carrousel',['block'=>true]) ?>
-<?= $this->Html->script('home_stuff',['block'=>true]) ?>
+</div>
+
+<!-- Script -->
+<?= $this->Html->script('typing_carrousel') ?>
+<?= $this->Html->script('home_stuff') ?>

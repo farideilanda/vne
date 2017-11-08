@@ -35,6 +35,19 @@
 
     <?= $this->fetch('css') ?>
 
+
+      <!-- Scripts -->
+        <?= $this->Html->script('jquery') ?>
+        <?= $this->Html->script('jquery-migrate') ?>
+        <?= $this->Html->script('slick-1.6.0/slick/slick.min') ?>
+        <?= $this->Html->script('../bower_components/angular/angular.min') ?>
+        <?= $this->Html->script('../bower_components/materialize/dist/js/materialize.min') ?>
+        <?= $this->Html->script('../bower_components/angular/angular-materialize.min') ?>
+        <?= $this->Html->script('../bower_components/angular/angular-ui-router.min') ?>
+        <?= $this->Html->script('../bower_components/aos/dist/aos') ?>
+        <?= $this->Html->script('main') ?>  
+    
+
 </head>
 <body ng-app="vne-app" ng-controller="MainCtrl as mainctrl">
       <!-- Google Tag Manager (noscript) -->
@@ -51,16 +64,8 @@
       <!-- Social Media -->
       <?= $this->element('social') ?>
 
-      <!-- Scripts -->
-        <?= $this->Html->script('jquery') ?>
-        <?= $this->Html->script('jquery-migrate') ?>
-        <?= $this->Html->script('slick-1.6.0/slick/slick.min') ?>
-        <?= $this->Html->script('../bower_components/angular/angular.min') ?>
-        <?= $this->Html->script('../bower_components/materialize/dist/js/materialize.min') ?>
-        <?= $this->Html->script('../bower_components/angular/angular-materialize.min') ?>
-        <?= $this->Html->script('../bower_components/angular/angular-ui-router.min') ?>
-        <?= $this->Html->script('../bower_components/aos/dist/aos') ?>
-        <?= $this->Html->script('main') ?>  
+
+
       <!-- Angular App -->
         <?= $this->Html->script('Red/app') ?>
         <?= $this->Html->script('Red/controllers') ?>

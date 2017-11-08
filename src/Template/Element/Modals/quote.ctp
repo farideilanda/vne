@@ -13,7 +13,7 @@
 </style>
 
 <!-- Modal Structure -->
-<div id="quoteModal" class="modal" ng-controller="HomeCtrl as homectrl">
+<div id="quoteModal" class="modal">
 	<!-- Modal content -->
     <div class="modal-content mg-padding-0 relative-block" style="background:url('/img/assets/home/back-tech-2.png') 100% no-repeat;">
 		<!-- Preloader -->

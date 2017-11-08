@@ -1,9 +1,9 @@
-<div id="message-robot" ng-controller="HomeCtrl as homectrl" class="fixed-block hvr-bob pointer modal-trigger" style='bottom:-3%;' data-target="message_modal">
+<div id="message-robot" class="fixed-block hvr-bob pointer modal-trigger" style='bottom:-3%;' data-target="message_modal">
 	<?= $this->Html->image('assets/robot/message_front_robot.png',['alt'=>'vne message robot','width'=>'150px']) ?>
 </div>
 
   <!-- Modal Structure -->
-  <div id="message_modal" class="modal bottom-sheet" ng-controller="HomeCtrl as homectrl">
+  <div id="message_modal" class="modal bottom-sheet" style="background:url('/webroot/img/assets/robot/poster_tonio.png') #fff no-repeat;">
     <div class="modal-content">
         <h3 class="bold mg_prim_color mg-size-18">Poster un message</h3>
     	<form name="quick_message_form" ng-submit="homectrl.submit_message(homectrl.message)">

@@ -11,21 +11,20 @@
 <table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="border-collapse: collapse;border: 1.5px solid #cccccc;">
 	<tr>
 		<td align="center" bgcolor="#fff">
-		  <img src="back.png" alt="VNE official_logo" width="100%" style="display:block;" title="vne_official"/>
-		</td>
+		  <img src="https://vne.riehl-emmanuel.xyz/img/assets/email_builder/back.png" alt="VNE official_logo" width="100%" style="display:block;" title="vne_official"/>		</td>
 	</tr>
 	<tr>
 		<td bgcolor="#f6fbfe" style="padding: 20px 30px 40px 30px;">
 		    <!-- Table for main content -->
 			<table cellspacing="0" cellpadding="0" border="0" width="100%">
 				<tr>
-					<td align="left" style="font-size:25px;font-family: calibri,Helvetica, Arial, sans-serif;color:#231F20;">
+					<td align="center" style="font-size:25px;font-family: calibri,Helvetica, Arial, sans-serif;color:#231F20;">
 						<b>Message Visiteur</b>
 					</td>
 				</tr>
 				<tr>
 					<td align="center" style="font-size:15px;padding-top:14px;font-family: Helvetica, Arial, sans-serif;color:#231F20; line-height: 20px;">
-						<?= $content['email'] ?> a poster le message suivant: <?= $content['message'] ?>
+						<?= $content['email'] ?> a posté le message suivant: <?= $content['message'] ?>
 					</td>
 				</tr>
 				<tr>

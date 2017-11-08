@@ -41,8 +41,8 @@ class MessageShell extends Shell
      try
          {
             $email = new Email('vne_main_profile');
-            $email->to('riehlemm@gmail.com')
-            ->subject('⏳ Message Client')
+            $email->to('info@vne-ci.com')
+            ->subject('⏳ Message Visiteur')
             ->template('message','blank') 
             ->emailFormat('html')
             ->viewVars(['content'=>$content])

@@ -3,7 +3,7 @@
 </div>
 
   <!-- Modal Structure -->
-  <div id="message_modal" class="modal bottom-sheet" style="background:url('/webroot/img/assets/robot/poster_tonio.png') #fff no-repeat;">
+  <div id="message_modal" class="modal bottom-sheet" style="background:url('/webroot/img/assets/robot/poster_tonio.png') no-repeat rgb(255, 255, 255) 100% -46px;">
     <div class="modal-content">
         <h3 class="bold mg_prim_color mg-size-18">Poster un message</h3>
     	<form name="quick_message_form" ng-submit="homectrl.submit_message(homectrl.message)">

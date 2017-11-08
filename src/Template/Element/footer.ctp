@@ -2,28 +2,28 @@
           <div class="container">
             <div class="row">
               <div class="col l4 s12 m12 mg-padding-left-0">
-                <h5 class="orange-text">Menu</h5>
+                <h5 class="orange-text bold">Menu</h5>
                 <ul>
-                  <li><a class="grey-text text-lighten-3" href="#bienvenue">Bienvenue</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#prestations">Prestations</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#solutions">Solutions</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#workshops">Ateliers</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#trainings">Formations</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#contact">Contact</a></li>
-                  <li><a class="grey-text text-lighten-3 pointer" data-target="quoteModal" modal dismissible="true">Demander une cotation</a></li>
-                  <li><a href="https://www.office.com/?auth=2" target="_blank" class="grey-text text-lighten-3 pointer">Webmail</a></li>
+                  <li><a class="grey-text text-lighten-3 bold" href="#bienvenue">Bienvenue</a></li>
+                  <li><a class="grey-text text-lighten-3 bold" href="#prestations">Prestations</a></li>
+                  <li><a class="grey-text text-lighten-3 bold" href="#solutions">Solutions</a></li>
+                  <li><a class="grey-text text-lighten-3 bold" href="#workshops">Ateliers</a></li>
+                  <li><a class="grey-text text-lighten-3 bold" href="#trainings">Formations</a></li>
+                  <li><a class="grey-text text-lighten-3 bold" href="#contact">Contact</a></li>
+                  <li><a class="grey-text text-lighten-3 bold pointer" data-target="quoteModal" modal dismissible="true">Demander une cotation</a></li>
+                  <li><a href="https://www.office.com/?auth=2" target="_blank" class="grey-text text-lighten-3 pointer bold">Webmail</a></li>
                 </ul>
               </div>
 
               <div class="col l5 s12 m12 mg-padding-left-0">
-                <h5 class="orange-text">Adresse</h5>
+                <h5 class="orange-text bold">Adresse</h5>
                 <ul>
-                  <li><a class="grey-text text-lighten-3" href="#!">Cocody Mermoz-Rue C10</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">01 BP 1610 ABIDJAN 01</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Abidjan-Côte d'Ivoire</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Tel: +225 22 48 88 88 / Cel: +225 48 21 94 94</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Fax: +225 22 48 03 02</a></li>
-                   <li><a class="grey-text text-lighten-3" href="#!">E-Mail: info@vne-ci.com</a></li>
+                  <li><span class="grey-text text-lighten-3" href="#!">Cocody Mermoz-Rue C10</span></li>
+                  <li><span class="grey-text text-lighten-3" href="#!">01 BP 1610 ABIDJAN 01</span></li>
+                  <li><span class="grey-text text-lighten-3" href="#!">Abidjan-Côte d'Ivoire</span></li>
+                  <li><span class="grey-text text-lighten-3" href="#!">Tel: +225 22 48 88 88 / Cel: +225 48 21 94 94</a></li>
+                  <li><span class="grey-text text-lighten-3" href="#!">Fax: +225 22 48 03 02</span></li>
+                   <li><span class="grey-text text-lighten-3" href="#!">E-Mail: info@vne-ci.com</span></li>
                 </ul>
                 <ul>
                 	 
@@ -31,7 +31,7 @@
               </div>
 
               <div class="col l3 s12 m12 mg-padding-left-0">
-                <h5 class="orange-text">Restons connectés</h5>
+                <h5 class="orange-text bold">Restons connectés</h5>
 	                <p class="left-align">
                     <a class="hvr-shrink" href="https://www.linkedin.com/company/11309570/" target="_blank">
                       <i class="ion-social-linkedin-outline mg-size-50 orange-text mg-margin-right-20"></i>
@@ -63,13 +63,10 @@
             
           </div>
           <div class="footer-copyright mg_prim_background">
-            <div class="container">
-            © 2017 Virtual Network Entreprise - Tous droits réservés
-            <a href="https://www.riehl-emmanuel.xyz" class="grey-text text-lighten-4 right" href="#!">Made With ❤️ By Red 
-           </a>
-
+            <div class="container bold">
+                © 2017 Virtual Network Entreprise - Tous droits réservés
+                <a href="https://www.riehl-emmanuel.xyz" target="_blank" class="grey-text text-lighten-4 right">Made With ❤️ By RIEHL EMMANUEL 
+               </a>
             </div>
           </div>
         </footer>
-
-        <script>$('.tooltipped').tooltip();</script>

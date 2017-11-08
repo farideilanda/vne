@@ -6,7 +6,7 @@ use Cake\Mailer\MailerAwareTrait;
 use Cake\Mailer\Email;
 use Pheanstalk\Pheanstalk;
 
-class QuoteShell extends Shell
+class MessageShell extends Shell
 {
   use MailerAwareTrait;
 
@@ -18,12 +18,12 @@ class QuoteShell extends Shell
   public function listen()
   {
     $client = new Pheanstalk('127.0.0.1');
-    $client->watch('quoteTubeVne');
+    $client->watch('MessageSendTubeVne');
 
     while($job = $client->reserve()){
       $message =json_decode($job->getData(),true);
       
-          $status = $this->send($message['quote']);
+          $status = $this->send($message['content']);
           if($status)
           {
             $client->delete($job);
@@ -33,21 +33,19 @@ class QuoteShell extends Shell
           {
             $client->bury($job);
             $this->out('Job Burried');
-
           }
     }
   }
 
-  public function send($quote){    
+  public function send($content){    
      try
          {
             $email = new Email('vne_main_profile');
-            $email->to($quote['quote_subscriber_email'])
-            ->bcc(['quote@vne-ci.com'])
-            ->subject('⏳ Demande de cotation 💼')
-            ->template('quote_notification','blank') 
+            $email->to('riehlemm@gmail.com')
+            ->subject('⏳ Message Client')
+            ->template('message','blank') 
             ->emailFormat('html')
-            ->viewVars(['quote'=>$quote])
+            ->viewVars(['content'=>$content])
             ->send();
               return true;
           }catch(Exception $e){

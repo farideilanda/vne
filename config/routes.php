@@ -47,8 +47,10 @@ Router::extensions(['json','xml','pdf']);
 
 Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/', ['controller' => 'Home', 'action' => 'index']);
-    $routes->connect('/test',['controller'=>'Test', 'action'=>'index']);
-    $routes->fallbacks(DashedRoute::class);
+    $routes->connect('/home/quote', ['controller' => 'Home', 'action' => 'quote']);
+    $routes->connect('/home/solution', ['controller' => 'Home', 'action' => 'solution']);
+    $routes->connect('/home/workshop', ['controller' => 'Home', 'action' => 'workshop']);
+    $routes->connect('/home/bannerState', ['controller' => 'Home', 'action' => 'bannerState']);
 });
 
 Router::scope('/newsletter', function (RouteBuilder $routes) {
@@ -63,7 +65,10 @@ Router::scope('/zine', function(RouteBuilder $routes){
 Router::scope('/webhooks', function(RouteBuilder $routes){
 	$routes->connect('/',['controller'=>'Webhooks','action'=>'index']);
 	$routes->connect('/bot',['controller'=>'Webhooks','action'=>'bot']);
-    $routes->fallbacks(DashedRoute::class);
+});
+
+Router::scope('/message', function(RouteBuilder $routes){
+    $routes->connect('/send',['controller'=>'Message','action'=>'send']);
 });
 
 /**

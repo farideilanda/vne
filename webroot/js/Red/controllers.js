@@ -38,7 +38,7 @@ angular.module('vne.controllers',[])
             });     
         };
 	}])
-    .controller('HomeCtrl',['$scope','$templateCache','$rootScope','AssistanceService','$location', '$anchorScroll','$stateParams','SolutionService','Workshop','QuoteService','checkCookie','NewsletterService', function($scope,$templateCache,$rootScope,AssistanceService,$location,$anchorScroll,$stateParams,SolutionService,Workshop,QuoteService,checkCookie,NewsletterService){
+    .controller('HomeCtrl',['$scope','$templateCache','$rootScope','AssistanceService','$location', '$anchorScroll','$stateParams','SolutionService','Workshop','QuoteService','NewsletterService','BannerService','MessageService', function($scope,$templateCache,$rootScope,AssistanceService,$location,$anchorScroll,$stateParams,SolutionService,Workshop,QuoteService,NewsletterService,BannerService,MessageService){
     	$templateCache.removeAll();
     	var self = this;   
         // Quote Logic
@@ -338,12 +338,35 @@ angular.module('vne.controllers',[])
                 });
 
         };
-
-
-
-        // banner newsletter
-        if(checkCookie.data.banner_state === "undone")
+        
+        BannerService.check().then(function(response){
+            if(response.data.banner_state==="undone")
                 $rootScope.openNewsletterModal = true;
+        });
+
+        //quick message
+        self.message = {
+            email:'',
+            message:''
+        };
+
+        self.submit_message_loading = false;
+
+        self.submit_message = function(message){
+            self.submit_message_loading = true;
+            MessageService.send(message).then(function(response){
+                Materialize.toast('Félicitations, votre message a été transmis',2000,'mg_prim_background white-text bold');
+                $('.modal').modal('close');
+                self.message = {
+                    email:'',
+                    message:''
+                };
+            }, function(errResponse){
+                Materialize.toast('Une erreur est survenue',2000,'red white-text bold');
+            }).finally(function(){
+               self.submit_message_loading = false;
+            });
+        };  
 
 	}]).directive('onFinishRender',['$timeout', function($timeout){
         return{

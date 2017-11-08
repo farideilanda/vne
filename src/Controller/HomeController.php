@@ -39,8 +39,6 @@ class HomeController extends AppController
 
     public function beforeFilter(Event $event){
         parent::initialize($event);
-        if(!$this->request->is('ajax'))
-        {
 
             if(!$this->Cookie->check('banner'))
             {
@@ -53,10 +51,6 @@ class HomeController extends AppController
             }
             else
                 $this->Cookie->write('banner','done');
-
-            $this->request->params['action'] = 'index';
-        }
-
 
     }
 
@@ -79,10 +73,7 @@ class HomeController extends AppController
 
         }
     }
-
-
-    public function home(){}
-
+    
     public function solution(){
     	if($this->request->is('ajax')){
     		$query = $this->request->query;

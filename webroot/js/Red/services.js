@@ -126,3 +126,14 @@ angular.module('vne.services',[])
 				}
 			}
 		}])
+		.factory('MessageService',['$http','$q', function($http,$q){
+			return{
+				send: function(message){
+					return $http.post('/message/send',message).then(function(response){
+						return response;
+					}, function(errResponse){
+						return $q.reject(errResponse);
+					});
+				}
+			}
+		}])

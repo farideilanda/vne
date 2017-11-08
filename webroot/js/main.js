@@ -13,4 +13,7 @@ $(document).ready(function(){
         $('.fixed-action-btn').on('click', function(){
         	$('#side-nav-trigger').trigger('click');
         });
+
+       $('.modal').modal();
+
 });

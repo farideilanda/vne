@@ -53929,7 +53929,7 @@ p.redirect-top:hover {
   transition-duration: 0.5s; }
 
 .none-border {
-  border: none; }
+  border: none !important; }
 
 .bold {
   font-weight: bold !important; }

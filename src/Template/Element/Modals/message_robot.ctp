@@ -1,11 +1,11 @@
-<div id="message-robot" class="fixed-block hvr-bob pointer modal-trigger" style='bottom:-3%;' data-target="message_modal">
-	<?= $this->Html->image('assets/robot/message_front_robot.png',['alt'=>'vne message robot','width'=>'150px']) ?>
-</div>
+  <div id="message-robot" class="fixed-block hvr-bob pointer modal-trigger" style='bottom:-3%;' data-target="message_modal">
+  	<?= $this->Html->image('assets/robot/message_front_robot.png',['alt'=>'vne message robot','width'=>'150px']) ?>
+  </div>
 
   <!-- Modal Structure -->
   <div id="message_modal" class="modal bottom-sheet" style="background:url('/webroot/img/assets/robot/poster_tonio.png') no-repeat rgb(255, 255, 255) 100% -46px;">
     <div class="modal-content">
-        <h3 class="bold mg_prim_color mg-size-18">Poster un message</h3>
+        <h3 class="bold mg_prim_color mg-size-18 mg-padding-top-10 mg-padding-bottom-10" style="background: #f5eed4;">Poster un message</h3>
     	<form name="quick_message_form" ng-submit="homectrl.submit_message(homectrl.message)">
     		<div class="row">
 	    		<div class="col s12 input-field mg-padding-left-0">

@@ -77,7 +77,7 @@
 						<!-- Submit -->
 						<button ng-disabled="quote_ask_form.$invalid" class="mg-margin-top-20 mg-margin-bottom-20 btn mg_prim_background white-text bold mg-width-100-perc" type="submit">Envoyer</button>
 
-						<a class="mg-margin-bottom-20 btn orange white-text bold mg-width-100-perc" ng-click="homectrl.closeModalQuote()">Annuler</a>
+						<span class="mg-margin-bottom-20 btn orange white-text bold mg-width-100-perc" ng-click="homectrl.closeModalQuote()">Annuler</span>
 			
 	         </form>
 				

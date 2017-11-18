@@ -64,7 +64,7 @@ Router::scope('/zine', function(RouteBuilder $routes){
 
 Router::scope('/webhooks', function(RouteBuilder $routes){
 	$routes->connect('/',['controller'=>'Webhooks','action'=>'index']);
-	$routes->connect('/bot',['controller'=>'Webhooks','action'=>'bot']);
+	$routes->connect('/facebook',['controller'=>'Webhooks','action'=>'facebook']);
 });
 
 Router::scope('/message', function(RouteBuilder $routes){

@@ -202,7 +202,7 @@ Type::build('timestamp')
 Plugin::load('Cors', ['bootstrap' => true, 'routes' => false]);
 // Additional configurations
 Configure::write('FaceBookMessengerBot',[
-    'token' => 'EAADOZAdDdKLwBANghMZC2XPRKBC5ZCZAgyjoZAOVPZAFEOWW6b3ICoe84ZBr2NzrbWHETNAi2rrJ811QDDwJuPAn9LZBlZBlZAbXztvw08ybwWZBvybHYRjYF8JCnxHASJKYEqpGmf6MmKVlC8ZBDtGnX1N6TwZAatz0VD5Lwzy38cJz66oZAX82niIUy4',
+    'token' => 'EAADOZAdDdKLwBAKteF0o842EAFdZArsY9IeYaqpCI7XNn6gacU4LaiTRozMq4dD7tMWSBFbIOFxF2iDkQ2w2oM9IGusw5qy8ystmgLzB5pjEiA1OHS6ziU9xa3ZCMVzV5P6Cu5aHEZBzZBHhCiYoKwLGX7gHZA8I6XHV9UREHHQX1J8YKfqjZAp',
     'app_secret' => 'a9d57ca30249d068d48f40163bdcec28',
     'verification'=>'tonio_bot'
 ]);

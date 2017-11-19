@@ -1,5 +1,5 @@
    <!-- Navbar -->
-    <div id="navbar-container">
+    <div id="navbar-container" ng-hide="$root.hide">
       <nav class="white none-box-shadow">
         <div class="nav-wrapper">
            <span class="brand-logo mg-padding-left-50 hide-on-med-and-down"> <?= $this->Html->image('assets/vne-logo.jpg',['style'=>'width:135px;','alt'=>'Vne Logo Officiel']) ?></span>

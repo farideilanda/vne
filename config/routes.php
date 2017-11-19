@@ -71,6 +71,10 @@ Router::scope('/message', function(RouteBuilder $routes){
     $routes->connect('/send',['controller'=>'Message','action'=>'send']);
 });
 
+Router::scope('/privacy', function(RouteBuilder $routes){
+    $routes->connect('/',['controller'=>'Privacy','action'=>'index']);
+});
+
 /**
  * Load all plugin routes. See the Plugin documentation on
  * how to customize the loading of plugin routes.

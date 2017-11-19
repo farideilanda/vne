@@ -12,6 +12,7 @@
                   <li><a class="grey-text text-lighten-3 bold" href="#contact">Contact</a></li>
                   <li><a class="grey-text text-lighten-3 bold pointer" data-target="quoteModal" modal dismissible="true">Demander une cotation</a></li>
                   <li><a href="https://www.office.com/?auth=2" target="_blank" class="grey-text text-lighten-3 pointer bold">Webmail</a></li>
+                  <li><a href="/privacy" target="_blank" class="grey-text text-lighten-3 pointer bold">Politique de confidentialité</a></li>
                 </ul>
               </div>
 

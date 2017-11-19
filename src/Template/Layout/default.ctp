@@ -20,6 +20,7 @@
     <?= $this->Html->meta('favicon.png','/img/favicon.png',['type'=>'icon']) ?>
     <meta name="google-site-verification" content="EUydKWOsmms7425l-owt0q1tqna1s5BPTvCMHq5CQ14" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
     
     <?= $this->fetch('meta') ?>
     <!-- Third Party dependencies -->
@@ -63,7 +64,6 @@
       <?= $this->element('footer')  ?>
       <!-- Social Media -->
       <?= $this->element('social') ?>
-
 
 
       <!-- Angular App -->

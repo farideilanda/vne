@@ -368,7 +368,12 @@ angular.module('vne.controllers',[])
             });
         };  
 
-	}]).directive('onFinishRender',['$timeout', function($timeout){
+	}])
+    .controller('PrivacyCtrl',['$rootScope','$scope', function($rootScope,$scope){
+        var self = this;
+        $rootScope.hide = true;
+    }])
+    .directive('onFinishRender',['$timeout', function($timeout){
         return{
             restrict:'A',
             link: function(scope, element, attr){

@@ -37,7 +37,7 @@ class ZineController extends AppController
     public function show(){
         $params = $this->request->params;
         $booklet_path = $params['type_booklet'].DS.$params['booklet_path'].'.pdf';
-        $response = $this->response->withFile("files".DS."booklet",['download'=>false]);
+        $response = $this->response->withFile("files".DS.$booklet_path,['download'=>false]);
         return $response;
     }
 

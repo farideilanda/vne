@@ -22,6 +22,7 @@ use Cake\Event\Event;
 use Pheanstalk\Pheanstalk;
 use App\Controller\AppController;
 use Cake\Network\Exception;
+use Cake\Cache\Cache;
 
 use Mpociot\BotMan\BotManFactory;
 use Mpociot\BotMan\BotMan;
@@ -77,51 +78,392 @@ class WebhooksController extends AppController
             // answer to messages initiate by visitor
             if(isset($messaging_params['messaging'][0]))
             {
+                //checking fileCache
                 $sender_id = $messaging_params['messaging'][0]['sender']['id'];
-
-                if(isset( $messaging_params['messaging'][0]['message']['is_echo'])){
-
+                if(!Cache::read($sender_id,'FacebookPsid')){
+                    //get profile informations
+                    $client_1 = new Client();
+                    $request_profile_informations = $client_1->get('https://graph.facebook.com/v2.6/'.$sender_id.'?fields=first_name,last_name,profile_pic&access_token='.$facebook_messenger_token);
+                    $profile_sender = $request_profile_informations->json;
+                    Cache::write($sender_id,$profile_sender,'FacebookPsid');
                 }
                 else
                 {
-                    if(isset($messaging_params['messaging'][0]['message']))
+                    $profile_sender = Cache::read($sender_id,'FacebookPsid');
+                }
+
+                //recap bot answreing messages
+                if(isset( $messaging_params['messaging'][0]['message']['is_echo'])){
+                    exit();
+                }
+                else
+                {
+                    //visitor message analyzer
+                    if( (isset($messaging_params['messaging'][0]['message'])) && (!isset($messaging_params['messaging'][0]['message']['quick_reply'])) )
                     {
                         $visitor_message = $messaging_params['messaging'][0]['message'];
-                        $data = [
-                            "messaging_type" => 'RESPONSE',
-                            "recipient" => [
-                                "id" => $sender_id
-                            ],
-                            "message" => [
-                                "attachment" => [
-                                    "type" => "template",
-                                    "payload" => [
-                                        "template_type" => "generic",
-                                        "sharable" => true,
-                                        "elements" => [
-                                            [
-                                                "title" => "Bienvenue à VNE, ici TONIO pour vous servir",
-                                                "subtitle" => "Veuillez choisir une réponse afin que je puisse vous aider.",
-                                                "image_url" => "https://farm5.staticflickr.com/4519/24614577248_f2af84cc1f_m.jpg",
-                                                "buttons" => [
-                                                    ["type"=>"web_url","url"=>"https://vne-ci.com","title"=>"Accéder au site web"],
-                                                    ["type"=>"postback","title"=>"Discuter avec TONIO","payload"=>"start wizard"]
-                                                ]
-                                            ],
+                        $matching_response = false;
 
+                        //salutation
+                        if(preg_match("#(bonj[aoiu]|hel[lo]|sal[ui]|hi)+#i", $visitor_message['text']))
+                        {
+                            if(preg_match("#tonio[a-z]*#i", $visitor_message['text']))
+                            {
+                                if(preg_match("#vu(.)*(giscard|boss|momo|koués|rose)+#i", $visitor_message['text']))
+                                {
+                                   $message = "Salut ".$profile_sender['first_name']." Hop tu sais il faudrait demander à Madame AUGENDRE, moi je suis dans le web, au cas où je vois l'un d'eux je passerais le message!"; 
+                                }
+                                else
+                                $message = "Salut ".$profile_sender['last_name']." ".$profile_sender['first_name']." comment allez-vous ? On se connait on dirais, comment pourrais-je vous aider?";
+                            }
+                            else
+                                  $message = "Salut ".$profile_sender['last_name']." ".$profile_sender['first_name']." comment allez-vous ? Je m'appele TONIO , comment puis-je vous aider?";
+                            $data = [
+                                "messaging_type" => "RESPONSE",
+                                "recipient" => [
+                                    "id" => $sender_id
+                                ],
+                                "message" => [
+                                    "text" => $message
+                                ]
+                            ];  
+
+                            $client_2 = new Client();
+                            $client_2->post('https://graph.facebook.com/v2.6/me/messages?access_token='.$facebook_messenger_token,json_encode($data),['type'=>'json']);
+                            $matching_response = true;
+
+                        }
+                        //materiel cotation
+                          //tag search 1
+                          if(preg_match("#(.)*(ven[-a-z]*|ach[a-z]*|pay[a-z]*|acque[a-z]*|avoir|offri[a-z]*|voud[a-z]*|desi[a-z]*|souhai[a-z]*)+(.)*(mat[éèe]*ri[eèé]*[a-z]*|ordi[a-z]*|table[a-z]*|impri[a-z]*|consom[a-z]|sour[ris]*|accessoi[a-z]+|serv[a-z]*)+#i", $visitor_message['text'])){
+                                $data = [
+                                    "messaging_type" => "RESPONSE",
+                                    "recipient" => [
+                                        "id" => $sender_id
+                                    ],
+                                    "message" => [
+                                        "text" => "Bien sûre ".$response_1['last_name']."! VNE vends du matériel informatique d'origine et à des prix très intéressants. Il suffit juste de remplir les infos pour demander une cotation."
+                                    ]
+                                ];  
+
+                                $data_2 =[
+                                    "messaging_type" => "RESPONSE",
+                                    "recipient" => [
+                                        "id" => $sender_id
+                                    ],
+                                    "message" => [
+                                        "attachment" => [
+                                            "type" => "template",
+                                            "payload" => [
+                                                "template_type" => "generic",
+                                                "elements" => [
+                                                    [
+                                                        "title" => "Achats de matériel/consommables",
+                                                        "subtitle" => "VNE fournit à sa clientèle du matériel d'origine, à des prix très intéressants",
+                                                        "image_url" => "https://vne-ci.com/img/assets/home/main-background-7.jpg",
+                                                        "buttons" => [
+                                                            ["type"=>"web_url","url"=>"https://vne-ci.com","title"=>"Cotation"],
+                                                            ["type"=>"postback","title"=>"Non merci, plus tard!","payload"=>"Not Now Cotation matériel"]
+                                                        ]
+                                                    ]
+                                                ]
+                                            ]
                                         ]
                                     ]
+                                ];
+
+                                $client_2 = new Client();
+                                $client_2->post('https://graph.facebook.com/v2.6/me/messages?access_token='.$facebook_messenger_token,json_encode($data),['type'=>'json']);
+
+                                $client_3 = new Client();
+                                $client_3->post('https://graph.facebook.com/v2.6/me/messages?access_token='.$facebook_messenger_token,json_encode($data_2),['type'=>'json']);
+                                $matching_response = true;
+                            }
+
+                        //formations & certifications
+                            //tag search 1
+                            if(preg_match("#(.)*(obtenir|d[éeè]*sir[éeè]*|comment|savoir|avoir|voud[a-z]+|veu[a-z]+|info[a-z]*|dispen[serés]+|form[a-z]+)+(.)*([^in]form[a-z]*|certif[a-z]*|cursus|pass[a-z]+|fair[e]?)+(.)*(cisco|cisa|isaca|php|d[ée]+velop[a-z]+|window[a-z]+|sql|oracle|hack[a-z]+|exc[a-z]+|wor[a-z]+|bureaut[a-z]+|ceh|cscu|cnd|lpt|of[f]*ice[0-9]*)*#i", $visitor_message['text']))
+                                {
+
+                                if(preg_match('#(.)*(d[éeè]*sir[éeè]*|souhai[a-z]+|voud[a-z]+|veu[a-z]*|[^in]form[a-z]+|obtenir)+(.)*([^in]form[a-z]*|certif[a-z]*|pass[a-z]+|fair[e]?)+#i', $visitor_message['text'])){
+
+                                    if(preg_match("#(cisco|cisa|isaca|php|d[ée]+velop[a-z]+|window[a-z]+|sql|oracle|hack[a-z]+|exc[a-z]+|wor[a-z]+|bureaut[a-z]+|ceh|cscu|cnd|lpt|of[f]*ice[0-9]*)#i",$visitor_message['text'])){
+
+                                           preg_match_all("#(cisco|cisa|isaca|php|d[ée]+velop[a-z]+|window[a-z]+|sql|oracle|hack[a-z]+|exc[a-z]+|wor[a-z]+|bureaut[a-z]+|ceh|cscu|cnd|lpt|of[f]*ice[0-9]*)#i", $visitor_message['text'], $matches);
+
+                                            if(preg_match("#certi[a-z]+#i", $visitor_message['text']))
+                                            {
+                                                $frag_sentence = "vous certifier";
+                                                $visitor_message['postback_reference'] = "certification_reply";
+                                                $visitor_message['postback_item'] = $matches[0][0];
+                                                Cache::write($sender_id,$visitor_message,'FacebookConversation');
+                                            }
+                                            else if(preg_match("#form[a-z]+#i", $visitor_message['text']))
+                                            {
+                                                $frag_sentence = "vous former";
+                                                $visitor_message['postback_item'] = $matches[0][0];
+                                                $visitor_message['postback_reference'] = "formation_reply";
+                                                Cache::write($sender_id,$visitor_message,'FacebookConversation');
+                                            }
+                                            else
+                                            {
+                                                $frag_sentence = "poursuivre un cursus de formation/certification";
+                                                $visitor_message['postback_reference'] = "general_reply";
+                                            }
+
+                                            $message = "Si jai bien compris vous souhaiterez ".$frag_sentence." dans le module ".$matches[0][0]."?";
+
+                                            $data = [
+                                                    "messaging_type" => "RESPONSE",
+                                                    "recipient" => [
+                                                        "id" => $sender_id
+                                                    ],
+                                                    "message" => [
+                                                        "text" => $message,
+                                                        "quick_replies" => [
+                                                            [
+                                                                "content_type" => "text",
+                                                                "title" => "Oui",
+                                                                "payload" => "training_reply"
+                                                            ],
+                                                            [
+                                                                "content_type" => "text",
+                                                                "title" => "Non",
+                                                                "payload" => "abort_training_reply"
+                                                            ]
+                                                        ]
+                                                    ]
+                                                ]; 
+                                               $client = new Client(['host'=>'graph.facebook.com/v2.6/me','scheme'=>'https']);
+                                               $client->post('/messages?access_token='.$facebook_messenger_token,json_encode($data),['type'=>'json']);
+                                     }
+                                     else
+                                        {
+                                             $data = [
+                                                    "messaging_type" => "RESPONSE",
+                                                    "recipient" => [
+                                                        "id" => $sender_id
+                                                    ],
+                                                    "message" => [
+                                                        "text" => "Vous avez frappé à la bonne porte! Virtual Network Entreprise est un leader dans le domaine de la formation/certification puisqu'elle est centre de test Pearson VUE, Krytérion et Prometric-Avec VNE vous bénéficiez de formateurs certifiés et d'un cadre équipé ajouté au fait que vous pouvez vous former et vous certifier au même endroit! ",
+                                                        "quick_replies" => [
+                                                            [
+                                                                "content_type" => "text",
+                                                                "title" => "voir les catalogues",
+                                                                "payload" => "FC"
+                                                            ],
+                                                            [
+                                                                "content_type" => "text",
+                                                                "title" => "souscrire à un cursus",
+                                                                "payload" => "FC"
+                                                            ],
+                                                            [
+                                                                "content_type" => "text",
+                                                                "title" => "contacter VNE",
+                                                                "payload" => "about contact us"
+                                                            ]
+                                                        ]
+                                                    ]
+                                                ]; 
+                                               $client = new Client(['host'=>'graph.facebook.com/v2.6/me','scheme'=>'https']);
+                                               $client->post('/messages?access_token='.$facebook_messenger_token,json_encode($data),['type'=>'json']);
+                                        }
+                                }
+                                else
+                                {
+                                        $data = [
+                                            "messaging_type" => "RESPONSE",
+                                            "recipient" => [
+                                                "id" => $sender_id
+                                            ],
+                                            "message" => ""
+                                        ];  
+                                        //convivial text
+                                        $data['message'] = [
+                                            "text" => "Virtual Network Entreprise dispose d'un catalogue de formations/certifications riche et variés en plus d'un cadre équipé ainsi que d'encadreurs certifiés afin pour vous accompagner dans l'amélioration de votre profil.",
+                                            "quick_replies" => [
+                                                [
+                                                    "content_type" => "text",
+                                                    "title" => "voir les catalogues",
+                                                    "payload" => "FC"
+                                                ],
+                                                [
+                                                    "content_type" => "text",
+                                                    "title" => "souscrire à un cursus",
+                                                    "payload" => "FC"
+                                                ],
+                                                [
+                                                    "content_type" => "text",
+                                                    "title" => "contacter VNE",
+                                                    "payload" => "about contact us"
+                                                ]
+                                            ]
+                                        ];
+                                        $client = new Client(['host'=>'graph.facebook.com/v2.6/me','scheme'=>'https']);
+                                        $client->post('/messages?access_token='.$facebook_messenger_token,json_encode($data),['type'=>'json']);
+
+                                }
+                               $matching_response = true;
+                            }
+
+                        //services
+                            //tag search 1
+                            if(preg_match("#(.)*(obtenir|d[éeè]*sir[éeè]*|comment|savoir|avoir|voud[a-z]+|veu[a-z]+|info[a-z]*)+(.)*(site|w[éèe]+b|service[s]+|sav[^a-z]|d[éèe]*velop[ppments]+|cons[eils]+|logicie[ls]*|as[s]*is[slrmp]*tan[caens])+#i", $visitor_message['text']))
+                            {
+                                $data = [
+                                    "messaging_type" => "RESPONSE",
+                                    "recipient" => [
+                                        "id" => $sender_id
+                                    ],
+                                    "message" => [
+                                        "text" => "VNE ce sont aussi des services adaptés comme le développement web/mobile, un service de dépannage, de maintenance et aussi des conseils. comment puis-je vous aider?",
+                                        "quick_replies" => [
+                                            [
+                                                "content_type" => "text",
+                                                "title" => "développement",
+                                                "payload" => "development"
+                                            ],
+                                            [
+                                                "content_type" => "text",
+                                                "title" => "maintenance",
+                                                "payload" => "maintenance"
+                                            ],
+                                            [
+                                                "content_type" => "text",
+                                                "title" => "Dépannage",
+                                                "payload" => "depannage"
+                                            ],
+
+                                            [
+                                                "content_type" => "text",
+                                                "title" => "conseils",
+                                                "payload" => "advices"
+                                            ]
+                                        ]
+                                    ]
+                                ];
+
+                                $client = new Client();
+                                $client->post('https://graph.facebook.com/v2.6/me/messages?access_token='.$facebook_messenger_token,json_encode($data),['type'=>'json']);
+                                $matching_response = true;
+
+                            }
+
+                        //ateliers 
+                            //tag search 1
+                            if(preg_match("#(.)*(obtenir|d[éeè]*sir[éeè]*|comment|savoir|avoir|voud[a-z]+|veu[a-z]+|info[a-z]*|inscri[restsptions]|partici[pér]+)+(.)*(ateli[éèers]+)+#i", $visitor_message['text'])){
+
+                                $data = [
+                                    "messaging_type" => "RESPONSE",
+                                    "recipient" => [
+                                        "id" => $sender_id
+                                    ],
+                                    "message" => [
+                                        "text" => "Les ateliers VNE sont le moyen de pouvoir être informé des dernières innnovations et de rencontrer des personnes influentes du secteur",
+                                        "quick_replies" => [
+                                            [
+                                                "content_type" => "text",
+                                                "title" => "participer à un atelier",
+                                                "payload" => "workshop"
+                                            ],
+                                            [
+                                                "content_type" => "text",
+                                                "title" => "non, plus tard!",
+                                                "payload" => "none"
+                                            ]
+                                        ]
+                                    ]
+                                ];
+
+                                $client = new Client();
+                                $client->post('https://graph.facebook.com/v2.6/me/messages?access_token='.$facebook_messenger_token,json_encode($data),['type'=>'json']);
+                                $matching_response = true;
+
+                            }
+
+
+                        //congratulations
+                        if(preg_match("#^(merci[a-z]*|yeah|yo|ok|super)+#i", $visitor_message['text'])){
+                                $data = [
+                                    "messaging_type" => "RESPONSE",
+                                    "recipient" => [
+                                        "id" => $sender_id
+                                    ],
+                                    "message" => [
+                                        "text" => "Je vous en prie ".$profile_sender['last_name']
+                                    ]
+                                ];
+
+                                $client = new Client();
+                                $client->post('https://graph.facebook.com/v2.6/me/messages?access_token='.$facebook_messenger_token,json_encode($data),['type'=>'json']);
+                                $matching_response = true;
+                        }
+
+                        //calling bot
+                        if(preg_match("#^tonio#i", $visitor_message['text'])) 
+                        {
+                                $data = [
+                                    "messaging_type" => "RESPONSE",
+                                    "recipient" => [
+                                        "id" => $sender_id
+                                    ],
+                                    "message" => ""
+                                ];
+
+                            if(preg_match("#(.)*(veu[a-z]+|d[éèe]sir[éèe]|ai|voud[a-z]+)+(.)*(manger|faim|dalle)+#i", $visitor_message['text']))
+                            {
+                                $data["message"] = [
+                                        "text" => $profile_sender['last_name']." il faudrait demander à Ephra, et je t'ai rien dit...si Kouassi n'a pas déjà fait le ménage!"
+                                ];
+                            }
+                            else
+                            {
+                                $data["message"] = [
+                                        "text" => "Oui ".$profile_sender['last_name']."! je vois que tu connais mon nom, je sens qu'on va bien s'entendre"
+                                ];
+                            }
+
+
+                                $client = new Client();
+                                $client->post('https://graph.facebook.com/v2.6/me/messages?access_token='.$facebook_messenger_token,json_encode($data),['type'=>'json']);
+                                $matching_response = true; 
+                        }
+
+
+                        //if none found
+                        if(!$matching_response)
+                        {
+                            $data = [
+                                "messaging_type" => "RESPONSE",
+                                "recipient" => [
+                                    "id" => $sender_id
+                                ],
+                                "message" => [
+                                    "text" => "désolé je ne comprends pas votre message, veuillez reformuler votre message ou vous réferrer au menu persistant pour me demander un renseignement."
                                 ]
-                            ]
-                        ];
+                            ];
+
+                            $client_2 = new Client();
+                            $client_2->post('https://graph.facebook.com/v2.6/me/messages?access_token='.$facebook_messenger_token,json_encode($data),['type'=>'json']);
+                            $matching_response = true;
+
+                        }
+                        exit(); 
                     }
 
-                    if(isset($messaging_params['messaging'][0]['postback']))
+                    //visitor message postback
+                    if(isset($messaging_params['messaging'][0]['postback']) || isset($messaging_params['messaging'][0]['message']['quick_reply']))
                     {
-                        $postback_payload = $messaging_params['messaging'][0]['postback']['payload'];
-                        $postback_title = $messaging_params['messaging'][0]['postback']['title'];
+                        if(isset($messaging_params['messaging'][0]['postback']))
+                          $postback_payload = $messaging_params['messaging'][0]['postback']['payload'];
+                        else
+                        {
+                          $postback_payload = $messaging_params['messaging'][0]['message']['quick_reply']['payload'];
+                        }
+
 
                         switch($postback_payload){
+                            //general wizrd
                             case 'start wizard':
                                 $data = [
                                     "messaging_type" => 'RESPONSE',
@@ -202,7 +544,10 @@ class WebhooksController extends AppController
                                                         'image_url' => "https://vne-ci.com/img/assets/home/main-background-4.jpg",
                                                         'default_action' => [
                                                             "type" => "web_url",
-                                                            "url" => "https://vne-ci.com"
+                                                            "url" => "https://vne-ci.com",
+                                                            "messenger_extensions" => true,
+                                                            "webview_height_ratio" => "full",
+                                                            "fallback_url" => "https://vne-ci.com"
                                                         ]
                                                     ],
                                                     [
@@ -290,7 +635,11 @@ class WebhooksController extends AppController
                                                             [
                                                             "type" => "web_url",
                                                             "url" => "https://vne-ci.com",
-                                                            "title" => "site web"
+                                                            "title" => "site web",
+                                                            "messenger_extensions" => true,
+                                                            "webview_height_ratio" => "full",
+                                                            "fallback_url" => "https://vne-ci.com"
+
                                                             ]
                                                         ]
                                                     ],
@@ -301,7 +650,7 @@ class WebhooksController extends AppController
                                     ]
                                 ];  
                             break;
-
+                            //workshop general wizard
                             case "workshop":
                              try{
                                    $this->loadModel('Workshops');
@@ -314,11 +663,6 @@ class WebhooksController extends AppController
 
                                        if($poster)
                                        {
-                                         // debug($poster);
-                                         // die();
-                                         // $begin_date = new \DateTime($poster->workshop_begin); 
-                                         // $poster->ref_month = $begin_date->format('m');
-
                                          $data = [
                                             "messaging_type" => "RESPONSE",
                                             "recipient" => [
@@ -339,12 +683,18 @@ class WebhooksController extends AppController
                                                                     [
                                                                         "type" => "web_url",
                                                                         "title" => "S'incrire",
-                                                                        "url" => $poster->workshop_form_link
+                                                                        "url" => $poster->workshop_form_link,
+                                                                        "messenger_extensions" => true,
+                                                                        "webview_height_ratio" => "tall",
+                                                                        "fallback_url" => $poster->workshop_form_link
                                                                     ],
                                                                     [
                                                                         "type" => "web_url",
                                                                         "title" => "En savoir plus",
-                                                                        "url" => "https://vne-ci.com/#workshops"
+                                                                        "url" => "https://vne-ci.com/#workshops",
+                                                                        "messenger_extensions" => true,
+                                                                        "webview_height_ratio" => "tall",
+                                                                        "fallback_url" => "https://vne-ci.com/#workshops"
                                                                     ]
                                                                 ]
                                                             ]
@@ -374,7 +724,10 @@ class WebhooksController extends AppController
                                                                 [
                                                                     "type" => "web_url",
                                                                     "title" => "voir les ateliers",
-                                                                    "url" => "https://vne-ci.com/#workshops"
+                                                                    "url" => "https://vne-ci.com/#workshops",
+                                                                    "messenger_extensions" => true,
+                                                                    "webview_height_ratio" => "full",
+                                                                    "fallback_url" => "https://vne-ci.com/#workshops"
                                                                 ]
                                                             ]
                                                         ]
@@ -391,6 +744,56 @@ class WebhooksController extends AppController
                                   throw new Exception\BadRequestException(__('Bad Request'));
                                  }
                             break;
+                            //workshop explicit wizard
+                            case "workshop about":
+                                $data = [
+                                    "messaging_type" => "RESPONSE",
+                                    "recipient" => [
+                                        "id" => $sender_id
+                                    ],
+                                    "message" => [
+                                        "text" => "Les ateliers sont des moments de partages entre personnalités de l'écosystème IT afin de simprégner des nouvelles solutions proposées par VNE. Au menu, présentation de produits/solutions VNE, buffet/cocktails, échanges. Voulez-vous participer à l'atelier à l'affiche? ",
+                                        "quick_replies" => [
+                                            [
+                                                "content_type" => "text",
+                                                "title" => "Oui",
+                                                "payload" => "workshop"
+                                            ],
+                                            [
+                                                "content_type" => "text",
+                                                "title" => "Non, plus tard",
+                                                "payload" => "none"
+                                            ]
+                                        ]
+                                    ]
+                                ];
+                            break;
+
+                            case "workshop pricing":
+                                $data = [
+                                    "messaging_type" => "RESPONSE",
+                                    "recipient" => [
+                                        "id" => $sender_id
+                                    ],
+                                    "message" => [
+                                        "text" => "Les ateliers ne sont pas payants, il faut cependant être un acteur professionnel du secteur(responsable, représentant, etc.).",
+                                        "quick_replies" => [
+                                            [
+                                                "content_type" => "text",
+                                                "title" => "Info utile",
+                                                "payload" => "merci"
+                                            ],
+                                            [
+                                                "content_type" => "text",
+                                                "title" => "Info non utile",
+                                                "payload" => "none"
+                                            ],
+
+                                        ]
+                                    ]
+                                ];
+                            break;
+                            //integration general wizard
                             case 'I':
                                     $data = [
                                         "messaging_type" => 'RESPONSE',
@@ -415,7 +818,10 @@ class WebhooksController extends AppController
                                                                 [
                                                                     "title" => "Questionnaire",
                                                                     "type" => "web_url",
-                                                                    "url" => "https://forms.office.com/Pages/ResponsePage.aspx?id=r_7pOGcX6UCNqwthS-DQBi6rERHrS5tCpiK5GNCctdRUM1k3RUQyTVFYVlFDTDIySjdMTzZTWDI3OC4u"
+                                                                    "url" => "https://forms.office.com/Pages/ResponsePage.aspx?id=r_7pOGcX6UCNqwthS-DQBi6rERHrS5tCpiK5GNCctdRUM1k3RUQyTVFYVlFDTDIySjdMTzZTWDI3OC4u",
+                                                                    "messenger_extensions" => true,
+                                                                    "webview_height_ratio" => "tall",
+                                                                    "fallback_url" => "https://forms.office.com/Pages/ResponsePage.aspx?id=r_7pOGcX6UCNqwthS-DQBi6rERHrS5tCpiK5GNCctdRUM1k3RUQyTVFYVlFDTDIySjdMTzZTWDI3OC4u"
                                                                 ]
                                                             ]
                                                         ],
@@ -427,7 +833,10 @@ class WebhooksController extends AppController
                                                                 [
                                                                     "title" => "Catalogue",
                                                                     "type" => "web_url",
-                                                                    "url" => "https://www.dropbox.com/s/u6pt0j7sys9dk7o/booklet_solutions_november_2017.pdf?dl=0"
+                                                                    "url" => "https://vne-ci.com/zine/show/booklet/solutions",
+                                                                    "messenger_extensions" => true,
+                                                                    "webview_height_ratio" => "tall",
+                                                                    "fallback_url" => "hhttps://vne-ci.com/zine/show/booklet/solutions"
                                                                  ]
                                                             ]
                                                         ],
@@ -445,9 +854,9 @@ class WebhooksController extends AppController
                                                 ]
                                             ]
                                         ]
-                                    ];
+                                    ];  
                             break;
-
+                            //training general wizard
                             case 'FC':
                                     $data = [
                                         "messaging_type" => 'RESPONSE',
@@ -495,7 +904,10 @@ class WebhooksController extends AppController
                                                                 [
                                                                     "title" => "Catalogue",
                                                                     "type" => "web_url",
-                                                                    "url" => "https://www.dropbox.com/s/5g9v8jx1n292thy/booklet_trainings_november_2017.pdf?dl=0"
+                                                                    "url" => "https://vne-ci.com/zine/show/booklet/trainings",
+                                                                    "messenger_extensions" => true,
+                                                                    "webview_height_ratio" => "tall",
+                                                                    "fallback_url" => "https://vne-ci.com/zine/show/booklet/trainings"
                                                                  ]
                                                             ]
                                                         ]
@@ -531,7 +943,10 @@ class WebhooksController extends AppController
                                                                 [
                                                                     "title" => "Questionnaire",
                                                                     "type" => "web_url",
-                                                                    "url" => "https://forms.office.com/Pages/ResponsePage.aspx?id=r_7pOGcX6UCNqwthS-DQBi6rERHrS5tCpiK5GNCctdRUQ0pFV1RJWFVZR1o3OTJQT0dTRkIxRTJSUC4u"
+                                                                    "url" => "https://forms.office.com/Pages/ResponsePage.aspx?id=r_7pOGcX6UCNqwthS-DQBi6rERHrS5tCpiK5GNCctdRUQ0pFV1RJWFVZR1o3OTJQT0dTRkIxRTJSUC4u",
+                                                                    "messenger_extensions" => true,
+                                                                    "webview_height_ratio" => "tall",
+                                                                    "fallback_url" => "https://forms.office.com/Pages/ResponsePage.aspx?id=r_7pOGcX6UCNqwthS-DQBi6rERHrS5tCpiK5GNCctdRUQ0pFV1RJWFVZR1o3OTJQT0dTRkIxRTJSUC4u"
                                                                 ]
                                                             ]
                                                         ],
@@ -576,7 +991,10 @@ class WebhooksController extends AppController
                                                                 [
                                                                     "title" => "Questionnaire",
                                                                     "type" => "web_url",
-                                                                    "url" => "https://forms.office.com/Pages/ResponsePage.aspx?id=r_7pOGcX6UCNqwthS-DQBi6rERHrS5tCpiK5GNCctdRUNUZZS0w0TTdWSUpaNEVHRloyMTI3M1BWWC4u"
+                                                                    "url" => "https://forms.office.com/Pages/ResponsePage.aspx?id=r_7pOGcX6UCNqwthS-DQBi6rERHrS5tCpiK5GNCctdRUNUZZS0w0TTdWSUpaNEVHRloyMTI3M1BWWC4u",
+                                                                    "messenger_extensions" => true,
+                                                                    "webview_height_ratio" => "tall",
+                                                                    "fallback_url" => "https://forms.office.com/Pages/ResponsePage.aspx?id=r_7pOGcX6UCNqwthS-DQBi6rERHrS5tCpiK5GNCctdRUNUZZS0w0TTdWSUpaNEVHRloyMTI3M1BWWC4u"
                                                                 ]
                                                             ]
                                                         ],
@@ -596,7 +1014,224 @@ class WebhooksController extends AppController
                                         ]
                                     ];
                             break;
+                            //traning explicit wizard
+                            case 'training_reply':
+                                //get cache Key
+                                $last_conversation = Cache::read($sender_id,'FacebookConversation');
+                                switch($last_conversation['postback_reference'])
+                                {
+                                    case 'certification_reply':
+                                        $item = $last_conversation['postback_item'];
+                                        $data = [
+                                                "messaging_type" => 'RESPONSE',
+                                                "recipient" => [
+                                                    "id" => $sender_id
+                                                ],
+                                                "message" => ""
+                                            ];
 
+                                        if(preg_match("#(ec[-council]+|ceh|cnd|lpt|[h]*ack[a-z]+|c[yi]ber[secuirte]+)#i", $last_conversation['postback_item'])){
+                                            $data["message"] =  [
+                                                "attachment" => [
+                                                    "type" => "template",
+                                                    "payload" => [
+                                                        "template_type" => "generic",
+                                                        "elements" => [
+                                                            [
+                                                                "title" => "Virtual Network Entreprise est certifié centre ATC!",
+                                                                "subtitle" => "Vous pouvez vous former et vous certifier au même endroit en Côte d'Ivoire",
+                                                                "image_url" => "https://farm5.staticflickr.com/4531/38559525841_26da9ddcc8.jpg",
+                                                                "buttons" => [
+                                                                    [
+                                                                        "title" => "Voir l'accréditation",
+                                                                        "type" => "web_url",
+                                                                        "url" => "https://farm5.staticflickr.com/4583/37671954635_44376ce974.jpg"
+                                                                    ],
+                                                                    [
+                                                                        "title" => "Voir le Catalogue",
+                                                                        "type" => "web_url",
+                                                                        "url" => "https://vne-ci.com/zine/show/booklet_trainings/ec_council",
+                                                                        "messenger_extensions" => true,
+                                                                        "webview_height_ratio" => "tall",
+                                                                        "fallback_url" => "https://vne-ci.com/zine/show/booklet_trainings/ec_council"
+                                                                    ],
+
+                                                                    [
+                                                                        "title" => "Me former",
+                                                                        "type" => "web_url",
+                                                                        "url" => "https://forms.office.com/Pages/ResponsePage.aspx?id=r_7pOGcX6UCNqwthS-DQBi6rERHrS5tCpiK5GNCctdRUNUZZS0w0TTdWSUpaNEVHRloyMTI3M1BWWC4u",
+                                                                        "messenger_extensions" => true,
+                                                                        "webview_height_ratio" => "tall",
+                                                                        "fallback_url" => "https://forms.office.com/Pages/ResponsePage.aspx?id=r_7pOGcX6UCNqwthS-DQBi6rERHrS5tCpiK5GNCctdRUNUZZS0w0TTdWSUpaNEVHRloyMTI3M1BWWC4u"
+                                                                    ]
+
+                                                                ]
+                                                          ]
+                                                        ]
+                                                    ]
+
+                                                ]
+                                            ];  
+                                        }
+                                        else
+                                        {
+                                            $data["message"]=[
+                                                    "text" => "Afin de vous encadrer très prochainement de façon complète sur votre cursus indiqué, remplissez dès maintenant un formulaire de devis",
+                                                    "quick_replies" => [
+                                                        [
+                                                            "content_type" => "text",
+                                                            "title" => "Oui",
+                                                            "payload" => "C"
+                                                        ],
+                                                        [
+                                                            "content_type" => "text",
+                                                            "title" => "Non, plus tard",
+                                                            "payload" => "none"
+                                                        ],
+                                                    ]
+                                            ];
+                                        }
+                                    break;
+
+                                    case 'formation_reply':
+                                        $item = $last_conversation['postback_item'];
+                                        $data = [
+                                                "messaging_type" => 'RESPONSE',
+                                                "recipient" => [
+                                                    "id" => $sender_id
+                                                ],
+                                                "message" => ""
+                                            ];
+
+                                        if(preg_match("#(ec[-council]+|ceh|cnd|lpt|[h]*ack[a-z]+|c[yi]ber[secuirte]+)#i", $last_conversation['postback_item'])){
+                                            $data["message"] =  [
+                                                "attachment" => [
+                                                    "type" => "template",
+                                                    "payload" => [
+                                                        "template_type" => "generic",
+                                                        "elements" => [
+                                                            [
+                                                                "title" => "Virtual Network Entreprise est certifié centre ATC!",
+                                                                "subtitle" => "Vous pouvez vous former et vous certifier au même endroit en Côte d'Ivoire",
+                                                                "image_url" => "https://farm5.staticflickr.com/4531/38559525841_26da9ddcc8.jpg",
+                                                                "buttons" => [
+                                                                    [
+                                                                        "title" => "Voir l'accréditation",
+                                                                        "type" => "web_url",
+                                                                        "url" => "https://farm5.staticflickr.com/4583/37671954635_44376ce974.jpg"
+                                                                    ],
+                                                                    [
+                                                                        "title" => "Voir le Catalogue",
+                                                                        "type" => "web_url",
+                                                                        "url" => "https://vne-ci.com/zine/read/booklet_trainings/ec_council",
+                                                                        "messenger_extensions" => true,
+                                                                        "webview_height_ratio" => "tall",
+                                                                        "fallback_url" => "https://vne-ci.com/zine/read/booklet_trainings/ec_council"
+                                                                    ],
+
+                                                                    [
+                                                                        "title" => "Me former",
+                                                                        "type" => "web_url",
+                                                                        "url" => "https://forms.office.com/Pages/ResponsePage.aspx?id=r_7pOGcX6UCNqwthS-DQBi6rERHrS5tCpiK5GNCctdRUNUZZS0w0TTdWSUpaNEVHRloyMTI3M1BWWC4u",
+                                                                        "messenger_extensions" => true,
+                                                                        "webview_height_ratio" => "tall",
+                                                                        "fallback_url" => "https://forms.office.com/Pages/ResponsePage.aspx?id=r_7pOGcX6UCNqwthS-DQBi6rERHrS5tCpiK5GNCctdRUNUZZS0w0TTdWSUpaNEVHRloyMTI3M1BWWC4u"
+                                                                    ]
+
+                                                                ]
+                                                          ]
+                                                        ]
+                                                    ]
+
+                                                ]
+                                            ];  
+                                        }
+                                        else
+                                        {
+                                            $data["message"]=[
+                                                    "text" => "Afin de vous encadrer très prochainement de façon complète sur votre cursus indiqué(".$last_conversation['postback_item']."), remplissez dès maintenant un formulaire de devis",
+                                                    "quick_replies" => [
+                                                        [
+                                                            "content_type" => "text",
+                                                            "title" => "Oui",
+                                                            "payload" => "F"
+                                                        ],
+                                                        [
+                                                            "content_type" => "text",
+                                                            "title" => "Non, plus tard",
+                                                            "payload" => "none"
+                                                        ],
+                                                    ]
+                                            ];
+                                        }
+                                    break;
+
+                                    case 'general_reply':
+                                    $data = [
+                                        "messaging_type" => 'RESPONSE',
+                                        "recipient" => [
+                                            "id" => $sender_id
+                                        ],
+                                        "message" => [
+                                            "attachment" => [
+                                                "type" => "template",
+                                                "payload" => [
+                                                    "template_type" => "list",
+                                                    "top_element_style" => "compact",
+                                                    "elements" => [
+                                                        [
+                                                            "title"=>"Formations & Certifications",
+                                                            "subtitle" => "Veuillez choisir une proposition",
+                                                        ],
+                                                        [
+                                                            "title"=>"Je suis intéressé(e) par les formations",
+                                                            "subtitle" => "Je désire prendre part à une session de formation",
+                                                            "buttons" => [
+                                                                [
+                                                                    "title" => "Formations",
+                                                                    "type" => "postback",
+                                                                    "payload" => "F"
+                                                                ]
+                                                            ]
+                                                        ],
+                                                        [
+                                                            "title"=>"Je suis intéressé(e) par les certifications",
+                                                            "subtitle" => "Je désire me certifier au sein de VNE",
+                                                            "buttons" => [
+                                                                [
+                                                                    "title" => "Certifications",
+                                                                    "type" => "postback",
+                                                                    "payload" => "C"
+                                                                ]
+                                                            ]
+                                                        ],
+                                                        [
+                                                            "title"=>"Consulter le catalogue",
+                                                            "subtitle" => "avoir une vue complète de l'ensemble des cursus proposés",
+                                                            "image_url" => "https://farm5.staticflickr.com/4568/37622978865_e2d3308064_c.jpg",
+                                                            "buttons" => [
+                                                                [
+                                                                    "title" => "Catalogue",
+                                                                    "type" => "web_url",
+                                                                    "url" => "https://vne-ci.com/zine/show/booklet/trainings",
+                                                                    "messenger_extensions" => true,
+                                                                    "webview_height_ratio" => "tall",
+                                                                    "fallback_url" => "https://vne-ci.com/zine/show/booklet/trainings"
+
+                                                                 ]
+                                                            ]
+                                                        ]
+
+                                                    ]
+                                                ]
+                                            ]
+                                        ]
+                                    ];
+                                    break;
+
+                                }
+                            break;
+                            //service general wizard
                             case 'S':
                                     $data = [
                                         "messaging_type" => 'RESPONSE',
@@ -621,7 +1256,10 @@ class WebhooksController extends AppController
                                                                 [
                                                                     "title" => "Questionnaire",
                                                                     "type" => "web_url",
-                                                                    "url" => "https://forms.office.com/Pages/ResponsePage.aspx?id=r_7pOGcX6UCNqwthS-DQBi6rERHrS5tCpiK5GNCctdRURVRGQk01SkNFRVJYTTFUVlZETThVT1NYMC4u"
+                                                                    "url" => "https://forms.office.com/Pages/ResponsePage.aspx?id=r_7pOGcX6UCNqwthS-DQBi6rERHrS5tCpiK5GNCctdRURVRGQk01SkNFRVJYTTFUVlZETThVT1NYMC4u",
+                                                                    "messenger_extensions" => true,
+                                                                    "webview_height_ratio" => "tall",
+                                                                    "fallback_url" => "https://forms.office.com/Pages/ResponsePage.aspx?id=r_7pOGcX6UCNqwthS-DQBi6rERHrS5tCpiK5GNCctdRURVRGQk01SkNFRVJYTTFUVlZETThVT1NYMC4u"
                                                                 ]
                                                             ]
                                                         ],
@@ -641,12 +1279,156 @@ class WebhooksController extends AppController
                                         ]
                                     ];
                             break;
+                            //service explicit wizard
+                            case 'development':                  
+                                $data = [
+                                    "messaging_type" => "RESPONSE",
+                                    "recipient" => [
+                                        "id" => $sender_id
+                                    ],
+                                    "message" => [
+                                        "attachment" => [
+                                            "type" => "template",
+                                            "payload" => [
+                                                "template_type" => "generic",
+                                                "elements" => [
+                                                    [
+                                                        "title" => "Le développement sur mesure by VNE",
+                                                        "subtitle" => "De la conception à la réalisation, VNE vous propose sa palette de spécialistes afin devous aider dans vos ambitions web/mobile",
+                                                        "image_url" => "https://farm5.staticflickr.com/4553/38529567012_d5dccb6951.jpg",
+                                                        "buttons" => [
+                                                            [
+                                                                "type" => "web_url",
+                                                                "title" => "Continuer",
+                                                                "url" => "https://forms.office.com/Pages/ResponsePage.aspx?id=r_7pOGcX6UCNqwthS-DQBi6rERHrS5tCpiK5GNCctdRURVRGQk01SkNFRVJYTTFUVlZETThVT1NYMC4u",
+                                                                "messenger_extensions" => true,
+                                                                "webview_height_ratio" => "tall",
+                                                                "fallback_url" => "https://forms.office.com/Pages/ResponsePage.aspx?id=r_7pOGcX6UCNqwthS-DQBi6rERHrS5tCpiK5GNCctdRURVRGQk01SkNFRVJYTTFUVlZETThVT1NYMC4u"
+                                                            ],
+
+                                                            [  
+                                                                "type" => "postback",
+                                                                "title" => "Non plus tard",
+                                                                "payload" => "none"
+                                                            ]
+                                                        ]
+                                                    ]
+                                                ]       
+                                            ]
+                                        ]
+                                    ]
+                                ];
+                            break;
+
+                            case 'mantenance':
+                                $data = [
+                                    "messaging_type" => "RESPONSE",
+                                    "recipient" => [
+                                        "id" => $sender_id
+                                    ],
+                                    "message" => [
+                                        "text" => "Nous sommes disponibles 24/7 pour vous aider à assurer le bon fonctionnement de vos ressources informatiques,",
+                                        "quick_replies" => [
+                                            [
+                                                "content_type" => "text",
+                                                "title"=>"en savoir plus",
+                                                "payload" => "S"
+                                            ],
+                                            [
+                                                "title" => "non, plus tard!",
+                                                "content_type" => "text",
+                                                "payload" => "none"
+                                            ]
+                                        ]
+                                    ]
+                                ];
+                            break;
+
+                            case 'depannage':
+                                $data = [
+                                    "messaging_type" => "RESPONSE",
+                                    "recipient" => [
+                                        "id" => $sender_id
+                                    ],
+                                    "message" => [
+                                        "text" => "Nous sommes disponibles 24/7 pour vous aider à assurer le bon fonctionnement de vos ressources informatiques,",
+                                        "quick_replies" => [
+                                            [
+                                                "content_type" => "text",
+                                                "title"=>"en savoir plus",
+                                                "payload" => "S"
+                                            ],
+                                            [
+                                                "title" => "non, plus tard!",
+                                                "content_type" => "text",
+                                                "payload" => "none"
+                                            ]
+                                        ]
+                                    ]
+                                ];
+                            break;
+
+                            case 'advices':
+                                $data = [
+                                    "messaging_type" => "RESPONSE",
+                                    "recipient" => [
+                                        "id" => $sender_id
+                                    ],
+                                    "message" => [
+                                        "attachment" => [
+                                            "type" => "template",
+                                            "payload" => [
+                                                "template_type" => "generic",
+                                                "elements" => [
+                                                    [
+                                                        "title" => "Les conseils de VNE vous aide à mieux profiter de votre business",
+                                                        "subtitle" => "Nous disposons d'ingénieurs qualifiés dans de multiples domaines afin de vous donnez l'information utile",
+                                                        "image_url" => "https://farm5.staticflickr.com/4530/38505070106_439f3d7413.jpg",
+                                                        "buttons" => [
+                                                            [
+                                                                "type" => "postback",
+                                                                "title" => "continuer",
+                                                                "payload" => "S"
+                                                            ],
+
+                                                            [
+                                                                "type" => "postback",
+                                                                "title" => "non, plus tard",
+                                                                "payload" => "none"
+                                                            ]
+                                                        ]
+                                                    ]
+                                                ]
+                                            ]
+                                        ]
+                                    ]
+                                ];
+                            break;
+
+                            //no response
+                            case 'none':
+                                $data = [
+                                    'messaging_type' => 'RESPONSE',
+                                    'recipient' => [
+                                        'id' => $sender_id
+                                    ],
+                                    'message' => [
+                                        'text' => 'Comment pourrais-je vous aider?'
+                                    ]
+                                ];
+                            break;
                         }
+
+
+
+                        //send response
+                        $client = new Client();
+                        $response = $client->post('https://graph.facebook.com/v2.6/me/messages?access_token='.$facebook_messenger_token,json_encode($data),['type'=>'json']);
+
+                        exit();
                     }
 
-                    //response 
-                    $client = new Client();
-                    $response = $client->post('https://graph.facebook.com/v2.6/me/messages?access_token='.$facebook_messenger_token,json_encode($data),['type'=>'json']);
+
                 }
             }
 

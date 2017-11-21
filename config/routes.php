@@ -59,7 +59,11 @@ Router::scope('/newsletter', function (RouteBuilder $routes) {
 });
 
 Router::scope('/zine', function(RouteBuilder $routes){
-	$routes->connect('/read/:type_booklet/:booklet_path',['controller'=>'Zine','action'=>'read']);
+    $routes->connect('/read/:type_booklet/:booklet_path',['controller'=>'Zine','action'=>'read']);
+	$routes->connect('/show/:type_booklet/:booklet_path',['controller'=>'Zine','action'=>'show']);
+
+    $routes->connect('/show/booklet/solutions',['controller'=>'Zine','action'=>'showAllSolutions']);
+    $routes->connect('/show/booklet/trainings',['controller'=>'Zine','action'=>'showAllTrainings']);
 });
 
 Router::scope('/webhooks', function(RouteBuilder $routes){

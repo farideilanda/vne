@@ -22,6 +22,7 @@ use Cake\Event\Event;
 use Pheanstalk\Pheanstalk;
 use App\Controller\AppController;
 use Cake\Network\Exception;
+use Cake\Cache\Cache;
 /**
  * Static content controller
  *
@@ -42,7 +43,10 @@ class PrivacyController extends AppController
     }
 
     public function index(){
-
+    	// debug(Cache::('FacebookPsid'));
+    	// Cache::write('first','myvalue is 10','FacebookPsid');
+    	// debug(Cache::delete('first','FacebookPsid'));
+    	
     }
 
 }

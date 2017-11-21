@@ -34,10 +34,25 @@ class ZineController extends AppController
         $this->set('_serialize',['booklet_path']);
     }
 
-    public function download(){
-        $response  =  $this->response->withFile("emag".DS."meet_greet.pdf",['download'=>true,'name'=>'emag']);
+    public function show(){
+        $params = $this->request->params;
+        $booklet_path = $params['type_booklet'].DS.$params['booklet_path'].'.pdf';
+        $response = $this->response->withFile("files".DS."booklet",['download'=>false]);
         return $response;
     }
+
+
+    public function showAllSolutions(){
+        $response = $this->response->withFile("booklets".DS."all_solutions.pdf",['download'=>false,"name"=>"catalogue des solutions VNE"]);
+        return $response;
+    }
+
+    public function showAllTrainings(){
+        $response = $this->response->withFile("booklets".DS."all_trainings.pdf",['download'=>false,"name"=>"catalogue des formations/certifications VNE"]);
+        return $response;
+    }
+
+
 
 
 }

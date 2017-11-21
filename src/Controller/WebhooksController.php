@@ -135,14 +135,14 @@ class WebhooksController extends AppController
                         }
                         //materiel cotation
                           //tag search 1
-                          if(preg_match("#(.)*(ven[-a-z]*|ach[a-z]*|pay[a-z]*|acque[a-z]*|avoir|offri[a-z]*|voud[a-z]*|desi[a-z]*|souhai[a-z]*)+(.)*(mat[éèe]*ri[eèé]*[a-z]*|ordi[a-z]*|table[a-z]*|impri[a-z]*|consom[a-z]|sour[ris]*|accessoi[a-z]+|serv[a-z]*)+#i", $visitor_message['text'])){
+                          if(preg_match("#(.)*(ven[-a-z]*|ach[a-z]*|pay[a-z]*|acque[a-z]*|avoir|offri[a-z]*|voud[a-z]*|desi[a-z]*|souhai[a-z]+)+(.)*(mat[éèe]*ri[eèé]*[a-z]*|ordi[a-z]*|table[a-z]*|impri[a-z]*|consom[a-z]|sour[ris]*|accessoi[a-z]+|serv[a-z]*)+#i", $visitor_message['text'])){
                                 $data = [
                                     "messaging_type" => "RESPONSE",
                                     "recipient" => [
                                         "id" => $sender_id
                                     ],
                                     "message" => [
-                                        "text" => "Bien sûre ".$response_1['last_name']."! VNE vends du matériel informatique d'origine et à des prix très intéressants. Il suffit juste de remplir les infos pour demander une cotation."
+                                        "text" => "Bien sûre ".$profile_sender['last_name']."! VNE vends du matériel informatique d'origine et à des prix très intéressants. Il suffit juste de remplir les infos pour demander une cotation."
                                     ]
                                 ];  
 
@@ -162,8 +162,12 @@ class WebhooksController extends AppController
                                                         "subtitle" => "VNE fournit à sa clientèle du matériel d'origine, à des prix très intéressants",
                                                         "image_url" => "https://vne-ci.com/img/assets/home/main-background-7.jpg",
                                                         "buttons" => [
-                                                            ["type"=>"web_url","url"=>"https://vne-ci.com","title"=>"Cotation"],
-                                                            ["type"=>"postback","title"=>"Non merci, plus tard!","payload"=>"Not Now Cotation matériel"]
+                                                            [
+                                                                "type"=>"web_url",
+                                                                "url"=>"https://vne-ci.com",
+                                                                "title"=>"Cotation"
+                                                            ],
+                                                            ["type"=>"postback","title"=>"Non merci, plus tard!","payload"=>"none"]
                                                         ]
                                                     ]
                                                 ]
@@ -182,7 +186,7 @@ class WebhooksController extends AppController
 
                         //formations & certifications
                             //tag search 1
-                            if(preg_match("#(.)*(obtenir|d[éeè]*sir[éeè]*|comment|savoir|avoir|voud[a-z]+|veu[a-z]+|info[a-z]*|dispen[serés]+|form[a-z]+)+(.)*([^in]form[a-z]*|certif[a-z]*|cursus|pass[a-z]+|fair[e]?)+(.)*(cisco|cisa|isaca|php|d[ée]+velop[a-z]+|window[a-z]+|sql|oracle|hack[a-z]+|exc[a-z]+|wor[a-z]+|bureaut[a-z]+|ceh|cscu|cnd|lpt|of[f]*ice[0-9]*)*#i", $visitor_message['text']))
+                            if(preg_match("#(.)*(obtenir|d[éeè]*sir[éeè]*|comment|savoir|avoir|voud[a-z]+|veu[a-z]+|info[a-z]*|dispen[serés]+|form[a-z]+|souhai[a-z]+)+(.)*([^in]form[a-z]*|certif[a-z]*|cursus|pass[a-z]+|fair[e]?|r[éèert]*alis[éèert]*)+(.)*(cisco|cisa|isaca|php|d[ée]+velop[a-z]+|window[a-z]+|sql|oracle|hack[a-z]+|exc[a-z]+|wor[a-z]+|bureaut[a-z]+|ceh|cscu|cnd|lpt|of[f]*ice[0-9]*)*#i", $visitor_message['text']))
                                 {
 
                                 if(preg_match('#(.)*(d[éeè]*sir[éeè]*|souhai[a-z]+|voud[a-z]+|veu[a-z]*|[^in]form[a-z]+|obtenir)+(.)*([^in]form[a-z]*|certif[a-z]*|pass[a-z]+|fair[e]?)+#i', $visitor_message['text'])){
@@ -211,7 +215,7 @@ class WebhooksController extends AppController
                                                 $visitor_message['postback_reference'] = "general_reply";
                                             }
 
-                                            $message = "Si jai bien compris vous souhaiterez ".$frag_sentence." dans le module ".$matches[0][0]."?";
+                                            $message = "Si jai bien compris vous souhaiteriez ".$frag_sentence." dans le module ".$matches[0][0]."?";
 
                                             $data = [
                                                     "messaging_type" => "RESPONSE",
@@ -308,7 +312,7 @@ class WebhooksController extends AppController
 
                         //services
                             //tag search 1
-                            if(preg_match("#(.)*(obtenir|d[éeè]*sir[éeè]*|comment|savoir|avoir|voud[a-z]+|veu[a-z]+|info[a-z]*)+(.)*(site|w[éèe]+b|service[s]+|sav[^a-z]|d[éèe]*velop[ppments]+|cons[eils]+|logicie[ls]*|as[s]*is[slrmp]*tan[caens])+#i", $visitor_message['text']))
+                            if(preg_match("#(.)*(obtenir|d[éeè]*sir[éeè]*|comment|savoir|avoir|voud[a-z]+|veu[a-z]+|info[a-z]*|souhai[tesrain]+)+(.)*(site|w[éèe]+b|service[s]+|sav[^a-z]|d[éèe]*velop[ppments]+|cons[eils]+|logicie[ls]*|as[s]*is[slrmp]*tan[caens])+#i", $visitor_message['text']))
                             {
                                 $data = [
                                     "messaging_type" => "RESPONSE",
@@ -351,7 +355,7 @@ class WebhooksController extends AppController
 
                         //ateliers 
                             //tag search 1
-                            if(preg_match("#(.)*(obtenir|d[éeè]*sir[éeè]*|comment|savoir|avoir|voud[a-z]+|veu[a-z]+|info[a-z]*|inscri[restsptions]|partici[pér]+)+(.)*(ateli[éèers]+)+#i", $visitor_message['text'])){
+                            if(preg_match("#(.)*(obtenir|d[éeè]*sir[éeè]*|comment|savoir|avoir|voud[a-z]+|veu[a-z]+|info[a-z]*|inscri[restsptions]|partici[pér]+|fai[ers]+|souhai[a-z]+|r[éèert]*alis[éèert]*)+(.)*(ateli[éèers]+)+#i", $visitor_message['text'])){
 
                                 $data = [
                                     "messaging_type" => "RESPONSE",
@@ -365,6 +369,11 @@ class WebhooksController extends AppController
                                                 "content_type" => "text",
                                                 "title" => "participer à un atelier",
                                                 "payload" => "workshop"
+                                            ],
+                                            [
+                                                "content_type" => "text",
+                                                "title" => "combien ça coûte?",
+                                                "payload" => "workshop pricing"
                                             ],
                                             [
                                                 "content_type" => "text",
@@ -1123,10 +1132,10 @@ class WebhooksController extends AppController
                                                                     [
                                                                         "title" => "Voir le Catalogue",
                                                                         "type" => "web_url",
-                                                                        "url" => "https://vne-ci.com/zine/read/booklet_trainings/ec_council",
+                                                                        "url" => "https://vne-ci.com/zine/show/booklet_trainings/ec_council",
                                                                         "messenger_extensions" => true,
                                                                         "webview_height_ratio" => "tall",
-                                                                        "fallback_url" => "https://vne-ci.com/zine/read/booklet_trainings/ec_council"
+                                                                        "fallback_url" => "https://vne-ci.com/zine/show/booklet_trainings/ec_council"
                                                                     ],
 
                                                                     [

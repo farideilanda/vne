@@ -70,8 +70,6 @@ class WebhooksController extends AppController
 
         if($this->request->is('post')){
             $messaging_params = $this->request->data['entry'][0];
-            // debug($request_params);
-            // die();
 
             $facebook_messenger_token = Configure::read('FaceBookMessengerBot.token');
 
@@ -186,10 +184,10 @@ class WebhooksController extends AppController
 
                         //formations & certifications
                             //tag search 1
-                            if(preg_match("#(.)*(obtenir|d[éeè]*sir[éeè]*|comment|savoir|avoir|voud[a-z]+|veu[a-z]+|info[a-z]*|dispen[serés]+|form[a-z]+|souhai[a-z]+)+(.)*([^in]form[a-z]*|certif[a-z]*|cursus|pass[a-z]+|fair[e]?|r[éèert]*alis[éèert]*)+(.)*(cisco|cisa|isaca|php|d[ée]+velop[a-z]+|window[a-z]+|sql|oracle|hack[a-z]+|exc[a-z]+|wor[a-z]+|bureaut[a-z]+|ceh|cscu|cnd|lpt|of[f]*ice[0-9]*)*#i", $visitor_message['text']))
+                            if(preg_match("#(.)*(obtenir|d[éeè]*sir[éeè]*|com[mdt]+ent|savoir|avoir|voud[a-z]+|veu[a-z]+|info[a-z]*|dispen[serés]+|form[a-z]+|souhai[a-z]+)+(.)*([^in]form[a-z]*|certif[a-z]*|cursus|pass[a-z]+|fair[e]?|r[éèert]*alis[éèert]*|cisco|cisa|isaca|php|d[ée]+velop[a-z]+|window[a-z]+|sql|oracle|hack[a-z]+|exc[a-z]+|wor[a-z]+|bureaut[a-z]+|ceh|cscu|cnd|lpt|of[f]*ice[0-9]*)+(.)*(cisco|cisa|isaca|php|d[ée]+velop[a-z]+|window[a-z]+|sql|oracle|hack[a-z]+|exc[a-z]+|wor[a-z]+|bureaut[a-z]+|ceh|cscu|cnd|lpt|of[f]*ice[0-9]*)*#i", $visitor_message['text']))
                                 {
 
-                                if(preg_match('#(.)*(d[éeè]*sir[éeè]*|souhai[a-z]+|voud[a-z]+|veu[a-z]*|[^in]form[a-z]+|obtenir)+(.)*([^in]form[a-z]*|certif[a-z]*|pass[a-z]+|fair[e]?)+#i', $visitor_message['text'])){
+                                if(preg_match('#(.)*(obtenir|d[éeè]*sir[éeè]*|com[mdt]+ent|savoir|avoir|voud[a-z]+|veu[a-z]+|info[a-z]*|dispen[serés]+|form[a-z]+|souhai[a-z]+)+(.)*([^in]form[a-z]*|certif[a-z]*|pass[a-z]+|fair[e]?|cisco|cisa|isaca|php|d[ée]+velop[a-z]+|window[a-z]+|sql|oracle|hack[a-z]+|exc[a-z]+|wor[a-z]+|bureaut[a-z]+|ceh|cscu|cnd|lpt|of[f]*ice[0-9]*)+#i', $visitor_message['text'])){
 
                                     if(preg_match("#(cisco|cisa|isaca|php|d[ée]+velop[a-z]+|window[a-z]+|sql|oracle|hack[a-z]+|exc[a-z]+|wor[a-z]+|bureaut[a-z]+|ceh|cscu|cnd|lpt|of[f]*ice[0-9]*)#i",$visitor_message['text'])){
 
@@ -213,6 +211,7 @@ class WebhooksController extends AppController
                                             {
                                                 $frag_sentence = "poursuivre un cursus de formation/certification";
                                                 $visitor_message['postback_reference'] = "general_reply";
+                                                Cache::write($sender_id,$visitor_message,'FacebookConversation');
                                             }
 
                                             $message = "Si jai bien compris vous souhaiteriez ".$frag_sentence." dans le module ".$matches[0][0]."?";
@@ -483,21 +482,21 @@ class WebhooksController extends AppController
                                         "attachment" => [
                                             "type" => "template",
                                             "payload" => [
-                                                "template_type" => "list",
-                                                "top_element_style" => "compact",
+                                                "template_type" => "generic",
                                                 "elements" => [
                                                     [
-                                                        "title"=>"Choix de sélection",
-                                                        "subtitle" => "Veuillez choisir un pôle de compétences",
+                                                        "title" => "Comment pourrais-je vous aider?",
+                                                        "subtitle" => "Je m'appele TONIO, Robot à VNE et présent pour répondre à toutes vos questions.",
+                                                        "image_url" => "https://farm5.staticflickr.com/4519/24614577248_f2af84cc1f.jpg"
                                                     ],
                                                     [
                                                         "title"=>"Intégration Informatique",
                                                         "subtitle" => "Bénéficiez du meilleur de l'innovation technologique",
-                                                        "image_url" => "https://farm5.staticflickr.com/4527/26712423939_31aec32a07_s.jpg",
+                                                        "image_url" => "https://farm5.staticflickr.com/4554/37782683294_4436d6ed24_c.jpg",
                                                         "buttons" => [
                                                             [
-                                                                "title" => "Intégration",
                                                                 "type" => "postback",
+                                                                "title" => "Intégration",
                                                                 "payload" => "I"
                                                             ]
                                                         ]
@@ -505,11 +504,11 @@ class WebhooksController extends AppController
                                                     [
                                                         "title"=>"Formations & certifications",
                                                         "subtitle" => "Optimisez votre profil",
-                                                        "image_url" => "https://farm5.staticflickr.com/4535/37601246445_51ce58079b_s.jpg",
+                                                        "image_url" => "https://farm5.staticflickr.com/4582/37782683644_b622d69fb6_c.jpg",
                                                         "buttons" => [
                                                             [
-                                                                "title" => "Formations & certifications",
                                                                 "type" => "postback",
+                                                                "title" => "Formations & certifications",
                                                                 "payload" => "FC"
                                                             ]
                                                         ]
@@ -517,11 +516,11 @@ class WebhooksController extends AppController
                                                     [
                                                         "title"=>"Services",
                                                         "subtitle" => "Appuyez-vous sur le meilleur!",
-                                                        "image_url" => "https://farm5.staticflickr.com/4566/37773095054_762e8b770a_s.jpg",
+                                                        "image_url" => "https://farm5.staticflickr.com/4576/26722049849_d6609e9588_c.jpg",
                                                         "buttons" => [
                                                             [
-                                                                "title" => "Services",
                                                                 "type" => "postback",
+                                                                "title" => "Services",
                                                                 "payload" => "S"
                                                             ]
                                                         ]
@@ -843,9 +842,6 @@ class WebhooksController extends AppController
                                                                     "title" => "Catalogue",
                                                                     "type" => "web_url",
                                                                     "url" => "https://vne-ci.com/zine/show/booklet/solutions",
-                                                                    "messenger_extensions" => true,
-                                                                    "webview_height_ratio" => "tall",
-                                                                    "fallback_url" => "hhttps://vne-ci.com/zine/show/booklet/solutions"
                                                                  ]
                                                             ]
                                                         ],
@@ -855,7 +851,7 @@ class WebhooksController extends AppController
                                                                 [
                                                                     "title" => "retour",
                                                                     "type" => "postback",
-                                                                    "payload" => "start wizard"
+                                                                    "payload" => "about us"
                                                                 ]
                                                             ]
                                                         ]
@@ -965,7 +961,7 @@ class WebhooksController extends AppController
                                                                 [
                                                                     "title" => "retour",
                                                                     "type" => "postback",
-                                                                    "payload" => "start wizard"
+                                                                    "payload" => "about us"
                                                                 ]
                                                             ]
                                                         ]
@@ -1013,7 +1009,7 @@ class WebhooksController extends AppController
                                                                 [
                                                                     "title" => "retour",
                                                                     "type" => "postback",
-                                                                    "payload" => "start wizard"
+                                                                    "payload" => "about us"
                                                                 ]
                                                             ]
                                                         ]
@@ -1278,7 +1274,7 @@ class WebhooksController extends AppController
                                                                 [
                                                                     "title" => "retour",
                                                                     "type" => "postback",
-                                                                    "payload" => "start wizard"
+                                                                    "payload" => "about us"
                                                                 ]
                                                             ]
                                                         ]

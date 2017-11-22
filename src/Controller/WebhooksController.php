@@ -209,6 +209,8 @@ class WebhooksController extends AppController
                                             }
                                             else
                                             {
+                                                $visitor_message['postback_item'] = $matches[0][0];
+                                                
                                                 $frag_sentence = "poursuivre un cursus de formation/certification";
                                                 $visitor_message['postback_reference'] = "general_reply";
                                                 Cache::write($sender_id,$visitor_message,'FacebookConversation');
@@ -1172,66 +1174,77 @@ class WebhooksController extends AppController
                                     break;
 
                                     case 'general_reply':
-                                    $data = [
-                                        "messaging_type" => 'RESPONSE',
-                                        "recipient" => [
-                                            "id" => $sender_id
-                                        ],
-                                        "message" => [
-                                            "attachment" => [
-                                                "type" => "template",
-                                                "payload" => [
-                                                    "template_type" => "list",
-                                                    "top_element_style" => "compact",
-                                                    "elements" => [
-                                                        [
-                                                            "title"=>"Formations & Certifications",
-                                                            "subtitle" => "Veuillez choisir une proposition",
-                                                        ],
-                                                        [
-                                                            "title"=>"Je suis intéressé(e) par les formations",
-                                                            "subtitle" => "Je désire prendre part à une session de formation",
-                                                            "buttons" => [
-                                                                [
-                                                                    "title" => "Formations",
-                                                                    "type" => "postback",
-                                                                    "payload" => "F"
-                                                                ]
-                                                            ]
-                                                        ],
-                                                        [
-                                                            "title"=>"Je suis intéressé(e) par les certifications",
-                                                            "subtitle" => "Je désire me certifier au sein de VNE",
-                                                            "buttons" => [
-                                                                [
-                                                                    "title" => "Certifications",
-                                                                    "type" => "postback",
-                                                                    "payload" => "C"
-                                                                ]
-                                                            ]
-                                                        ],
-                                                        [
-                                                            "title"=>"Consulter le catalogue",
-                                                            "subtitle" => "avoir une vue complète de l'ensemble des cursus proposés",
-                                                            "image_url" => "https://farm5.staticflickr.com/4568/37622978865_e2d3308064_c.jpg",
-                                                            "buttons" => [
-                                                                [
-                                                                    "title" => "Catalogue",
-                                                                    "type" => "web_url",
-                                                                    "url" => "https://vne-ci.com/zine/show/booklet/trainings",
-                                                                    "messenger_extensions" => true,
-                                                                    "webview_height_ratio" => "tall",
-                                                                    "fallback_url" => "https://vne-ci.com/zine/show/booklet/trainings"
 
-                                                                 ]
-                                                            ]
+                                        $item = $last_conversation['postback_item'];
+                                        $data = [
+                                                "messaging_type" => 'RESPONSE',
+                                                "recipient" => [
+                                                    "id" => $sender_id
+                                                ],
+                                                "message" => ""
+                                            ];
+
+                                        if(preg_match("#(ec[-council]+|ceh|cnd|lpt|[h]*ack[a-z]+|c[yi]ber[secuirte]+)#i", $last_conversation['postback_item'])){
+                                            $data["message"] =  [
+                                                "attachment" => [
+                                                    "type" => "template",
+                                                    "payload" => [
+                                                        "template_type" => "generic",
+                                                        "elements" => [
+                                                            [
+                                                                "title" => "Virtual Network Entreprise est certifié centre ATC!",
+                                                                "subtitle" => "Vous pouvez vous former et vous certifier au même endroit en Côte d'Ivoire",
+                                                                "image_url" => "https://farm5.staticflickr.com/4531/38559525841_26da9ddcc8.jpg",
+                                                                "buttons" => [
+                                                                    [
+                                                                        "title" => "Voir l'accréditation",
+                                                                        "type" => "web_url",
+                                                                        "url" => "https://farm5.staticflickr.com/4583/37671954635_44376ce974.jpg"
+                                                                    ],
+                                                                    [
+                                                                        "title" => "Voir le Catalogue",
+                                                                        "type" => "web_url",
+                                                                        "url" => "https://vne-ci.com/zine/show/booklet_trainings/ec_council",
+                                                                        "messenger_extensions" => true,
+                                                                        "webview_height_ratio" => "tall",
+                                                                        "fallback_url" => "https://vne-ci.com/zine/show/booklet_trainings/ec_council"
+                                                                    ],
+
+                                                                    [
+                                                                        "title" => "Me former",
+                                                                        "type" => "web_url",
+                                                                        "url" => "https://forms.office.com/Pages/ResponsePage.aspx?id=r_7pOGcX6UCNqwthS-DQBi6rERHrS5tCpiK5GNCctdRUNUZZS0w0TTdWSUpaNEVHRloyMTI3M1BWWC4u",
+                                                                        "messenger_extensions" => true,
+                                                                        "webview_height_ratio" => "tall",
+                                                                        "fallback_url" => "https://forms.office.com/Pages/ResponsePage.aspx?id=r_7pOGcX6UCNqwthS-DQBi6rERHrS5tCpiK5GNCctdRUNUZZS0w0TTdWSUpaNEVHRloyMTI3M1BWWC4u"
+                                                                    ]
+
+                                                                ]
+                                                          ]
                                                         ]
-
                                                     ]
+
                                                 ]
-                                            ]
-                                        ]
-                                    ];
+                                            ];  
+                                        }
+                                        else
+                                        {
+                                            $data["message"]=[
+                                                    "text" => "Afin de vous encadrer très prochainement de façon complète sur votre cursus indiqué(".$last_conversation['postback_item']."), remplissez dès maintenant un formulaire de devis",
+                                                    "quick_replies" => [
+                                                        [
+                                                            "content_type" => "text",
+                                                            "title" => "Oui",
+                                                            "payload" => "FC"
+                                                        ],
+                                                        [
+                                                            "content_type" => "text",
+                                                            "title" => "Non, plus tard",
+                                                            "payload" => "none"
+                                                        ],
+                                                    ]
+                                            ];
+                                        }
                                     break;
 
                                 }

@@ -13,6 +13,11 @@
             </div>
 
            <a id="side-nav-trigger" data-activates="slide-out" class="button-collapse hide-on-small-only" data-sidenav="left" data-closeonclick="true"><i class="ion-android-menu small mg_prim_color mg-size-32"></i></a>
+          
+          <!-- News Smaller screen trigger -->
+           <a href="#!" rel="nofollow" class="right btn orange white-text bold hide-on-large-only mg-padding-left-2 mg-padding-right-2 mg-margin-top-10" ng-click="mainctrl.triggerOpenNewsFeed()">
+              News
+           </a>
 
           <!-- navbar for wider-screen -->
           <ul id="nav-mobile" class="hide-on-med-and-down right">
@@ -21,8 +26,13 @@
             <li><a href="#solutions" class="mg_prim_color bold wide-navigation-menu">Solutions</a></li>
             <li><a href="#trainings" class="mg_prim_color bold wide-navigation-menu">Formations</a></li>
             <li><a href="#workshops" class="mg_prim_color bold wide-navigation-menu">Ateliers</a></li>
-            <li><a href="#contact" class="mg_prim_color bold wide-navigation-menu">Contact</a></li>
+            <li><a dropdown data-activates='newsFeed' id='trigger_news' data-beloworigin="true" data-constrainwidth="false" href="#" rel="nofollow" class="dropdown-button btn mg_prim_background white-text bold"> Actualités</a></li>
             <li>
+              <!-- NewsFeed dropdown structure -->
+              <div id='newsFeed' class='dropdown-content orange' style="max-height: 450px;overflow: auto;">
+                  <a data-theme="dark" data-lang="fr" data-aria-polite="assertive" data-chrome="noheader%20nofooter" class="twitter-timeline" href="https://twitter.com/VNEntreprise?ref_src=twsrc%5Etfw">Tweets by VNEntreprise</a> 
+              </div>
+
                 <span style="border:2px solid orange;" class="bold btn orange white-text" modal data-target="quoteModal" dismissible="false">Cotation</span>
             </li>
           </ul>
@@ -37,6 +47,7 @@
             <li class="white hide-on-med-and-down"><a href="#trainings" class="mg_prim_color bold wide-navigation-menu">Formations</a></li>
             <li class="white"><a href="#workshops" class="mg_prim_color bold wide-navigation-menu">Ateliers</a></li>
             <li class="white"><a href="#contact" class="mg_prim_color bold wide-navigation-menu">Contact</a></li>
+
             <li class="white">
                 <a class="mg_prim_color bold wide-navigation-menu" modal data-target="quoteModal" dismissible="false">Cotation</a>
             </li>

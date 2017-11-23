@@ -43,7 +43,7 @@ class QuoteShell extends Shell
          {
             $email = new Email('vne_main_profile');
             $email->to($quote['quote_subscriber_email'])
-            ->bcc(['quote@vne-ci.com'])
+            ->bcc(['quote@vne-ci.com','ymonique@vne-ci.com','nmarina@vne-ci.com','kmathieu@vne-ci.com','krose@vne-ci.com','kkantoine@vne-ci.com','bdaouda@vne-ci.com','laugendre@vne-ci.com','remmanuel@vne-ci.com'])
             ->subject('⏳ Demande de cotation 💼')
             ->template('quote_notification','blank') 
             ->emailFormat('html')

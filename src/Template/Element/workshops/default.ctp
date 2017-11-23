@@ -17,7 +17,7 @@
 
            <h2 class="mg-size-22 bold mg_prim_color mg-padding-left-24 mg-padding-right-24 mg-padding-top-20" ng-bind="mainctrl.poster.workshop_theme">Atelier de présentation</h2>
 
-            <img src="{{mainctrl.poster.workshop_visual_path}}" alt="atelier vne" title="affiche atelier vne" width="100%">
+            <img ng-src="{{mainctrl.poster.workshop_visual_path}}" alt="atelier vne" title="affiche atelier vne" width="100%">
             
             <h4 class="mg-size-15 bold mg-margin-top-15 orange-text mg-padding-left-24 mg-padding-right-24">{{mainctrl.poster.workshop_begin | date:'dd '}} {{mainctrl.poster.ref_month_full}} {{mainctrl.poster.workshop_begin | date:'yyyy - HH:mm'}} - au sein de Virtual Network Entreprise</h4>
 

@@ -25,6 +25,9 @@
                   <li><span class="grey-text text-lighten-3" href="#!">Tel: +225 22 48 88 88 / Cel: +225 48 21 94 94</a></li>
                   <li><span class="grey-text text-lighten-3" href="#!">Fax: +225 22 48 03 02</span></li>
                    <li><span class="grey-text text-lighten-3" href="#!">E-Mail: info@vne-ci.com</span></li>
+                   <li>
+                     <a href="https://twitter.com/VNEntreprise?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @VNEntreprise</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                   </li>
                 </ul>
                 <ul>
                 	 

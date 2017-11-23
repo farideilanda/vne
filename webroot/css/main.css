@@ -54056,13 +54056,19 @@ ul#slide-out li.menu:hover:not(.social_area) {
     float: right !important; }
 
   .left-on-large-and-center-ondown {
-    text-align: left; } }
-@media only screen and (max-width: 993px) {
+    text-align: left; }
+
+  .large_ads_modal {
+    width: 40% !important; } }
+@media only screen and (max-width: 992px) {
   .large-right-float-only-and-center-above {
     float: none !important; }
 
   .left-on-large-and-center-ondown {
-    text-align: center; } }
+    text-align: center; }
+
+  .large_ads_modal {
+    width: 80% !important; } }
 @media only screen and (max-width: 700px) {
   .scale-up-on-small-only {
     margin-top: 13%;

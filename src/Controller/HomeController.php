@@ -43,7 +43,7 @@ class HomeController extends AppController
             if(!$this->Cookie->check('banner'))
             {
                 $this->Cookie->configKey('banner',[
-                    'expires' => '+1 day',
+                    'expires' => '+1 days',
                     'httpOnly' => true,
                 ]);
 

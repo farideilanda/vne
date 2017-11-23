@@ -1,5 +1,5 @@
 angular.module('vne.controllers',[])
-	.controller('MainCtrl',['$scope','$rootScope','NewsletterService', function($scope,$rootScope,NewsletterService){
+	.controller('MainCtrl',['$scope','$rootScope','NewsletterService','Workshop', function($scope,$rootScope,NewsletterService,Workshop){
 		var self = this;
 		angular.element('.carrousel-container').slick({
 		          infinite: true,
@@ -37,6 +37,32 @@ angular.module('vne.controllers',[])
                 self.is_newsletter_subscribing = false;
             });     
         };
+
+
+        //loading poster workshop modal
+
+        // load on_display_workshop
+        self.Workshop = Workshop;
+        self.Workshop.on_display_workshop().then(function(response){
+            self.poster = response.data.poster;
+            if(self.poster!=null)
+            {
+                var months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+                for(let i in months)
+                {
+                     i++;
+                    if (i == parseInt(self.poster.ref_month))
+                        self.poster.ref_month_full = months[i-1];
+                }
+                self.openWorshopModal = true;
+            }
+
+        }, function(errResponse){
+                Materialize.toast('Une erreur est survenue lors de la récupération-affiche',4000,'orange white-text bold');
+        }).finally(function(){
+
+        });
+
 	}])
     .controller('HomeCtrl',['$scope','$templateCache','$rootScope','AssistanceService','$location', '$anchorScroll','$stateParams','SolutionService','Workshop','QuoteService','NewsletterService','BannerService','MessageService', function($scope,$templateCache,$rootScope,AssistanceService,$location,$anchorScroll,$stateParams,SolutionService,Workshop,QuoteService,NewsletterService,BannerService,MessageService){
     	$templateCache.removeAll();
@@ -147,8 +173,6 @@ angular.module('vne.controllers',[])
                 Materialize.toast('Une erreur est survenue lors de la récupération-affiche',4000,'orange white-text bold');
         }).finally(function(){
             self.is_poster_loading = false;
-
-            console.log(self.hide_poster_workshop);
         });
 
         self.Workshop.slider_wokshop().then(function(response){

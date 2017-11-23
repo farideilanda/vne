@@ -1,26 +1,3 @@
-<!-- Analytics Facebook -->
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '{your-app-id}',
-      cookie     : true,
-      xfbml      : true,
-      version    : '{latest-api-version}'
-    });
-      
-    FB.AppEvents.logPageView();   
-      
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
-
 <style>
 	.collapsible-header.active-item-collapsible{
 		background: orange !important;
@@ -38,9 +15,9 @@
 							<section>
 								 <article>
 									<h1 class="card-title bold">Intégrateur des solutions de demain</h1>
-									<p class="mg-regular vne-description">
+									    <p class="mg-weight-500 vne-description">
 												Profitez de la richesse des solutions et ateliers proposés par <strong>Virtual Nertwork Entreprise</strong> afin de vous positionner éfficacement pour relever defis de l'informatique d'aujourd'hui à savoir la productivité, la sécurité et l'optimisation de la gestion de l'entièreté de votre infrastructure cloud, virtuelle et locale.
-								    </p>
+								        </p>
 								 </article>
 							</section>
 					    </div>
@@ -61,7 +38,7 @@
 					              <span class="txt-rotate card-title uppercase mg-size-46 bold mg_prim_color" data-period="700" data-rotate='[ "sécurisées.","performantes.", "mobiles.", "éssentielles.","pros.","innovantes."]'></span> <br>
 									<section>
 										<article>
-					             			 <p class="mg-semi black-text">Accédez à un univers de possibilités au travers des solutions et ateliers proposés par <strong>Virtual Nertwork Entreprise</strong> afin de relevez les defis de <strong>l'informatique d'aujourd'hui</strong> à savoir la productivité, la sécurité et l'optimisation de la gestion de l'entièreté de votre <strong>infrastructure cloud, virtuelle et locale.</strong></p>
+					             			 <p class="mg-weight-500 black-text">Accédez à un univers de possibilités au travers des solutions et ateliers proposés par <strong>Virtual Nertwork Entreprise</strong> afin de relevez les defis de <strong>l'informatique d'aujourd'hui</strong> à savoir la productivité, la sécurité et l'optimisation de la gestion de l'entièreté de votre <strong>infrastructure cloud, virtuelle et locale.</strong></p>
 										</article>
 									</section>
 					            </div>
@@ -100,7 +77,7 @@
 								<article>
 									<?= $this->Html->image('assets/home/action-sprite-2.png',['class'=>'mg-width-60 left mg-margin-right-10','alt'=>'sprite2-vne-description']) ?>
 									<h1 class="white-text relative-block left-align bold mg-size-15 mg-margin-top-0" style="top:10px;">Améliorer la productivité de votre entreprise</h1>
-									<p class="mg-regular mg_sec_color_3 mg-padding-top-20 bold" style="clear: both;">
+									<p class="mg-regular mg_sec_color_3 mg-padding-top-20" style="clear: both;">
 										Besoin de plus de mobilité et d'outils permettant d'assurer une complète prise en charge de vos objectifs tout en restant dans une stratégie collaborative, autants d'arguments et de problématiques considérés et résolus par nos propositions d'intégration. 
 									</p>
 								</article>
@@ -111,7 +88,7 @@
 								<article>
 									<?= $this->Html->image('assets/home/action-sprite-3.png',['class'=>'mg-width-60 left mg-margin-right-10','alt'=>'sprite3-vne-description']) ?>
 									<h1 class="white-text relative-block left-align bold mg-margin-top-0 mg-size-15" style="top:10px;">Sécurisez votre activité numérique </h1>
-									<p class="mg-regular mg_sec_color_3 mg-padding-top-20 bold" style="clear: both;">Nécessité de vous protégez contre la perte/fuite d'information, de vous prémunir contre des attaques externes ? Nos experts après étude, conduisent pleinement toutes les phases d'intégration de la solution qui vous correspond.</p>
+									<p class="mg-regular mg_sec_color_3 mg-padding-top-20" style="clear: both;">Nécessité de vous protégez contre la perte/fuite d'information, de vous prémunir contre des attaques externes ? Nos experts après étude, conduisent pleinement toutes les phases d'intégration de la solution qui vous correspond.</p>
 								</article>
 							</section>
 
@@ -121,7 +98,7 @@
 								<article>
 									<?= $this->Html->image('assets/home/action-sprite-1.png',['class'=>'mg-width-60 left mg-margin-right-10','alt'=>'sprite3-vne-description']) ?>
 									<h1 class="white-text relative-block left-align bold mg-margin-top-0 mg-size-15" style="top:10px;">Optimisez votre gestion</h1>
-									<p class="mg-regular mg_sec_color_3 mg-padding-top-20 bold" style="clear: both;">
+									<p class="mg-regular mg_sec_color_3 mg-padding-top-20" style="clear: both;">
 									   Les nombreuses problématiques posées par la multiplicité des environnements cloud, virtuels et locaux dont la surveillance des informations et les remontées d'alerte en temps réels sont au coeur de nos préoccupations et sont clairements résolus dans nos propositions.
 									</p>
 								</article>
@@ -276,7 +253,7 @@
 									<h1 class="white-text mg_prim_color left-align bold mg-size-15 mg-margin-top-0" style="top:10px;">
 										Catalogue de formation et de certification variés.
 									</h1>
-									<p class="mg-regular mg-padding-top-25 bold" style="clear: both;">
+									<p class="mg-regular mg-padding-top-25" style="clear: both;">
 										Nous bénéficions de nombreux experts internes ainsi que d'une collaboration avec des tiers expérimentés afin de vous proposer un riche catalogue de formation et de préparation aux diverses certifications informatiques.
 									</p>
 								</article>
@@ -290,7 +267,7 @@
 									<span class="white-text mg_prim_color left-align bold mg-size-15 mg-margin-top-0" style="top:10px;">
 										Produits garantis et d'origine.
 									</span>
-									<p class="mg-regular mg-padding-top-20 bold" style="clear: both;">
+									<p class="mg-regular mg-padding-top-20" style="clear: both;">
 										Notre large gamme de produits et consommables reunissent le nec plus ultra des acteurs du domaine, ajouté à une politique du prix toujours étudié, nous vous garantissons un materiel conforme.
 									</p>
 								</article>
@@ -303,7 +280,7 @@
 									<h1 class="white-text mg_prim_color left-align bold mg-size-15 mg-margin-top-0" style="top:10px;">
 										agréés aux trois meilleurs centres de test.
 									</h1>
-									<p class="mg-regular mg-padding-top-20 bold" style="clear: both;">
+									<p class="mg-regular mg-padding-top-20" style="clear: both;">
 										Les multiples perspectives de certification sont aisément accomplies au travers de notre affiliation à Pearson Vue, Prometric Testing Center et Kryterion pour vous permettre de bâtir votre profil en un seul et même endroit.
 									</p>
 								</article>
@@ -613,7 +590,7 @@
 			  <div class="row center mg-padding-bottom-70 mg-margin-bottom-0 mg-padding-top-50" style="background:url('/img/assets/home/back-tech.png');">
 			        <div class="container">
 				  		<h4 class="bold">Solutions Informatiques</h4>
-				  		<p class="mg-semi mg-margin-bottom-40">
+				  		<p class="mg-regular mg-weight-600 mg-margin-bottom-40">
 				  			L'evolution exponentielle de l'environnement des technologies de l'information et de la communication, nous permet sans cesse de vous proposer le meilleur des solutions à succès mais aussi celles qui sont entrain de monter en puissance et en performance, toujours dans un souci d'amélioration de votre productivité et de gestion de votre business, <a data-target="quoteModal" dismissible="false" modal ng-click="homectrl.change_solution_type(0)" class="pointer">demandez une cotation.</a></p>
 					  		<div class="col s4">
 					  			  <ul class="collapsible" data-collapsible="accordion">
@@ -652,7 +629,7 @@
 				  <div class="row center mg-padding-bottom-50 mg-padding-top-50 mg-margin-bottom-0" style="background:url('/img/assets/home/back-tech-4.jpg');">
 				        <div class="container">
 					  		<h4 class="bold mg_sec_color_3">Formation &amp; Certifications Informatiques</h4>
-					  		<p class="mg-semi mg_sec_color_3 mg-margin-bottom-40">Besoin de donner à votre carrirère informatique une touche de renouveau ou beaucoup plus de valeur? VNE est le cadre idéal pour remplir vos ambitions de formation avec un catalogue riche, des salles spécialisées et des moniteurs expérimentés, une seule chose à faire, <a modal data-target="quoteModal" dismissible="false" class="orange-text pointer" ng-click="homectrl.change_solution_type(1)">demandez une cotation-formation</a> et nous vous recontactons au plus vite!</p>
+					  		<p class="mg-regular mg-weight-600 mg_sec_color_3 mg-margin-bottom-40">Besoin de donner à votre carrirère informatique une touche de renouveau ou beaucoup plus de valeur? VNE est le cadre idéal pour remplir vos ambitions de formation avec un catalogue riche, des salles spécialisées et des moniteurs expérimentés, une seule chose à faire, <a modal data-target="quoteModal" dismissible="false" class="orange-text pointer" ng-click="homectrl.change_solution_type(1)">demandez une cotation-formation</a> et nous vous recontactons au plus vite!</p>
 
 					  		<div class="col s4">
 					  			  <ul class="collapsible" data-collapsible="accordion">

@@ -229,15 +229,26 @@ ul#slide-out li.menu{
   .left-on-large-and-center-ondown{
   	text-align: left;
   }
+
+  .large_ads_modal{
+  	width:40% !important;
+  }
+
 }
 
-@media only screen and (max-width: 993px) {
+
+
+@media only screen and (max-width: 992px) {
   .large-right-float-only-and-center-above {
     float: none !important;
   }
 
   .left-on-large-and-center-ondown{
   	text-align: center;
+  }
+
+  .large_ads_modal{
+  	width:80% !important;
   }
 }
 

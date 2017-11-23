@@ -35,8 +35,6 @@
     <?= $this->Html->css('../bower_components/aos/dist/aos') ?>
 
     <?= $this->fetch('css') ?>
-
-
       <!-- Scripts -->
         <?= $this->Html->script('jquery') ?>
         <?= $this->Html->script('jquery-migrate') ?>
@@ -47,7 +45,7 @@
         <?= $this->Html->script('../bower_components/angular/angular-ui-router.min') ?>
         <?= $this->Html->script('../bower_components/aos/dist/aos') ?>
         <?= $this->Html->script('main') ?>  
-    
+
 
 </head>
 <body ng-app="vne-app" ng-controller="MainCtrl as mainctrl">
@@ -64,13 +62,33 @@
       <?= $this->element('footer')  ?>
       <!-- Social Media -->
       <?= $this->element('social') ?>
-
-
+      <!-- Workshop Modal -->
+      <?= $this->element('workshops/default') ?>
+    
       <!-- Angular App -->
         <?= $this->Html->script('Red/app') ?>
         <?= $this->Html->script('Red/controllers') ?>
         <?= $this->Html->script('Red/services') ?>
       <!-- Additional Dependencies -->
         <?= $this->fetch('script') ?>
+        <script>
+          window.fbAsyncInit = function() {
+            FB.init({
+              appId            : '226936691173564',
+              autoLogAppEvents : true,
+              xfbml            : true,
+              version          : 'v2.11'
+            });
+          };
+
+          (function(d, s, id){
+             var js, fjs = d.getElementsByTagName(s)[0];
+             if (d.getElementById(id)) {return;}
+             js = d.createElement(s); js.id = id;
+             js.src = "https://connect.facebook.net/en_US/sdk.js";
+             fjs.parentNode.insertBefore(js, fjs);
+           }(document, 'script', 'facebook-jssdk'));
+        </script>
+
 </body>
 </html>

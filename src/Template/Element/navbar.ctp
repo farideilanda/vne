@@ -15,10 +15,10 @@
            <a id="side-nav-trigger" data-activates="slide-out" class="button-collapse hide-on-small-only" data-sidenav="left" data-closeonclick="true"><i class="ion-android-menu small mg_prim_color mg-size-32"></i></a>
           
           <!-- News Smaller screen trigger -->
-           <a href="#!" rel="nofollow" class="right btn orange white-text bold hide-on-large-only mg-padding-left-2 mg-padding-right-2 mg-margin-top-10" ng-click="mainctrl.triggerOpenNewsFeed()">
-              News
+           <a href="#!" dropdown data-activates='newsFeed2' data-beloworigin="true" data-constrainwidth="false" rel="nofollow" class="right btn orange white-text bold hide-on-large-only mg-padding-left-2 mg-padding-right-2 mg-margin-top-10 feed_trigger mg-margin-right-5" ng-click="mainctrl.triggerOpenNewsFeed()">
+              <i class="ion-ios-paper left mg-margin-right-3 mg-margin-left-3"></i> News
            </a>
-
+https://twitter.com/VNEntreprise/status/933767302138515456
           <!-- navbar for wider-screen -->
           <ul id="nav-mobile" class="hide-on-med-and-down right">
             <li><a href="#bienvenue" class="mg_prim_color bold wide-navigation-menu">Bienvenue</a></li>
@@ -28,10 +28,17 @@
             <li><a href="#workshops" class="mg_prim_color bold wide-navigation-menu">Ateliers</a></li>
             <li><a dropdown data-activates='newsFeed' id='trigger_news' data-beloworigin="true" data-constrainwidth="false" href="#" rel="nofollow" class="dropdown-button btn mg_prim_background white-text bold"> Actualités</a></li>
             <li>
-              <!-- NewsFeed dropdown structure -->
+              <!-- NewsFeed large dropdown structure -->
               <div id='newsFeed' class='dropdown-content orange' style="max-height: 450px;overflow: auto;">
                   <a data-theme="dark" data-lang="fr" data-aria-polite="assertive" data-chrome="noheader%20nofooter" class="twitter-timeline" href="https://twitter.com/VNEntreprise?ref_src=twsrc%5Etfw">Tweets by VNEntreprise</a> 
               </div>
+              <!-- NewsFeed med and down dropdown structure -->
+    
+              <div id='newsFeed2' class='dropdown-content orange' style="max-height: 450px;overflow: auto;">
+                  <a data-theme="dark" data-lang="fr" data-aria-polite="assertive" data-chrome="noheader%20nofooter" class="twitter-timeline" href="https://twitter.com/VNEntreprise?ref_src=twsrc%5Etfw">Tweets by VNEntreprise</a> 
+              </div>
+
+
 
                 <span style="border:2px solid orange;" class="bold btn orange white-text" modal data-target="quoteModal" dismissible="false">Cotation</span>
             </li>
@@ -68,3 +75,10 @@
         </div>
       </nav>
     </div>
+
+    <script>
+            $('.feed_trigger').on('click', function(){
+                $('#trigger_news').trigger('click');
+            });
+      
+    </script>

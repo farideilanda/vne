@@ -122,14 +122,13 @@
 							<h4 class="uppercase mg-padding-top-10 bold white-text" style="clear:both;">{{homectrl.poster.workshop_theme}}</h4>
 
 							<h5 class="mg-padding-top-10 bold white-text" style="clear:both;">{{homectrl.poster.workshop_begin | date:'dd '}} {{homectrl.poster.ref_month_full}} {{homectrl.poster.workshop_begin | date:'yyyy - HH:mm'}}  </h5>
-							<p class="mg-regular white-text">
-								{{homectrl.poster.first_part_description}}
-							</p>
+
+	     					<img ng-src="{{homectrl.poster.workshop_visual_path}}" alt="atelier vne" title="affiche atelier vne" width="100%">
 						</div>
 						<div class="col l6 m6 s12 hide-on-small-only" data-aos="zoom-in-down">
 							<p class="mg-regular white-text">
-								{{homectrl.poster.second_part_description}}
-							</p>
+								{{homectrl.poster.workshop_long_description}}
+							</p>	
 						    	<div class="col s12 mg-padding-0">
 							         <a href="{{homectrl.poster.workshop_form_link}}" target="_blank" class="btn mg-button-1 bold mg-width-100-perc">Participer gratuitement</a>
 						    	</div>

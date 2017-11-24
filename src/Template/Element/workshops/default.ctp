@@ -47,6 +47,10 @@
               color="white" 
               size="large">
             </div>
+            <!-- Tweet about -->
+            <a data-size="large" class="twitter-share-button" 
+              href="https://twitter.com/intent/tweet?in-reply-to=933767302138515456">
+            Retweet</a>
 
             <h4 class="mg-size-10 bold mg-margin-top-15 mg_prim_color mg-padding-left-24 mg-padding-right-24">Virtual Network Entreprise, Numéro 1 de l'intégration informatique ivoirien</h4>
         </section>

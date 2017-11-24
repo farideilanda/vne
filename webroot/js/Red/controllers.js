@@ -63,10 +63,6 @@ angular.module('vne.controllers',[])
 
         });
 
-        self.triggerOpenNewsFeed = function(){
-            $('#trigger_news').trigger('click');
-        };
-
 	}])
     .controller('HomeCtrl',['$scope','$templateCache','$rootScope','AssistanceService','$location', '$anchorScroll','$stateParams','SolutionService','Workshop','QuoteService','NewsletterService','BannerService','MessageService', function($scope,$templateCache,$rootScope,AssistanceService,$location,$anchorScroll,$stateParams,SolutionService,Workshop,QuoteService,NewsletterService,BannerService,MessageService){
     	$templateCache.removeAll();

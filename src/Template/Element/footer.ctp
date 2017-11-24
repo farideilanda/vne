@@ -25,9 +25,6 @@
                   <li><span class="grey-text text-lighten-3" href="#!">Tel: +225 22 48 88 88 / Cel: +225 48 21 94 94</a></li>
                   <li><span class="grey-text text-lighten-3" href="#!">Fax: +225 22 48 03 02</span></li>
                    <li><span class="grey-text text-lighten-3" href="#!">E-Mail: info@vne-ci.com</span></li>
-                   <li>
-                     <a href="https://twitter.com/VNEntreprise?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @VNEntreprise</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                   </li>
                 </ul>
                 <ul>
                 	 
@@ -47,6 +44,16 @@
                       <i class="ion-social-facebook-outline mg-size-50 orange-text mg-margin-right-20"></i>
                     </a>
 	                </p>
+                  <ul>
+                   <!-- Follow us twitter -->
+                   <li>
+                     <a href="https://twitter.com/VNEntreprise?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @VNEntreprise</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                   </li>
+                   <!-- Facebook Like -->
+                   <li>
+                     <div class="fb-like" data-href="https://web.facebook.com/Virtual-Network-Entreprise-123882641648070/" data-width="10" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
+                   </li>
+                  </ul>
 
               </div>
             </div>

@@ -602,7 +602,7 @@
 								      <div class="collapsible-header bold waves-effect mg_sec_color_3 left-align mg_prim_background"><img ng-src="/webroot/img/assets/pictogrammes/more_picto.png" width='30px' class="mg-top-8" alt="">&nbsp;Voir plus</div>
 								    </li>
 								   	<li> 
-								      <div class="collapsible-header bold waves-effect mg_sec_color_3 left-align mg_prim_background"><img ng-src="/webroot/img/assets/pictogrammes/download_picto.png" width='30px' class="mg-top-8" alt="">&nbsp;Télécharger le catalogue</div>
+								      <div class="collapsible-header bold waves-effect mg_sec_color_3 left-align mg_prim_background"><img ng-src="/webroot/img/assets/pictogrammes/download_picto.png" width='30px' class="mg-top-8" alt=""><a href="/zine/show/booklet/trainings" target="_blank">&nbsp;Télécharger le catalogue</a></div>
 								    </li>
 
 									<li ng-click="homectrl.load_solution_description('survey')"> 
@@ -639,7 +639,7 @@
 								      <div class="collapsible-header bold waves-effect mg_sec_color_3 left-align mg_prim_background"><img ng-src="/webroot/img/assets/pictogrammes/more_picto.png" width='30px' class="mg-top-8" alt="">&nbsp;Voir plus</div>
 								    </li>
 								   	<li> 
-								      <div class="collapsible-header bold waves-effect mg_sec_color_3 left-align mg_prim_background"><img ng-src="/webroot/img/assets/pictogrammes/download_picto.png" width='30px' class="mg-top-8" alt="">&nbsp;Télécharger le catalogue</div>
+								      <div class="collapsible-header bold waves-effect mg_sec_color_3 left-align mg_prim_background"><img ng-src="/webroot/img/assets/pictogrammes/download_picto.png" width='30px' class="mg-top-8" alt=""><a href="/zine/show/booklet/trainings" target="_blank">&nbsp;Télécharger le catalogue</a></div>
 								    </li>
 								  </ul>
 					  		</div>

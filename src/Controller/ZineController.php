@@ -43,7 +43,7 @@ class ZineController extends AppController
 
 
     public function showAllSolutions(){
-        $response = $this->response->withFile("booklets".DS."all_solutions.pdf",['download'=>false,"name"=>"catalogue des solutions VNE"]);
+        $response = $this->response->withFile("booklets".DS."all_trainings.pdf",['download'=>false,"name"=>"catalogue des solutions VNE"]);
         return $response;
     }
 

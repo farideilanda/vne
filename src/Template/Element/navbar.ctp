@@ -18,7 +18,7 @@
            <a href="#!" dropdown data-activates='newsFeed2' data-beloworigin="true" data-constrainwidth="false" rel="nofollow" class="right btn orange white-text bold hide-on-large-only mg-padding-left-2 mg-padding-right-2 mg-margin-top-10 feed_trigger mg-margin-right-5" ng-click="mainctrl.triggerOpenNewsFeed()">
               <i class="ion-ios-paper left mg-margin-right-3 mg-margin-left-3"></i> News
            </a>
-https://twitter.com/VNEntreprise/status/933767302138515456
+
           <!-- navbar for wider-screen -->
           <ul id="nav-mobile" class="hide-on-med-and-down right">
             <li><a href="#bienvenue" class="mg_prim_color bold wide-navigation-menu">Bienvenue</a></li>

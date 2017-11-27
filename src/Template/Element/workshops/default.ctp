@@ -27,7 +27,7 @@
 
                 <button class="waves-effect mg-margin-left-24 btn btn-primary orange mg-padding-right-24"><a class="white-text bold" href="{{mainctrl.poster.workshop_form_link}}" target="_blank">Participer Gratuitement</a></button>
 
-                <h4 class="mg-size-10 bold mg-margin-top-15 mg_prim_color mg-padding-left-24 mg-padding-right-24">pour plus d'information, contactez-nous aux +225 22 44 88 88</h4>
+                <h4 class="mg-size-10 bold mg-margin-top-15 mg_prim_color mg-padding-left-24 mg-padding-right-24">pour plus d'information, contactez-nous aux +225 22 48 88 88/48 21 94 94</h4>
                 
                 <p class="mg-padding-left-24 mg-padding-right-24 social-modal-icons mg-margin-bottom-10">
                     <a href="https://www.facebook.com/Virtual-Network-Entreprise-123882641648070/">

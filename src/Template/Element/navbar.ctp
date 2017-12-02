@@ -16,7 +16,7 @@
           
           <!-- News Smaller screen trigger -->
            <a href="#!" dropdown data-activates='newsFeed2' data-beloworigin="true" data-constrainwidth="false" rel="nofollow" class="right btn orange white-text bold hide-on-large-only mg-padding-left-2 mg-padding-right-2 mg-margin-top-10 feed_trigger mg-margin-right-5" ng-click="mainctrl.triggerOpenNewsFeed()">
-              <i class="ion-ios-paper left mg-margin-right-3 mg-margin-left-3"></i> News
+              <i class="ion-ios-paper left mg-margin-right-3 mg-margin-left-3 mg-line-height-35"></i> News
            </a>
 
           <!-- navbar for wider-screen -->

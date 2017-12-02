@@ -757,8 +757,6 @@
 			</div>
 			<!-- Quote -->
 			<?= $this->element('Modals/quote') ?>
-			<!-- Newsletter Banner -->
-			<?= $this->element('Modals/newsletter') ?>
 			<!-- Robot Message -->
 			<?= $this->element('Modals/message_robot') ?>
 </div>

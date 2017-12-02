@@ -64,6 +64,8 @@
       <?= $this->element('social') ?>
       <!-- Workshop Modal -->
       <?= $this->element('workshops/default') ?>
+      <!-- Newsletter Modal -->
+      <?= $this->element('Modals/newsletter_jet') ?>
     
       <!-- Angular App -->
         <?= $this->Html->script('Red/app') ?>
@@ -90,6 +92,5 @@
            }(document, 'script', 'facebook-jssdk'));
         </script>
         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
 </body>
 </html>

@@ -1,5 +1,5 @@
 angular.module('vne.controllers',[])
-	.controller('MainCtrl',['$scope','$rootScope','NewsletterService','Workshop', function($scope,$rootScope,NewsletterService,Workshop){
+	.controller('MainCtrl',['$scope','$rootScope','Workshop','BannerService', function($scope,$rootScope,Workshop,BannerService){
 		var self = this;
 		angular.element('.carrousel-container').slick({
 		          infinite: true,
@@ -13,33 +13,14 @@ angular.module('vne.controllers',[])
 		          pauseOnHover:false,
 		          pauseOnFocus:false   
 		});
+
+        // Newsletter Banner
+        BannerService.check().then(function(response){
+            // if(response.data.banner_state==="undone")
+                // self.openNewsletterModal = true;
+        });
+        
 		angular.element('.parallax').parallax();
-
-        // Newsletter        
-        self.newsletter = function(newsletter){
-            self.is_newsletter_subscribing = true;
-            newsletter.newsletter_token = 'default';
-            NewsletterService.subscribe(newsletter).then(function(response){
-                Materialize.toast('Félicitations, votre demande a été enregistrée',4000,'mg_prim_background white-text bold');
-                newsletter.newsletter_email = '';
-                $rootScope.openNewsletterModal = false;
-            }, function(errResponse){
-               switch(errResponse.status){
-                case 401:
-                    Materialize.toast('Cette adresse existe déjà',4000,'orange white-text bold');
-                break;
-
-                default:
-                   Materialize.toast('Une erreur est survenue, veuillez réessayer',4000,'orange white-text bold');
-                break;
-               }
-            }).finally(function(){
-                self.is_newsletter_subscribing = false;
-            });     
-        };
-
-
-        //loading poster workshop modal
 
         // load on_display_workshop
         self.Workshop = Workshop;
@@ -64,7 +45,7 @@ angular.module('vne.controllers',[])
         });
 
 	}])
-    .controller('HomeCtrl',['$scope','$templateCache','$rootScope','AssistanceService','$location', '$anchorScroll','$stateParams','SolutionService','Workshop','QuoteService','NewsletterService','BannerService','MessageService', function($scope,$templateCache,$rootScope,AssistanceService,$location,$anchorScroll,$stateParams,SolutionService,Workshop,QuoteService,NewsletterService,BannerService,MessageService){
+    .controller('HomeCtrl',['$scope','$templateCache','$rootScope','AssistanceService','$location', '$anchorScroll','$stateParams','SolutionService','Workshop','QuoteService','BannerService','MessageService', function($scope,$templateCache,$rootScope,AssistanceService,$location,$anchorScroll,$stateParams,SolutionService,Workshop,QuoteService,BannerService,MessageService){
     	$templateCache.removeAll();
     	var self = this;   
         // Quote Logic
@@ -363,11 +344,6 @@ angular.module('vne.controllers',[])
 
         };
         
-        BannerService.check().then(function(response){
-            if(response.data.banner_state==="undone")
-                $rootScope.openNewsletterModal = true;
-        });
-
         //quick message
         self.message = {
             email:'',
